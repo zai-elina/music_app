@@ -1,4 +1,4 @@
-import Bar from './components/main/Bar/Bar'
+import Bar from './components/player/Bar/Bar'
 import Main from './components/main/Main/Main'
 import Footer from './components/layout/footer/Footer'
 
