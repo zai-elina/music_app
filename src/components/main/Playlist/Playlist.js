@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+import SkeletonMusic from './SkeletonPlaylist'
+
 function PlaylistItem(props) {
   return (
     <div className="playlist__item">
@@ -41,6 +44,8 @@ function PlaylistItem(props) {
 }
 
 export default function Playlist() {
+  const [musics, setMusics] = useState([])
+  const [loading, setLoading] = useState(false)
   const playlistItems = [
     {
       svgUrl: 'img/icon/sprite.svg#icon-note',
@@ -88,19 +93,31 @@ export default function Playlist() {
       time: '5:20',
     },
   ]
+
+  useEffect(() => {
+    setLoading(true)
+    const timer = setTimeout(() => {
+      setMusics(playlistItems)
+      setLoading(false)
+    }, 4000)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className="content__playlist playlist">
-      {playlistItems.map((item) => (
-        <PlaylistItem
-          key={item.title}
-          svgUrl={item.svgUrl}
-          title={item.title}
-          subtitle={item.subtitle}
-          author={item.author}
-          album={item.album}
-          time={item.time}
-        />
-      ))}
+      {loading && <SkeletonMusic />}
+      {!loading &&
+        musics.map((item) => (
+          <PlaylistItem
+            key={item.title}
+            svgUrl={item.svgUrl}
+            title={item.title}
+            subtitle={item.subtitle}
+            author={item.author}
+            album={item.album}
+            time={item.time}
+          />
+        ))}
     </div>
   )
 }

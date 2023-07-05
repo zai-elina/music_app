@@ -1,4 +1,11 @@
+import { useState } from 'react'
+
 export default function Filter() {
+  const [visible, setVisible] = useState(false)
+
+  const toogleVisibility = () => {
+    setVisible(!visible)
+  }
     return (
         <div className="centerblock__filter filter">
         <div className="filter__title">Искать по:</div>
