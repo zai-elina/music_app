@@ -1,7 +1,11 @@
 import { useState } from 'react'
 
 export default function Filter() {
-  const [visible, setVisible] = useState(false)
+  const [visibleFilter, setVisibleFilter] = useState(null);
+
+  const toggleVisibleFilter = (filter) => {
+    setVisibleFilter(visibleFilter === filter ? null : filter);
+  };
 
   const toogleVisibility = () => {
     setVisible(!visible)

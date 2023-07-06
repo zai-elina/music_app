@@ -1,13 +1,13 @@
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import Skeleton from 'react-loading-skeleton'
 
 const SkeletonMusic = () => {
-  const count = 11
+  const count = 6
   return (
     <>
       {Array(count)
         .fill()
         .map((item) => (
-          <div className="playlist__item" key="item">
+          <div className="playlist__item" key="music">
             <div className="playlist__track track">
               <div className="track__title skeleton__title" style={{width:"auto"}}>
                 <div
