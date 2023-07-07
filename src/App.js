@@ -10,13 +10,13 @@ function App() {
     setLoading(true)
     const timer = setTimeout(() => {
       setLoading(false)
-    }, 4000)
+    }, 3000)
     return () => clearTimeout(timer)
   }, [])
 
   return (
     <div className="App container">
-      <Main loading={loading}/>
+      <Main loading={loading} />
       <Bar />
       <Footer />
     </div>

@@ -1,7 +1,31 @@
 import { useState } from 'react'
 
+function FilterSelector(props) {
+  return (
+    <div className="filter__selector">
+      <ul className="filter__items">
+        {props.list.map((item) => (
+          <li className="filter__item" key={item}>
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export default function Filter() {
   const [visibleFilter, setVisibleFilter] = useState(null)
+  const authorList = [
+    'Michael Jackson',
+    'Frank Sinatra',
+    'Calvin Harris',
+    'Zhu',
+    'Алла Пугачева',
+    'Скриптонит',
+    'Бузова',
+  ]
+  const genreList = ['Рок', 'Хип-хоп', 'Поп-музыка', 'Техно', 'Инди', 'Рэп']
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
@@ -14,33 +38,21 @@ export default function Filter() {
         <div
           className={
             visibleFilter === 'author'
-              ? 'filter__button button-author _btn-text active'
-              : 'filter__button button-author _btn-text'
+              ? 'filter__button _btn-text active'
+              : 'filter__button _btn-text'
           }
           onClick={() => toggleVisibleFilter('author')}
         >
           исполнителю
         </div>
-        {visibleFilter === 'author' && (
-          <div className="filter__selector">
-            <ul className="filter__items">
-              <li className="filter__item">Michael Jackson</li>
-              <li className="filter__item">Frank Sinatra</li>
-              <li className="filter__item">Calvin Harris</li>
-              <li className="filter__item">Zhu</li>
-              <li className="filter__item">Алла Пугачева</li>
-              <li className="filter__item">Бузова</li>
-              <li className="filter__item">Скриптонит</li>
-            </ul>
-          </div>
-        )}
+        {visibleFilter === 'author' && <FilterSelector list={authorList} />}
       </div>
       <div className="filter__wrapper">
         <div
           className={
             visibleFilter === 'year'
-              ? ' filter__button button-year _btn-text active'
-              : 'filter__button button-year _btn-text'
+              ? ' filter__button _btn-text active'
+              : 'filter__button _btn-text'
           }
           onClick={() => toggleVisibleFilter('year')}
         >
@@ -70,25 +82,14 @@ export default function Filter() {
         <div
           className={
             visibleFilter === 'genre'
-              ? 'filter__button button-genre _btn-text active'
-              : 'filter__button button-genre _btn-text'
+              ? 'filter__button _btn-text active'
+              : 'filter__button _btn-text'
           }
           onClick={() => toggleVisibleFilter('genre')}
         >
           жанру
         </div>
-        {visibleFilter === 'genre' && (
-          <div className="filter__selector">
-            <ul className="filter__items">
-              <li className="filter__item">Рок</li>
-              <li className="filter__item">Хип-хоп</li>
-              <li className="filter__item">Поп-музыка</li>
-              <li className="filter__item">Техно</li>
-              <li className="filter__item">Инди</li>
-              <li className="filter__item">Рэп</li>
-            </ul>
-          </div>
-        )}
+        {visibleFilter === 'genre' && <FilterSelector list={genreList} />}
       </div>
     </div>
   )
