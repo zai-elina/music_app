@@ -1,8 +1,8 @@
-function MenuItem(props) {
+function MenuItem({name}) {
   return (
     <li className="menu__item">
       <a href="http://" className="menu__link">
-        {props.name}
+        {name}
       </a>
     </li>
   )

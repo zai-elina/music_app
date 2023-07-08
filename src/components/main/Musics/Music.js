@@ -1,4 +1,6 @@
-function PlaylistItem(props) {
+import SkeletonMusic from './SkeletonMusics'
+
+function Music(props) {
   return (
     <div className="playlist__item">
       <div className="playlist__track track">
@@ -40,8 +42,8 @@ function PlaylistItem(props) {
   )
 }
 
-export default function Playlist() {
-  const playlistItems = [
+export default function MusicItems({loading}) {
+  const musicItems = [
     {
       svgUrl: 'img/icon/sprite.svg#icon-note',
       title: 'Guilt',
@@ -88,19 +90,22 @@ export default function Playlist() {
       time: '5:20',
     },
   ]
+
   return (
     <div className="content__playlist playlist">
-      {playlistItems.map((item) => (
-        <PlaylistItem
-          key={item.title}
-          svgUrl={item.svgUrl}
-          title={item.title}
-          subtitle={item.subtitle}
-          author={item.author}
-          album={item.album}
-          time={item.time}
-        />
-      ))}
+      {loading && <SkeletonMusic />}
+      {!loading &&
+        musicItems.map((item) => (
+          <Music
+            key={item.title}
+            svgUrl={item.svgUrl}
+            title={item.title}
+            subtitle={item.subtitle}
+            author={item.author}
+            album={item.album}
+            time={item.time}
+          />
+        ))}
     </div>
   )
 }
