@@ -1,9 +1,9 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
 
-function Person(props) {
+function Person({name}) {
   return (
     <div className="sidebar__personal">
-      <p className="sidebar__personal-name">{props.name}</p>
+      <p className="sidebar__personal-name">{name}</p>
       <div className="sidebar__avatar"></div>
     </div>
   )
@@ -23,7 +23,7 @@ function PlaylistsItem(props) {
   )
 }
 
-function Playlists(props) {
+function Playlists({loading}) {
   const playlistItems = [
     { link: '#', imgUrl: 'img/playlist01.png' },
     { link: '#', imgUrl: 'img/playlist02.png' },
@@ -31,8 +31,8 @@ function Playlists(props) {
   ]
   return (
     <div className="sidebar__list">
-      {props.loading && <SkeletonPlaylists />}
-      {!props.loading &&
+      {loading && <SkeletonPlaylists />}
+      {!loading &&
         playlistItems.map((playlist) => (
           <PlaylistsItem
             key={playlist.link}
@@ -44,13 +44,13 @@ function Playlists(props) {
   )
 }
 
-export default function Sidebar(props) {
+export default function Sidebar({loading}) {
   const user = { name: 'Sergey Ivanov' }
   return (
     <div className="main__sidebar sidebar">
       <Person name={user?.name} />
       <div className="sidebar__block">
-        <Playlists loading = {props.loading}/>
+        <Playlists loading = {loading}/>
       </div>
     </div>
   )

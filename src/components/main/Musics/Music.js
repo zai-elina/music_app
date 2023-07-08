@@ -42,7 +42,7 @@ function Music(props) {
   )
 }
 
-export default function MusicItems(props) {
+export default function MusicItems({loading}) {
   const musicItems = [
     {
       svgUrl: 'img/icon/sprite.svg#icon-note',
@@ -93,8 +93,8 @@ export default function MusicItems(props) {
 
   return (
     <div className="content__playlist playlist">
-      {props.loading && <SkeletonMusic />}
-      {!props.loading &&
+      {loading && <SkeletonMusic />}
+      {!loading &&
         musicItems.map((item) => (
           <Music
             key={item.title}

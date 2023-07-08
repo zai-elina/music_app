@@ -2,7 +2,7 @@ import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
 import MusicItems from '../Musics/Music'
 
-export default function CenterBlock(props) {
+export default function CenterBlock({loading}) {
   return (
     <div className="main__centerblock centerblock">
       <Search />
@@ -19,7 +19,7 @@ export default function CenterBlock(props) {
             </svg>
           </div>
         </div>
-        <MusicItems loading={props.loading}/>
+        <MusicItems loading={loading}/>
       </div>
     </div>
   )

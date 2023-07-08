@@ -1,10 +1,10 @@
 import { useState } from 'react'
 
-function FilterSelector(props) {
+function FilterSelector({list}) {
   return (
     <div className="filter__selector">
       <ul className="filter__items">
-        {props.list.map((item) => (
+        {list.map((item) => (
           <li className="filter__item" key={item}>
             {item}
           </li>
