@@ -1,11 +1,12 @@
 import Logo from '../Logo/Logo'
 import NavBurger from '../NavBurger/NavBurger'
+import * as S from "./NavBar.styles"
 
 export default function NavBar() {
   return (
-    <nav className="main__nav nav">
+    <S.MainNav>
       <Logo />
       <NavBurger />
-    </nav>
+    </S.MainNav>
   )
 }

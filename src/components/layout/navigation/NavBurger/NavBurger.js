@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Menu from '../Menu/Menu'
+import * as S from "./NavBurger.styles"
 
 export default function NavBurger() {
   const [visible, setVisible] = useState(false)
@@ -10,11 +11,11 @@ export default function NavBurger() {
 
   return (
     <div>
-      <div className="nav__burger burger" onClick={toogleVisibility}>
-        <span className="burger__line"></span>
-        <span className="burger__line"></span>
-        <span className="burger__line"></span>
-      </div>
+      <S.NavBurger onClick={toogleVisibility}>
+        <S.BurgerLine></S.BurgerLine>
+        <S.BurgerLine></S.BurgerLine>
+        <S.BurgerLine></S.BurgerLine>
+      </S.NavBurger>
       {visible && <Menu />}
     </div>
   )
