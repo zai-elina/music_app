@@ -1,16 +1,17 @@
+import * as S from './Search.styles'
+
 export default function Search() {
     return (
-        <div className="centerblock__search search">
-        <svg className="search__svg">
+        <S.Search>
+        <S.SearchSvg>
           <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
-        </svg>
-        <input
-          className="search__text"
+        </S.SearchSvg>
+        <S.SearchInput
           type="search"
           placeholder="Поиск"
           name="search"
         />
-      </div>
+      </S.Search>
     )
   }
   
