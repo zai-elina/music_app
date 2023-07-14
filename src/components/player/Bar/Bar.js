@@ -1,107 +1,134 @@
+import * as S from './Bar.styles'
+import Button from '../../../App.style'
+
 function VolumeBlock() {
   return (
-    <div className="bar__volume-block volume">
-      <div className="volume__content">
-        <div className="volume__image">
-          <svg className="volume__svg" alt="volume">
+    <S.VolumeBlock>
+      <S.VolumeContent>
+        <S.VolumeImage>
+          <S.VolumeSvg>
             <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
-          </svg>
-        </div>
-        <div className="volume__progress _btn">
+          </S.VolumeSvg>
+        </S.VolumeImage>
+        <S.VolumeProgress>
           <input
-            className="volume__progress-line _btn"
+            style={ {width:'109px'}}
             type="range"
             name="range"
           />
-        </div>
-      </div>
-    </div>
+        </S.VolumeProgress>
+      </S.VolumeContent>
+    </S.VolumeBlock>
   )
 }
 
 function PlayTrack() {
   return (
-    <div className="player__track-play track-play">
-      <div className="track-play__contain">
-        <div className="track-play__image">
-          <svg className="track-play__svg" alt="music">
+    <S.TrackPlay>
+      <S.TrackPlayContain>
+        <S.TrackPlayImage>
+          <S.TrackPlaySvg alt="music">
             <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
-          </svg>
-        </div>
-        <div className="track-play__author">
-          <a className="track-play__author-link" href="http://">
-            Ты та...
-          </a>
-        </div>
-        <div className="track-play__album">
-          <a className="track-play__album-link" href="http://">
-            Баста
-          </a>
-        </div>
-      </div>
+          </S.TrackPlaySvg>
+        </S.TrackPlayImage>
+        <S.TrackPlayAlbum>
+          <S.TrackPlayAlbumLink href="http://">Ты та...</S.TrackPlayAlbumLink>
+        </S.TrackPlayAlbum>
+        <S.TrackPlayAuthor>
+          <S.TrackPlayAuthorLink href="http://">Баста</S.TrackPlayAuthorLink>
+        </S.TrackPlayAuthor>
+      </S.TrackPlayContain>
 
-      <div className="track-play__like-dis">
-        <div className="track-play__like _btn-icon">
-          <svg className="track-play__like-svg" alt="like">
+      <S.LikeAndDislikeContainer>
+        <S.LikeAndDislike>
+          <S.LikeAndDislikeSvg $width={'14px'} $height={'12px'} alt="like">
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </svg>
-        </div>
-        <div className="track-play__dislike _btn-icon">
-          <svg className="track-play__dislike-svg" alt="dislike">
+          </S.LikeAndDislikeSvg>
+        </S.LikeAndDislike>
+        <S.LikeAndDislike $left={'28.5px'}>
+          <S.LikeAndDislikeSvg
+            $width={'14.34px'}
+            $height={'13px'}
+            alt="dislike"
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-          </svg>
-        </div>
-      </div>
-    </div>
+          </S.LikeAndDislikeSvg>
+        </S.LikeAndDislike>
+      </S.LikeAndDislikeContainer>
+    </S.TrackPlay>
   )
 }
 
 function Player() {
   return (
-    <div className="bar__player player">
-      <div className="player__controls">
-        <div className="player__btn-prev">
-          <svg className="player__btn-prev-svg" alt="prev">
+    <S.Player>
+      <S.PlayerControls>
+        <S.PlayerButton $value={'23px'}>
+          <S.PlayerButtonSvg $width={'15px'} $height={'14px'} alt="prev">
             <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
-          </svg>
-        </div>
-        <div className="player__btn-play _btn">
-          <svg className="player__btn-play-svg" alt="play">
+          </S.PlayerButtonSvg>
+        </S.PlayerButton>
+        <S.PlayerButton $value={'23px'}>
+          <Button />
+          <S.PlayerButtonSvg
+            $width={'22px'}
+            $height={'20px'}
+            $fill={'#d9d9d9'}
+            alt="play"
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
-          </svg>
-        </div>
-        <div className="player__btn-next">
-          <svg className="player__btn-next-svg" alt="next">
+          </S.PlayerButtonSvg>
+        </S.PlayerButton>
+        <S.PlayerButton $value={'28px'} $fill={'#a53939'}>
+          <S.PlayerButtonSvg
+            $width={'15px'}
+            $height={'14px'}
+            $fill={'inherit'}
+            $stoke={'#d9d9d9'}
+            alt="next"
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
-          </svg>
-        </div>
-        <div className="player__btn-repeat _btn-icon">
-          <svg className="player__btn-repeat-svg" alt="repeat">
+          </S.PlayerButtonSvg>
+        </S.PlayerButton>
+        <S.PlayerButtonRepeat>
+          <S.PlayerButtonSvg
+            $width={'18px'}
+            $height={'12px'}
+            $fill={'transparent'}
+            $stoke={'#696969'}
+            alt="repeat"
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
-          </svg>
-        </div>
-        <div className="player__btn-shuffle _btn-icon">
-          <svg className="player__btn-shuffle-svg" alt="shuffle">
+          </S.PlayerButtonSvg>
+        </S.PlayerButtonRepeat>
+        <S.PlayerButtonShuffle>
+          <S.PlayerButtonSvg
+            $width={'19px'}
+            $height={'12px'}
+            $fill={'transparent'}
+            $stoke={'#696969'}
+            alt="shuffle"
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
-          </svg>
-        </div>
+          </S.PlayerButtonSvg>
+        </S.PlayerButtonShuffle>
 
         <PlayTrack />
-      </div>
-    </div>
+      </S.PlayerControls>
+    </S.Player>
   )
 }
 
 export default function Bar() {
   return (
-    <div className="bar">
-      <div className="bar__content">
-        <div className="bar__player-progress"></div>
-        <div className="bar__player-block">
+    <S.Bar>
+      <S.BarContent>
+        <S.PlayerProgress />
+        <S.PlayerBlock>
           <Player />
           <VolumeBlock />
-        </div>
-      </div>
-    </div>
+        </S.PlayerBlock>
+      </S.BarContent>
+    </S.Bar>
   )
 }

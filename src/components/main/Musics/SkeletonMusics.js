@@ -7,8 +7,8 @@ const SkeletonMusic = () => {
     <>
       {Array(count)
         .fill()
-        .map((item) => (
-          <S.Music key=''>
+        .map((item,index) => (
+          <S.Music key={index}>
             <S.Track>
               <S.TrackTitle
                 style={{ width: 'auto' }}

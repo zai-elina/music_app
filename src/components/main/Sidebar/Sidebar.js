@@ -22,9 +22,9 @@ function PlaylistsItem(props) {
 
 function Playlists({ loading }) {
   const playlistItems = [
-    { link: '#', imgUrl: 'img/playlist01.png' },
-    { link: '#', imgUrl: 'img/playlist02.png' },
-    { link: '#', imgUrl: 'img/playlist03.png' },
+    { id:0,link: '#', imgUrl: 'img/playlist01.png' },
+    { id:1,link: '#', imgUrl: 'img/playlist02.png' },
+    { id:2,link: '#', imgUrl: 'img/playlist03.png' },
   ]
   return (
     <S.SidebarList>
@@ -32,7 +32,7 @@ function Playlists({ loading }) {
       {!loading &&
         playlistItems.map((playlist) => (
           <PlaylistsItem
-            key={playlist.link}
+            key={playlist.id}
             link={playlist.link}
             imageUrl={playlist.imgUrl}
           />

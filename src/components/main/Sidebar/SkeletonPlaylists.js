@@ -7,8 +7,8 @@ const SkeletonPlaylists = () => {
     <>
       {Array(count)
         .fill()
-        .map((item) => (
-          <S.PlaylistsItem key="playlist">
+        .map((item,index) => (
+          <S.PlaylistsItem key={index}>
             <S.PlaylistsItemLink>
               <div
                 className="react-loading-skeleton"
