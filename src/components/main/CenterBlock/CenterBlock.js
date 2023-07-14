@@ -1,7 +1,7 @@
 import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
-import MusicItems from '../Musics/Music'
 import * as S from './CenterBlock.style'
+import MusicList from '../Musics/Music'
 
 export default function CenterBlock({ loading }) {
   return (
@@ -20,7 +20,7 @@ export default function CenterBlock({ loading }) {
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>
-        <MusicItems loading={loading} />
+        <MusicList loading={loading} />
       </S.CenterBlockContent>
     </S.Centerblock>
   )

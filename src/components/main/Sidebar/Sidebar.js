@@ -1,36 +1,33 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
+import * as S from './Sidebar.style'
 
-function Person({name}) {
+function Person({ name }) {
   return (
-    <div className="sidebar__personal">
-      <p className="sidebar__personal-name">{name}</p>
-      <div className="sidebar__avatar"></div>
-    </div>
+    <S.Personal>
+      <S.PersonalName>{name}</S.PersonalName>
+      <S.PersonalAvatar></S.PersonalAvatar>
+    </S.Personal>
   )
 }
 
 function PlaylistsItem(props) {
   return (
-    <div className="sidebar__item">
-      <a className="sidebar__link" href={props.link}>
-        <img
-          className="sidebar__img"
-          src={props.imageUrl}
-          alt="day's playlist"
-        />
-      </a>
-    </div>
+    <S.PlaylistsItem>
+      <S.PlaylistsItemLink href={props.link}>
+        <S.PlaylistsItemImage src={props.imageUrl} alt="day's playlist" />
+      </S.PlaylistsItemLink>
+    </S.PlaylistsItem>
   )
 }
 
-function Playlists({loading}) {
+function Playlists({ loading }) {
   const playlistItems = [
     { link: '#', imgUrl: 'img/playlist01.png' },
     { link: '#', imgUrl: 'img/playlist02.png' },
     { link: '#', imgUrl: 'img/playlist03.png' },
   ]
   return (
-    <div className="sidebar__list">
+    <S.SidebarList>
       {loading && <SkeletonPlaylists />}
       {!loading &&
         playlistItems.map((playlist) => (
@@ -40,18 +37,18 @@ function Playlists({loading}) {
             imageUrl={playlist.imgUrl}
           />
         ))}
-    </div>
+    </S.SidebarList>
   )
 }
 
-export default function Sidebar({loading}) {
+export default function Sidebar({ loading }) {
   const user = { name: 'Sergey Ivanov' }
   return (
-    <div className="main__sidebar sidebar">
+    <S.Sidebar>
       <Person name={user?.name} />
-      <div className="sidebar__block">
-        <Playlists loading = {loading}/>
-      </div>
-    </div>
+      <S.PlaylistsBlock>
+        <Playlists loading={loading} />
+      </S.PlaylistsBlock>
+    </S.Sidebar>
   )
 }

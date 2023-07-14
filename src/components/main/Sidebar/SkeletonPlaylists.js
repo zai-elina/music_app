@@ -1,4 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
+import * as S from './Sidebar.style'
 
 const SkeletonPlaylists = () => {
   const count = 3
@@ -7,10 +8,10 @@ const SkeletonPlaylists = () => {
       {Array(count)
         .fill()
         .map((item) => (
-          <div className="sidebar__item" key="playlist">
-            <a className="sidebar__link">
+          <S.PlaylistsItem key="playlist">
+            <S.PlaylistsItemLink>
               <div
-                className="react-loading-skeleton sidebar__img"
+                className="react-loading-skeleton"
                 style={{
                   width: '250px',
                   height: '150px',
@@ -20,8 +21,8 @@ const SkeletonPlaylists = () => {
               >
                 <Skeleton />
               </div>
-            </a>
-          </div>
+            </S.PlaylistsItemLink>
+          </S.PlaylistsItem>
         ))}
     </>
   )
