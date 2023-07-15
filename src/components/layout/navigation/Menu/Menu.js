@@ -1,21 +1,23 @@
+import * as S from "./Menu.styles"
+
 function MenuItem({name}) {
   return (
-    <li className="menu__item">
-      <a href="http://" className="menu__link">
+    <S.MenuItem>
+      <S.MenuLink href="http://">
         {name}
-      </a>
-    </li>
+      </S.MenuLink>
+    </S.MenuItem>
   )
 }
 export default function Menu() {
   const links = ['Главное', 'Мой плейлист', 'Войти']
   return (
-    <div className="nav__menu menu">
-      <ul className="menu__list">
+    <S.NavMenu>
+      <S.MenuList>
         {links.map((link) => (
           <MenuItem key={link} name={link} />
         ))}
-      </ul>
-    </div>
+      </S.MenuList>
+    </S.NavMenu>
   )
 }

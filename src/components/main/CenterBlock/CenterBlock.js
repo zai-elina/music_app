@@ -1,26 +1,27 @@
 import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
-import MusicItems from '../Musics/Music'
+import * as S from './CenterBlock.style'
+import MusicList from '../Musics/Music'
 
-export default function CenterBlock({loading}) {
+export default function CenterBlock({ loading }) {
   return (
-    <div className="main__centerblock centerblock">
+    <S.Centerblock>
       <Search />
-      <h2 className="centerblock__h2">Треки</h2>
+      <S.CenterBlockTitle>Треки</S.CenterBlockTitle>
       <Filter />
-      <div className="centerblock__content">
-        <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
-          <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-          <div className="playlist-title__col col03">АЛЬБОМ</div>
-          <div className="playlist-title__col col04">
-            <svg className="playlist-title__svg" alt="time">
+      <S.CenterBlockContent>
+        <S.ContentTitle>
+          <S.PlaylistTitle $width={'447px'}>Трек</S.PlaylistTitle>
+          <S.PlaylistTitle $width={'321px'}>ИСПОЛНИТЕЛЬ</S.PlaylistTitle>
+          <S.PlaylistTitle $width={'245px'}>АЛЬБОМ</S.PlaylistTitle>
+          <S.PlaylistTitle $width={'60px'} $textAlign={'end'}>
+            <S.PlaylistTitleSvg alt="time">
               <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
-            </svg>
-          </div>
-        </div>
-        <MusicItems loading={loading}/>
-      </div>
-    </div>
+            </S.PlaylistTitleSvg>
+          </S.PlaylistTitle>
+        </S.ContentTitle>
+        <MusicList loading={loading} />
+      </S.CenterBlockContent>
+    </S.Centerblock>
   )
 }

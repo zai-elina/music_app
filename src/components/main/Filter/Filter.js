@@ -1,16 +1,15 @@
 import { useState } from 'react'
+import * as S from './Filter.styles'
 
-function FilterSelector({list}) {
+function FilterSelector({ list }) {
   return (
-    <div className="filter__selector">
-      <ul className="filter__items">
+    <S.FilterSelector>
+      <S.FilterItems>
         {list.map((item) => (
-          <li className="filter__item" key={item}>
-            {item}
-          </li>
+          <S.FilterItem key={item}>{item}</S.FilterItem>
         ))}
-      </ul>
-    </div>
+      </S.FilterItems>
+    </S.FilterSelector>
   )
 }
 
@@ -32,65 +31,54 @@ export default function Filter() {
   }
 
   return (
-    <div className="centerblock__filter filter">
-      <div className="filter__title">Искать по:</div>
-      <div className="filter__wrapper">
-        <div
-          className={
-            visibleFilter === 'author'
-              ? 'filter__button _btn-text active'
-              : 'filter__button _btn-text'
-          }
+    <S.Filter>
+      <S.FilterTitle>Искать по:</S.FilterTitle>
+      <S.FilterWrapper>
+        <S.FilterButton
+          $active={visibleFilter === 'author' ? 'active' : 'notActive'}
           onClick={() => toggleVisibleFilter('author')}
         >
           исполнителю
-        </div>
+        </S.FilterButton>
         {visibleFilter === 'author' && <FilterSelector list={authorList} />}
-      </div>
-      <div className="filter__wrapper">
-        <div
-          className={
-            visibleFilter === 'year'
-              ? ' filter__button _btn-text active'
-              : 'filter__button _btn-text'
-          }
+      </S.FilterWrapper>
+
+      <S.FilterWrapper>
+        <S.FilterButton
+          $active={visibleFilter === 'year' ? 'active' : 'notActive'}
           onClick={() => toggleVisibleFilter('year')}
         >
           году выпуска
-        </div>
+        </S.FilterButton>
         {visibleFilter === 'year' && (
-          <div className="filter__selector--year">
-            <div className="filter__radio-buttons form">
-              <div className="form__radio">
-                <input id="radio-1" type="radio" name="radio" value="0" />
-                <label className="form__label" htmlFor="radio-1">
+          <S.FilterSelectorYear>
+            <S.FilterRadioButtons>
+              <div>
+                <S.FilterRadioButton id="radio-1" type="radio" name="radio" value="0" />
+                <S.FilterRadioButtonLabel htmlFor="radio-1">
                   Более новые
-                </label>
+                </S.FilterRadioButtonLabel>
               </div>
-              <div className="form__radio">
-                <input id="radio-2" type="radio" name="radio" value="1" />
-                <label className="form__label" htmlFor="radio-2">
+              <div>
+                <S.FilterRadioButton id="radio-2" type="radio" name="radio" value="1" />
+                <S.FilterRadioButtonLabel htmlFor="radio-2">
                   Более старые
-                </label>
+                </S.FilterRadioButtonLabel>
               </div>
-            </div>
-          </div>
+            </S.FilterRadioButtons>
+          </S.FilterSelectorYear>
         )}
-      </div>
+      </S.FilterWrapper>
 
-      <div className="filter__wrapper">
-        <div
-          className={
-            visibleFilter === 'genre'
-              ? 'filter__button _btn-text active'
-              : 'filter__button _btn-text'
-          }
+      <S.FilterWrapper>
+        <S.FilterButton
+          $active={visibleFilter === 'genre' ? 'active' : 'notActive'}
           onClick={() => toggleVisibleFilter('genre')}
         >
           жанру
-        </div>
+        </S.FilterButton>
         {visibleFilter === 'genre' && <FilterSelector list={genreList} />}
-      </div>
-    </div>
+      </S.FilterWrapper>
+    </S.Filter>
   )
 }
