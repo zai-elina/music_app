@@ -13,7 +13,7 @@ import Register from './pages/register/Register'
 export const AppRoutes = ({ loading, token }) => {
   return (
     <Routes>
-      <Route element={<ProtectedRoute isAllowed={token !== -1} />}>
+      <Route element={<ProtectedRoute isAuth={Boolean(token)} />}>
         <Route path="/" element={<Main loading={loading} />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/category/:id" element={<Category />} />
