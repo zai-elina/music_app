@@ -1,5 +1,6 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
 import * as S from './Sidebar.style'
+import { Link } from 'react-router-dom'
 
 function Person({ name }) {
   return (
@@ -13,18 +14,20 @@ function Person({ name }) {
 function PlaylistsItem(props) {
   return (
     <S.PlaylistsItem>
-      <S.PlaylistsItemLink href={props.link}>
-        <S.PlaylistsItemImage src={props.imageUrl} alt="day's playlist" />
-      </S.PlaylistsItemLink>
+      <Link to={`${props.path}/${props.id}`}>
+        <S.PlaylistsItemLink>
+          <S.PlaylistsItemImage src={props.imageUrl} alt="day's playlist" />
+        </S.PlaylistsItemLink>
+      </Link>
     </S.PlaylistsItem>
   )
 }
 
 function Playlists({ loading }) {
   const playlistItems = [
-    { id:0,link: '#', imgUrl: 'img/playlist01.png' },
-    { id:1,link: '#', imgUrl: 'img/playlist02.png' },
-    { id:2,link: '#', imgUrl: 'img/playlist03.png' },
+    { id: 1, path: '/category', imgUrl: 'img/playlist01.png' },
+    { id: 2, path: '/category', imgUrl: 'img/playlist02.png' },
+    { id: 3, path: '/category', imgUrl: 'img/playlist03.png' },
   ]
   return (
     <S.SidebarList>
@@ -33,7 +36,8 @@ function Playlists({ loading }) {
         playlistItems.map((playlist) => (
           <PlaylistsItem
             key={playlist.id}
-            link={playlist.link}
+            id={playlist.id}
+            path={playlist.path}
             imageUrl={playlist.imgUrl}
           />
         ))}

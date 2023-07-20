@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import Bar from './components/player/Bar/Bar'
-import Main from './components/main/Main/Main'
-import Footer from './components/layout/footer/Footer'
 import * as S from './App.style'
 import GlobalStyle from './App.style'
+import { AppRoutes } from './routes'
 
 function App() {
   const [loading, setLoading] = useState(false)
+  const token = document.cookie.indexOf('token')
 
   useEffect(() => {
     setLoading(true)
@@ -20,9 +19,7 @@ function App() {
     <>
       <GlobalStyle />
       <S.App>
-        <Main loading={loading} />
-        <Bar />
-        <Footer />
+        <AppRoutes loading={loading} token={token} />
       </S.App>
     </>
   )
