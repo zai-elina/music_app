@@ -1,7 +1,18 @@
 import SkeletonMusic from './SkeletonMusics'
 import * as S from './Musics.style'
 
+function formatTime(number) {
+  let str = String(number);
+  if(str.length < 2) return `0${str}`;
+  return str;
+}
+
 function Music(props) {
+  const playTrack = (musicAuthor, musicTitle) =>{
+    props.setIsOpenPlayer(true);
+    props.setCurrentTrack({author: musicAuthor, title: musicTitle, svgUrl: 'img/icon/sprite.svg#icon-note'});
+  }
+
   return (
     <S.Music>
       <S.Track>
@@ -12,7 +23,7 @@ function Music(props) {
             </S.TrackTitleSvg>
           </S.TrackTitleImage>
           <div>
-            <S.TrackTitleLink href="http://">
+            <S.TrackTitleLink onClick={() => {playTrack(props.author, props.title)}}>
               {props.title}{' '}
               {props.subtitle ? (
                 <S.TrackSubtitle>{props.subtitle}</S.TrackSubtitle>
@@ -23,7 +34,7 @@ function Music(props) {
           </div>
         </S.TrackTitle>
         <S.TrackAuthor>
-          <S.TrackAuthorLink href="http://">{props.author}</S.TrackAuthorLink>
+          <S.TrackAuthorLink  onClick={() => {playTrack(props.author, props.title)}}>{props.author}</S.TrackAuthorLink>
         </S.TrackAuthor>
         <S.TrackAlbum>
           <S.TrackAlbumLink href="http://">{props.album}</S.TrackAlbumLink>
@@ -32,75 +43,29 @@ function Music(props) {
           <S.TrackTimeSvg alt="time">
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
           </S.TrackTimeSvg>
-          <S.TrackTimeText>{props.time}</S.TrackTimeText>
+          <S.TrackTimeText>{formatTime(Math.floor(props.time% 3600 / 60))}:{formatTime(Math.floor(props.time % 3600 % 60))}</S.TrackTimeText>
         </div>
       </S.Track>
     </S.Music>
   )
 }
 
-export default function MusicList({ loading }) {
-  const musicItems = [
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'Guilt',
-      author: 'Nero',
-      album: 'Welcome Reality',
-      time: '4:44',
-    },
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'Elektro',
-      author: 'Dynoro, Outwork, Mr. Gee',
-      album: 'Elektro',
-      time: '2:22',
-    },
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'I’m Fire',
-      author: 'Ali Bakgor',
-      album: 'I’m Fire',
-      time: '2:22',
-    },
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'Non Stop',
-      subtitle: '(Remix)',
-      author: 'Стоункат, Psychopath',
-      album: 'Non Stop',
-      time: '4:12',
-    },
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'Run Run',
-      subtitle: '(feat. AR/CO)',
-      author: 'Jaded, Will Clarke, AR/CO',
-      album: 'Run Run',
-      time: '2:54',
-    },
-    {
-      svgUrl: 'img/icon/sprite.svg#icon-note',
-      title: 'Eyes on Fire',
-      subtitle: '(Zeds Dead Remix)',
-      author: 'Blue Foundation, Zeds Dead',
-      album: 'Eyes on Fire',
-      time: '5:20',
-    },
-  ]
-
+export default function MusicList({ loading, musicItems, setIsOpenPlayer, setCurrentTrack }) {
   return (
     <S.MusicList>
       {loading && <SkeletonMusic />}
       {!loading &&
         musicItems.map((item) => (
           <Music
-            key={item.title}
-            svgUrl={item.svgUrl}
-            title={item.title}
+            key={item.id}
+            svgUrl={item.logo?item.logo:'img/icon/sprite.svg#icon-note'}
+            title={item.name}
             subtitle={item.subtitle}
             author={item.author}
             album={item.album}
-            time={item.time}
+            time={item.duration_in_seconds}
+            setIsOpenPlayer={setIsOpenPlayer}
+            setCurrentTrack={setCurrentTrack}
           />
         ))}
     </S.MusicList>
