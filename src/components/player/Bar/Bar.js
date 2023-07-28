@@ -22,7 +22,7 @@ function VolumeBlock() {
   )
 }
 
-function PlayTrack() {
+function PlayTrack({currentTrack}) {
   return (
     <S.TrackPlay>
       <S.TrackPlayContain>
@@ -32,10 +32,10 @@ function PlayTrack() {
           </S.TrackPlaySvg>
         </S.TrackPlayImage>
         <S.TrackPlayAlbum>
-          <S.TrackPlayAlbumLink href="http://">Ты та...</S.TrackPlayAlbumLink>
+          <S.TrackPlayAlbumLink href="http://">{currentTrack.title}</S.TrackPlayAlbumLink>
         </S.TrackPlayAlbum>
         <S.TrackPlayAuthor>
-          <S.TrackPlayAuthorLink href="http://">Баста</S.TrackPlayAuthorLink>
+          <S.TrackPlayAuthorLink href="http://">{currentTrack.author}</S.TrackPlayAuthorLink>
         </S.TrackPlayAuthor>
       </S.TrackPlayContain>
 
@@ -59,7 +59,7 @@ function PlayTrack() {
   )
 }
 
-function Player() {
+function Player({currentTrack}) {
   return (
     <S.Player>
       <S.PlayerControls>
@@ -113,22 +113,26 @@ function Player() {
           </S.PlayerButtonSvg>
         </S.PlayerButtonShuffle>
 
-        <PlayTrack />
+        <PlayTrack currentTrack={currentTrack}/>
       </S.PlayerControls>
     </S.Player>
   )
 }
 
-export default function Bar() {
+export default function Bar({currentTrack, isOpenPlayer}) {
   return (
+    <>
+    {isOpenPlayer?
     <S.Bar>
       <S.BarContent>
         <S.PlayerProgress />
         <S.PlayerBlock>
-          <Player />
+          <Player currentTrack={currentTrack}/>
           <VolumeBlock />
         </S.PlayerBlock>
       </S.BarContent>
     </S.Bar>
+    : null}
+    </>
   )
 }

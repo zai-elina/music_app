@@ -72,7 +72,7 @@ export const PlaylistsItem = styled.div`
     margin-bottom: 30px;
   }
 `
-export const PlaylistsItemLink = styled.a`
+export const PlaylistsItemLink = styled.div`
   width: 100%;
   height: 100%;
 `

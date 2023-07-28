@@ -3,7 +3,12 @@ import Search from '../Search/Search'
 import * as S from './CenterBlock.style'
 import MusicList from '../Musics/Music'
 
-export default function CenterBlock({ loading }) {
+export default function CenterBlock({ 
+  loading, 
+  musicItems,
+  setIsOpenPlayer,
+  setCurrentTrack
+}) {
   return (
     <S.Centerblock>
       <Search />
@@ -20,7 +25,12 @@ export default function CenterBlock({ loading }) {
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>
-        <MusicList loading={loading} />
+        <MusicList 
+            loading={loading} 
+            musicItems={musicItems} 
+            setIsOpenPlayer={setIsOpenPlayer}
+            setCurrentTrack={setCurrentTrack}
+        />
       </S.CenterBlockContent>
     </S.Centerblock>
   )

@@ -2,7 +2,7 @@ import Skeleton from 'react-loading-skeleton'
 import * as S from './Musics.style'
 
 const SkeletonMusic = () => {
-  const count = 6
+  const count = 11
   return (
     <>
       {Array(count)
