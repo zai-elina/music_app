@@ -82,7 +82,7 @@ export const PlayerButtonRepeat = styled(PlayerButton)`
     stroke: #acacac;
     cursor: pointer;
   }
-  :active svg {
+  &.active svg {
     fill: transparent;
     stroke: #ffffff;
     cursor: pointer;

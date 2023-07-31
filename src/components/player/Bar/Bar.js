@@ -60,7 +60,7 @@ function PlayTrack({ currentTrack }) {
   )
 }
 
-function Player({ currentTrack, togglePlay, isPlaying }) {
+function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
   return (
     <S.Player>
       <S.PlayerControls>
@@ -104,7 +104,10 @@ function Player({ currentTrack, togglePlay, isPlaying }) {
             <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButton>
-        <S.PlayerButtonRepeat>
+        <S.PlayerButtonRepeat
+          className={isLoop ? 'active' : ''}
+          onClick={() => (isLoop ? setIsLoop(false) : setIsLoop(true))}
+        >
           <S.PlayerButtonSvg
             $width={'18px'}
             $height={'12px'}
@@ -133,10 +136,10 @@ function Player({ currentTrack, togglePlay, isPlaying }) {
   )
 }
 
-
 export default function Bar({ currentTrack }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
+  const [isLoop, setIsLoop] = useState(false)
 
   const handleStart = () => {
     audioElem.current.play()
@@ -158,7 +161,12 @@ export default function Bar({ currentTrack }) {
 
   return (
     <>
-      <audio style={{ visibility: 'hidden' }} controls ref={audioElem}>
+      <audio
+        style={{ visibility: 'hidden' }}
+        controls
+        ref={audioElem}
+        loop={isLoop}
+      >
         <source src={currentTrack.trackFile} type="audio/mpeg" />
         <track kind="captions" label="" />
       </audio>
@@ -171,6 +179,8 @@ export default function Bar({ currentTrack }) {
               currentTrack={currentTrack}
               togglePlay={togglePlay}
               isPlaying={isPlaying}
+              isLoop={isLoop}
+              setIsLoop={setIsLoop}
             />
             <VolumeBlock />
           </S.PlayerBlock>
