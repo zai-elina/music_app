@@ -261,4 +261,81 @@ export const VolumeSvg = styled.svg`
 `
 export const VolumeProgress = styled.div`
   width: ${(props) => props.$width};
+  margin-top:-8px;
+`
+
+export const VolumeProgressLine = styled.input`
+  background: linear-gradient(
+    to right,
+    ${(props) => `${props.volume}%, ${props.volume}%`}
+  );
+  &::-webkit-slider-runnable-track {
+    height: 2px;
+  }
+  &::-webkit-slider-thumb {
+    margin-top: -7px;
+  }
+
+  &::-moz-range-track {
+    height: 2px;
+  }
+  &::-moz-range-thumb {
+    margin-top: -7px;
+  }
+`
+
+export const ProgressInput = styled.input`
+  --progress-height: 8px;
+  --progress-color: rgba(182, 114, 255, 1);
+  --progress-color: ${(props) => props.$color ?? '#b672ff'};
+
+  --progress-bg-color: rgba(46, 46, 46, 1);
+
+  margin: 0;
+  width: 100%;
+  height: var(--progress-height);
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+
+  &::-webkit-slider-runnable-track {
+    position: relative;
+    height: var(--progress-height);
+    background: var(--progress-bg-color);
+  }
+  &::-webkit-slider-thumb {
+    --thumb-height: 1px;
+    --thumb-width: 1px;
+    position: relative;
+    -webkit-appearance: none;
+    width: var(--thumb-width, var(--thumb-height));
+    box-shadow: calc(-100vmax - var(--thumb-width, var(--thumb-height))) 0 0
+      100vmax var(--progress-color);
+  }
+
+  &::-webkit-slider-runnable-track {
+    background: var(--progress-bg-color);
+  }
+
+  /* FF */
+  &::-moz-range-track {
+    width: 100%;
+    height: var(--progress-height);
+    background: var(--progress-bg-color);
+    border: none;
+    border-radius: 0px;
+  }
+  &::-moz-range-thumb {
+    border: none;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    background: transparent;
+  }
+  &::-moz-range-progress {
+    background-color: var(--progress-color);
+    height: var(--progress-height);
+  }
 `

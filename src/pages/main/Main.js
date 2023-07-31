@@ -5,26 +5,27 @@ import * as S from './Main.styles'
 import Bar from '../../components/player/Bar/Bar'
 import Footer from '../../components/layout/footer/Footer'
 
-export default function Main(
-  { 
-    loading, 
-    musicItems, 
-    isOpenPlayer, 
-    setIsOpenPlayer,
-    currentTrack,
-    setCurrentTrack
-  }) {
+export default function Main({
+  loading,
+  musicItems,
+  isOpenPlayer,
+  setIsOpenPlayer,
+  currentTrack,
+  setCurrentTrack,
+}) {
   return (
     <S.Main>
       <NavBar />
-      <CenterBlock 
+      <CenterBlock
         loading={loading}
         musicItems={musicItems}
         setIsOpenPlayer={setIsOpenPlayer}
-        setCurrentTrack={setCurrentTrack} 
+        setCurrentTrack={setCurrentTrack}
       />
       <Sidebar loading={loading} />
-      {isOpenPlayer && <Bar currentTrack={currentTrack}/>}
+      {isOpenPlayer && (
+        <Bar currentTrack={currentTrack} setCurrentTrack={setCurrentTrack} />
+      )}
       <Footer />
     </S.Main>
   )

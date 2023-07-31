@@ -2,7 +2,24 @@ import { useRef, useState, useEffect } from 'react'
 import * as S from './Bar.styles'
 import Button from '../../../App.style'
 
-function VolumeBlock() {
+function ProgressBar() {
+  const [currentTime, setCurrentTime] = useState(70)
+  const duration = 230
+
+  return (
+    <S.ProgressInput
+      type="range"
+      min={0}
+      max={duration}
+      value={currentTime}
+      step={0.01}
+      onChange={(event) => setCurrentTime(event.target.value)}
+      $color="rgba(182, 114, 255, 1)"
+    />
+  )
+}
+
+function VolumeBlock({ volume, setVolume }) {
   return (
     <S.VolumeBlock>
       <S.VolumeContent>
@@ -12,7 +29,14 @@ function VolumeBlock() {
           </S.VolumeSvg>
         </S.VolumeImage>
         <S.VolumeProgress>
-          <input style={{ width: '109px' }} type="range" name="range" />
+          <S.VolumeProgressLine
+            type="range"
+            min={0}
+            max={100}
+            value={volume}
+            onChange={(e) => setVolume(e.target.value)}
+            volume={volume}
+          />
         </S.VolumeProgress>
       </S.VolumeContent>
     </S.VolumeBlock>
@@ -65,7 +89,12 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
     <S.Player>
       <S.PlayerControls>
         <S.PlayerButton $value={'23px'}>
-          <S.PlayerButtonSvg $width={'15px'} $height={'14px'} alt="prev">
+          <S.PlayerButtonSvg
+            $width={'15px'}
+            $height={'14px'}
+            alt="prev"
+            onClick={() => alert('Ещё не реализовано')}
+          >
             <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButton>
@@ -100,6 +129,7 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
             $fill={'inherit'}
             $stoke={'#d9d9d9'}
             alt="next"
+            onClick={() => alert('Ещё не реализовано')}
           >
             <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
           </S.PlayerButtonSvg>
@@ -118,7 +148,7 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
             <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButtonRepeat>
-        <S.PlayerButtonShuffle>
+        <S.PlayerButtonShuffle onClick={() => alert('Ещё не реализовано')}>
           <S.PlayerButtonSvg
             $width={'19px'}
             $height={'12px'}
@@ -136,10 +166,11 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
   )
 }
 
-export default function Bar({ currentTrack }) {
+export default function Bar({ currentTrack, setCurrentTrack }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
+  const [volume, setVolume] = useState(50)
 
   const handleStart = () => {
     audioElem.current.play()
@@ -159,6 +190,12 @@ export default function Bar({ currentTrack }) {
     else handleStop()
   }, [currentTrack.trackFile])
 
+  useEffect(() => {
+    if (audioElem) {
+      audioElem.current.volume = volume / 100
+    }
+  }, [volume, audioElem])
+
   return (
     <>
       <audio
@@ -173,7 +210,7 @@ export default function Bar({ currentTrack }) {
 
       <S.Bar>
         <S.BarContent>
-          <S.PlayerProgress />
+          <ProgressBar />
           <S.PlayerBlock>
             <Player
               currentTrack={currentTrack}
@@ -182,7 +219,7 @@ export default function Bar({ currentTrack }) {
               isLoop={isLoop}
               setIsLoop={setIsLoop}
             />
-            <VolumeBlock />
+            <VolumeBlock volume={volume} setVolume={setVolume} />
           </S.PlayerBlock>
         </S.BarContent>
       </S.Bar>
