@@ -8,13 +8,15 @@ function formatTime(number) {
 }
 
 function Music(props) {
-  const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile) => {
+  const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time) => {
     props.setIsOpenPlayer(true)
     props.setCurrentTrack({
       author: musicAuthor,
       title: musicTitle,
       svgUrl: svgUrl,
       trackFile: trackFile,
+      progress: 0,
+      length: time,
     })
   }
 
@@ -34,7 +36,8 @@ function Music(props) {
                   props.author,
                   props.title,
                   props.svgUrl,
-                  props.trackFile
+                  props.trackFile,
+                  props.time
                 )
               }}
             >

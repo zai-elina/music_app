@@ -2,20 +2,36 @@ import { useRef, useState, useEffect } from 'react'
 import * as S from './Bar.styles'
 import Button from '../../../App.style'
 
-function ProgressBar() {
-  const [currentTime, setCurrentTime] = useState(70)
-  const duration = 230
+function formatTime(time) {
+  let minutes = Math.floor(time / 60)
+  let seconds = Math.floor(time - minutes * 60)
+
+  if (minutes < 10) minutes = `0${minutes}`
+  if (seconds < 10) seconds = `0${seconds}`
+
+  return `${minutes}:${seconds}`
+}
+
+function PlayerProgress({ currentTrack, audioElem }) {
+  const progressRef = useRef(null)
+
+  const changeTime = (e) => {
+    const width = progressRef.current.clientWidth
+    const offset = e.nativeEvent.offsetX
+    const divprogress = (offset / width) * 100
+    audioElem.current.currentTime = (divprogress / 100) * currentTrack.length
+  }
 
   return (
-    <S.ProgressInput
-      type="range"
-      min={0}
-      max={duration}
-      value={currentTime}
-      step={0.01}
-      onChange={(event) => setCurrentTime(event.target.value)}
-      $color="rgba(182, 114, 255, 1)"
-    />
+    <div
+      onClick={changeTime}
+      ref={progressRef}
+      style={{ background: '#2E2E2E', cursor: 'pointer' }}
+    >
+      <S.PlayerProgressLine
+        style={{ width: `${`${currentTrack.progress}%`}` }}
+      ></S.PlayerProgressLine>
+    </div>
   )
 }
 
@@ -167,7 +183,7 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
 }
 
 export default function Bar({ currentTrack, setCurrentTrack }) {
-  const [isPlaying, setIsPlaying] = useState(true)
+  const [isPlaying, setIsPlaying] = useState(false)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
   const [volume, setVolume] = useState(50)
@@ -196,6 +212,16 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
     }
   }, [volume, audioElem])
 
+  const playingTrack = () => {
+    const duration = audioElem.current.duration
+    const curTime = audioElem.current.currentTime
+    setCurrentTrack({
+      ...currentTrack,
+      progress: (curTime / duration) * 100,
+      length: duration,
+    })
+  }
+
   return (
     <>
       <audio
@@ -203,14 +229,24 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
         controls
         ref={audioElem}
         loop={isLoop}
+        onTimeUpdate={playingTrack}
       >
         <source src={currentTrack.trackFile} type="audio/mpeg" />
         <track kind="captions" label="" />
       </audio>
 
       <S.Bar>
+        <S.PlayerTime>
+        <span className="current-time">
+          {formatTime(audioElem.current?.currentTime || 0)}
+        </span>{' '}
+        /
+        <span className="duration">
+          {formatTime(audioElem.current?.duration || 0)}
+        </span>
+        </S.PlayerTime>
         <S.BarContent>
-          <ProgressBar />
+          <PlayerProgress currentTrack={currentTrack} audioElem={audioElem} />
           <S.PlayerBlock>
             <Player
               currentTrack={currentTrack}
