@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react'
 import * as S from './Bar.styles'
 import Button from '../../../App.style'
 
@@ -11,18 +12,14 @@ function VolumeBlock() {
           </S.VolumeSvg>
         </S.VolumeImage>
         <S.VolumeProgress>
-          <input
-            style={ {width:'109px'}}
-            type="range"
-            name="range"
-          />
+          <input style={{ width: '109px' }} type="range" name="range" />
         </S.VolumeProgress>
       </S.VolumeContent>
     </S.VolumeBlock>
   )
 }
 
-function PlayTrack({currentTrack}) {
+function PlayTrack({ currentTrack }) {
   return (
     <S.TrackPlay>
       <S.TrackPlayContain>
@@ -32,10 +29,14 @@ function PlayTrack({currentTrack}) {
           </S.TrackPlaySvg>
         </S.TrackPlayImage>
         <S.TrackPlayAlbum>
-          <S.TrackPlayAlbumLink href="http://">{currentTrack.title}</S.TrackPlayAlbumLink>
+          <S.TrackPlayAlbumLink href="http://">
+            {currentTrack.title}
+          </S.TrackPlayAlbumLink>
         </S.TrackPlayAlbum>
         <S.TrackPlayAuthor>
-          <S.TrackPlayAuthorLink href="http://">{currentTrack.author}</S.TrackPlayAuthorLink>
+          <S.TrackPlayAuthorLink href="http://">
+            {currentTrack.author}
+          </S.TrackPlayAuthorLink>
         </S.TrackPlayAuthor>
       </S.TrackPlayContain>
 
@@ -59,7 +60,7 @@ function PlayTrack({currentTrack}) {
   )
 }
 
-function Player({currentTrack}) {
+function Player({ currentTrack, togglePlay, isPlaying }) {
   return (
     <S.Player>
       <S.PlayerControls>
@@ -70,14 +71,27 @@ function Player({currentTrack}) {
         </S.PlayerButton>
         <S.PlayerButton $value={'23px'}>
           <Button />
-          <S.PlayerButtonSvg
-            $width={'22px'}
-            $height={'20px'}
-            $fill={'#d9d9d9'}
-            alt="play"
-          >
-            <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
-          </S.PlayerButtonSvg>
+          {isPlaying ? (
+            <S.PlayerButtonSvg
+              $width={'15px'}
+              $height={'19px'}
+              $fill={'#d9d9d9'}
+              alt="pause"
+              onClick={togglePlay}
+            >
+              <use xlinkHref="img/icon/sprite.svg#icon-pause"></use>
+            </S.PlayerButtonSvg>
+          ) : (
+            <S.PlayerButtonSvg
+              $width={'22px'}
+              $height={'20px'}
+              $fill={'#d9d9d9'}
+              alt="play"
+              onClick={togglePlay}
+            >
+              <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+            </S.PlayerButtonSvg>
+          )}
         </S.PlayerButton>
         <S.PlayerButton $value={'28px'} $fill={'#a53939'}>
           <S.PlayerButtonSvg
@@ -113,26 +127,55 @@ function Player({currentTrack}) {
           </S.PlayerButtonSvg>
         </S.PlayerButtonShuffle>
 
-        <PlayTrack currentTrack={currentTrack}/>
+        <PlayTrack currentTrack={currentTrack} />
       </S.PlayerControls>
     </S.Player>
   )
 }
 
-export default function Bar({currentTrack, isOpenPlayer}) {
+
+export default function Bar({ currentTrack }) {
+  const [isPlaying, setIsPlaying] = useState(true)
+  const audioElem = useRef(null)
+
+  const handleStart = () => {
+    audioElem.current.play()
+    setIsPlaying(true)
+  }
+
+  const handleStop = () => {
+    audioElem.current.pause()
+    setIsPlaying(false)
+  }
+
+  const togglePlay = isPlaying ? handleStop : handleStart
+
+  useEffect(() => {
+    audioElem.current.src = currentTrack.trackFile
+    if (isPlaying) handleStart()
+    else handleStop()
+  }, [currentTrack.trackFile])
+
   return (
     <>
-    {isOpenPlayer?
-    <S.Bar>
-      <S.BarContent>
-        <S.PlayerProgress />
-        <S.PlayerBlock>
-          <Player currentTrack={currentTrack}/>
-          <VolumeBlock />
-        </S.PlayerBlock>
-      </S.BarContent>
-    </S.Bar>
-    : null}
+      <audio style={{ visibility: 'hidden' }} controls ref={audioElem}>
+        <source src={currentTrack.trackFile} type="audio/mpeg" />
+        <track kind="captions" label="" />
+      </audio>
+
+      <S.Bar>
+        <S.BarContent>
+          <S.PlayerProgress />
+          <S.PlayerBlock>
+            <Player
+              currentTrack={currentTrack}
+              togglePlay={togglePlay}
+              isPlaying={isPlaying}
+            />
+            <VolumeBlock />
+          </S.PlayerBlock>
+        </S.BarContent>
+      </S.Bar>
     </>
   )
 }

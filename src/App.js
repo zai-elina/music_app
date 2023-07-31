@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import * as S from './App.style'
 import GlobalStyle from './App.style'
 import { AppRoutes } from './routes'
-import { getTracks } from './api'
+import { getTracks } from './api/Api'
 
 function App() {
   const [loading, setLoading] = useState(false)
