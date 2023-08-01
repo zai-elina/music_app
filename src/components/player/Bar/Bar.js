@@ -183,7 +183,7 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
 }
 
 export default function Bar({ currentTrack, setCurrentTrack }) {
-  const [isPlaying, setIsPlaying] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
   const [volume, setVolume] = useState(50)
@@ -201,7 +201,6 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
   const togglePlay = isPlaying ? handleStop : handleStart
 
   useEffect(() => {
-    audioElem.current.src = currentTrack.trackFile
     if (isPlaying) handleStart()
     else handleStop()
   }, [currentTrack.trackFile])
@@ -230,20 +229,18 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
         ref={audioElem}
         loop={isLoop}
         onTimeUpdate={playingTrack}
-      >
-        <source src={currentTrack.trackFile} type="audio/mpeg" />
-        <track kind="captions" label="" />
-      </audio>
+        src={currentTrack.trackFile}
+      ></audio>
 
       <S.Bar>
         <S.PlayerTime>
-        <span className="current-time">
-          {formatTime(audioElem.current?.currentTime || 0)}
-        </span>{' '}
-        /
-        <span className="duration">
-          {formatTime(audioElem.current?.duration || 0)}
-        </span>
+          <span className="current-time">
+            {formatTime(audioElem.current?.currentTime || 0)}
+          </span>{' '}
+          /
+          <span className="duration">
+            {formatTime(audioElem.current?.duration || 0)}
+          </span>
         </S.PlayerTime>
         <S.BarContent>
           <PlayerProgress currentTrack={currentTrack} audioElem={audioElem} />
