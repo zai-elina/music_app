@@ -16,10 +16,9 @@ export const BarContent = styled.div`
   -ms-flex-direction: column;
   flex-direction: column;
 `
-export const PlayerProgress = styled.div`
-  width: 100%;
+export const PlayerProgressLine = styled.div`
   height: 5px;
-  background: #2e2e2e;
+  background: #b672ff;
 `
 export const PlayerBlock = styled.div`
   height: 73px;
@@ -82,7 +81,7 @@ export const PlayerButtonRepeat = styled(PlayerButton)`
     stroke: #acacac;
     cursor: pointer;
   }
-  :active svg {
+  &.active svg {
     fill: transparent;
     stroke: #ffffff;
     cursor: pointer;
@@ -261,4 +260,50 @@ export const VolumeSvg = styled.svg`
 `
 export const VolumeProgress = styled.div`
   width: ${(props) => props.$width};
+  margin-top: -8px;
+`
+
+export const VolumeProgressLine = styled.input`
+  -webkit-appearance: none;
+  background: linear-gradient(
+    to right,
+    #fff ${(props) => `${props.volume}%, #797979 ${props.volume}%`}
+  );
+  &::-webkit-slider-runnable-track {
+    height: 2px;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -6px;
+    background: black;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+  }
+
+  &::-moz-range-track {
+    height: 2px;
+  }
+  &::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    margin-top: -6px;
+    background: black;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    height: 12px;
+    width: 12px;
+  }
+`
+export const PlayerTime = styled.div`
+  position: absolute;
+  right: 5px;
+  top: -25px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.001em;
+  color: #696969;
 `
