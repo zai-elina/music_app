@@ -12,14 +12,14 @@ function formatTime(time) {
   return `${minutes}:${seconds}`
 }
 
-function PlayerProgress({ currentTrack, audioElem }) {
+function PlayerProgress({ currentTrackTime, audioElem }) {
   const progressRef = useRef(null)
 
   const changeTime = (e) => {
     const width = progressRef.current.clientWidth
     const offset = e.nativeEvent.offsetX
     const divprogress = (offset / width) * 100
-    audioElem.current.currentTime = (divprogress / 100) * currentTrack.length
+    audioElem.current.currentTime = (divprogress / 100) * currentTrackTime.length
   }
 
   return (
@@ -29,7 +29,7 @@ function PlayerProgress({ currentTrack, audioElem }) {
       style={{ background: '#2E2E2E', cursor: 'pointer' }}
     >
       <S.PlayerProgressLine
-        style={{ width: `${`${currentTrack.progress}%`}` }}
+        style={{ width: `${`${currentTrackTime.progress}%`}` }}
       ></S.PlayerProgressLine>
     </div>
   )
@@ -182,11 +182,12 @@ function Player({ currentTrack, togglePlay, isPlaying, isLoop, setIsLoop }) {
   )
 }
 
-export default function Bar({ currentTrack, setCurrentTrack }) {
+export default function Bar({ currentTrack }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
   const [volume, setVolume] = useState(50)
+  const [currentTrackTime, setCurrentTrackTime] = useState({})
 
   const handleStart = () => {
     audioElem.current.play()
@@ -214,8 +215,7 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
   const playingTrack = () => {
     const duration = audioElem.current.duration
     const curTime = audioElem.current.currentTime
-    setCurrentTrack({
-      ...currentTrack,
+    setCurrentTrackTime({
       progress: (curTime / duration) * 100,
       length: duration,
     })
@@ -243,7 +243,7 @@ export default function Bar({ currentTrack, setCurrentTrack }) {
           </span>
         </S.PlayerTime>
         <S.BarContent>
-          <PlayerProgress currentTrack={currentTrack} audioElem={audioElem} />
+          <PlayerProgress currentTrackTime={currentTrackTime} audioElem={audioElem} />
           <S.PlayerBlock>
             <Player
               currentTrack={currentTrack}
