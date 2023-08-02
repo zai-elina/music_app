@@ -1,15 +1,7 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
 import * as S from './Sidebar.style'
 import { Link } from 'react-router-dom'
-
-function Person({ name }) {
-  return (
-    <S.Personal>
-      <S.PersonalName>{name}</S.PersonalName>
-      <S.PersonalAvatar></S.PersonalAvatar>
-    </S.Personal>
-  )
-}
+import { PersonData } from '../../account/PersonData/PersonData'
 
 function PlaylistsItem(props) {
   return (
@@ -49,7 +41,7 @@ export default function Sidebar({ loading }) {
   const user = { name: 'Sergey Ivanov' }
   return (
     <S.Sidebar>
-      <Person name={user?.name} />
+      <PersonData name={user?.name} />
       <S.PlaylistsBlock>
         <Playlists loading={loading} />
       </S.PlaylistsBlock>
