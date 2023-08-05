@@ -1,5 +1,9 @@
 import SkeletonMusic from './SkeletonMusics'
 import * as S from './Musics.style'
+import { useDispatch, useSelector } from 'react-redux'
+import { setTrack } from '../../../store/actions/creators/tracks'
+import { trackSelector } from '../../../store/selectors/tracks'
+import { useState } from 'react'
 
 function formatTime(number) {
   let str = String(number)
@@ -8,7 +12,9 @@ function formatTime(number) {
 }
 
 function Music(props) {
-  const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time) => {
+  const dispatch = useDispatch()
+  const playingTrack = useSelector(trackSelector)
+  const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time, id) => {
     props.setIsOpenPlayer(true)
     props.setCurrentTrack({
       author: musicAuthor,
@@ -18,6 +24,8 @@ function Music(props) {
       progress: 0,
       length: time,
     })
+    console.log(id)
+    dispatch(setTrack(id))
   }
 
   return (
@@ -26,7 +34,11 @@ function Music(props) {
         <S.TrackTitle>
           <S.TrackTitleImage>
             <S.TrackTitleSvg alt="music">
-              <use xlinkHref={props.svgUrl}></use>
+              {playingTrack?.id === props.id ? (
+                <S.Circle $isAnimate={props.isAnimatePlayTrack} cx="10px" cy="10px" r="7.5" />
+              ) : (
+                <use xlinkHref={props.svgUrl}></use>
+              )}
             </S.TrackTitleSvg>
           </S.TrackTitleImage>
           <div>
@@ -37,7 +49,8 @@ function Music(props) {
                   props.title,
                   props.svgUrl,
                   props.trackFile,
-                  props.time
+                  props.time,
+                  props.id
                 )
               }}
             >
@@ -53,7 +66,14 @@ function Music(props) {
         <S.TrackAuthor>
           <S.TrackAuthorLink
             onClick={() => {
-              playTrack(props.author, props.title)
+              playTrack(
+                props.author,
+                props.title,
+                props.svgUrl,
+                props.trackFile,
+                props.time,
+                props.id
+              )
             }}
           >
             {props.author}
@@ -81,6 +101,7 @@ export default function MusicList({
   musicItems,
   setIsOpenPlayer,
   setCurrentTrack,
+  isAnimatePlayTrack
 }) {
   return (
     <S.MusicList>
@@ -98,6 +119,8 @@ export default function MusicList({
             trackFile={item.track_file}
             setIsOpenPlayer={setIsOpenPlayer}
             setCurrentTrack={setCurrentTrack}
+            id={item.id}
+            isAnimatePlayTrack={isAnimatePlayTrack}
           />
         ))}
     </S.MusicList>

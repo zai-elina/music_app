@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect } from 'react'
 import * as S from './PlayerControls.styles'
 import Button from '../../../App.style'
 import { PlayingTrack } from '../PlayingTrack/PlayingTrack'

@@ -7,7 +7,7 @@ export function PersonData() {
   const { authUser } = useContext(UserContext);
   return (
     <S.Personal>
-      <S.PersonalName>{authUser.username}</S.PersonalName>
+      <S.PersonalName>{authUser?.username}</S.PersonalName>
       <S.PersonalAvatar></S.PersonalAvatar>
       <NavLink to="/logout">
         <svg

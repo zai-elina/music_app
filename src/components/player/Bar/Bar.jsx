@@ -14,7 +14,7 @@ function formatTime(time) {
   return `${minutes}:${seconds}`
 }
 
-export default function Bar({ currentTrack }) {
+export default function Bar({ currentTrack, setIsAnimatePlayTrack }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
@@ -24,11 +24,13 @@ export default function Bar({ currentTrack }) {
   const handleStart = () => {
     audioElem.current.play()
     setIsPlaying(true)
+    setIsAnimatePlayTrack(true)
   }
 
   const handleStop = () => {
     audioElem.current.pause()
     setIsPlaying(false)
+    setIsAnimatePlayTrack(false)
   }
 
   const togglePlay = isPlaying ? handleStop : handleStart
