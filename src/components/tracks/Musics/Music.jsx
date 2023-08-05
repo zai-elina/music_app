@@ -3,7 +3,6 @@ import * as S from './Musics.style'
 import { useDispatch, useSelector } from 'react-redux'
 import { setTrack } from '../../../store/actions/creators/tracks'
 import { trackSelector } from '../../../store/selectors/tracks'
-import { useState } from 'react'
 
 function formatTime(number) {
   let str = String(number)
@@ -17,6 +16,7 @@ function Music(props) {
   const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time, id) => {
     props.setIsOpenPlayer(true)
     props.setCurrentTrack({
+      id:id,
       author: musicAuthor,
       title: musicTitle,
       svgUrl: svgUrl,
@@ -24,7 +24,6 @@ function Music(props) {
       progress: 0,
       length: time,
     })
-    console.log(id)
     dispatch(setTrack(id))
   }
 

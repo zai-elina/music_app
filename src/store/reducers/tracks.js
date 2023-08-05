@@ -11,7 +11,7 @@ const initialState = {
   playing: false,
   track: null,
   playlist: {},
-  shuffledPlaylists: {},
+  shufflePlaylist: {},
 }
 
 export default function trackReducer(state = initialState, action) {
@@ -30,6 +30,32 @@ export default function trackReducer(state = initialState, action) {
         ...state,
         playing: true,
         track: { ...toggledTrack },
+      }
+    }
+    case NEXT_TRACK: {
+      const id = action.payload
+      const nextTrack = Object.values(state.playlist).find((item) => item.id === id)
+
+      return {
+        ...state,
+        playing: true,
+        track: { ...nextTrack },
+      }
+    }
+    case PREV_TRACK: {
+      const id = action.payload
+      const prevTrack = Object.values(state.playlist).find((item) => item.id === id)
+
+      return {
+        ...state,
+        playing: true,
+        track: { ...prevTrack },
+      }
+    }
+    case SHUFFLE_PLAYLIST: {
+      return {
+        ...state,
+        shufflePlaylist: action.payload,
       }
     }
     default:

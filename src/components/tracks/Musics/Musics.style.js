@@ -132,17 +132,17 @@ animation: pulse 2s ease-in 0s infinite normal forwards;
 
   10% {
     animation-timing-function: ease-in;
-    transform: scale(0.91);
+    transform: scale(0.7);
   }
 
   17% {
     animation-timing-function: ease-out;
-    transform: scale(0.98);
+    transform: scale(0.8);
   }
 
   33% {
     animation-timing-function: ease-in;
-    transform: scale(0.87);
+    transform: scale(0.7);
   }
 
   45% {
@@ -153,5 +153,5 @@ animation: pulse 2s ease-in 0s infinite normal forwards;
 `
 export const Circle = styled.circle`
   fill: #ad61ff;
-  ${props.$isAnimate === true ? animation : ''}
+  ${(props) => (props.$isAnimate === true ? animation : '')}
 `

@@ -27,7 +27,7 @@ export default function Main({
       />
       <Sidebar loading={loading} />
       {isOpenPlayer && (
-        <Bar currentTrack={currentTrack} setIsAnimatePlayTrack={setIsAnimatePlayTrack} />
+        <Bar currentTrack={currentTrack} setIsAnimatePlayTrack={setIsAnimatePlayTrack} setCurrentTrack={setCurrentTrack} />
       )}
       <Footer />
     </S.Main>
