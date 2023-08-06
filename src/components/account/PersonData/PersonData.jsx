@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import * as S from './PersonData.styles'
 import { NavLink } from 'react-router-dom'
-import { UserContext} from '../../../contexts/User'
+import { UserContext } from '../../../contexts/User'
 
 export function PersonData() {
-  const { authUser } = useContext(UserContext);
+  const { authUser } = useContext(UserContext)
   return (
     <S.Personal>
       <S.PersonalName>{authUser.username}</S.PersonalName>

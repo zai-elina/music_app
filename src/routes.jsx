@@ -19,11 +19,10 @@ export const AppRoutes = ({
   currentTrack,
   setCurrentTrack,
 }) => {
-  const user = localStorage.getItem('user')
   return (
     <UserProvider>
         <Routes>
-          <Route element={<ProtectedRoute isAuth={Boolean(user)} />}>
+          <Route element={<ProtectedRoute />}>
             <Route
               path="/"
               element={
