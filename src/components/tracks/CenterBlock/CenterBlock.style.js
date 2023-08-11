@@ -6,8 +6,8 @@ export const Centerblock = styled.div`
   flex-positive: 3;
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
-  overflow-y:hidden;
-  height:100vh;
+  overflow-y: scroll;
+  height: 100vh;
 `
 export const CenterBlockTitle = styled.h2`
   font-style: normal;

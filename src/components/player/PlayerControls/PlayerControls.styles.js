@@ -34,6 +34,7 @@ export const PlayerButton = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  c
   margin-right: ${(props) => {
     props.$value
   }};
@@ -68,13 +69,14 @@ export const PlayerButtonShuffle = styled(PlayerButton)`
     stroke: #acacac;
     cursor: pointer;
   }
-  :active svg {
+  &.active svg {
     fill: transparent;
     stroke: #ffffff;
     cursor: pointer;
   }
 `
 export const PlayerButtonSvg = styled.svg`
+  cursor: pointer;
   width: ${(props) => props.$width};
   height: ${(props) => props.$height};
   ${(props) => (props.$fill ? `fill:${props.$fill};` : '')}

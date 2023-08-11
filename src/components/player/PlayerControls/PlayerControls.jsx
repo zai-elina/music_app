@@ -1,4 +1,3 @@
-import { useRef, useState, useEffect } from 'react'
 import * as S from './PlayerControls.styles'
 import Button from '../../../App.style'
 import { PlayingTrack } from '../PlayingTrack/PlayingTrack'
@@ -9,6 +8,10 @@ export function PlayerControls({
   isPlaying,
   isLoop,
   setIsLoop,
+  handleNext,
+  handlePrev,
+  isShuffle,
+  toggleShuffle,
 }) {
   return (
     <S.Player>
@@ -18,7 +21,7 @@ export function PlayerControls({
             $width={'15px'}
             $height={'14px'}
             alt="prev"
-            onClick={() => alert('Ещё не реализовано')}
+            onClick={handlePrev}
           >
             <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
           </S.PlayerButtonSvg>
@@ -54,7 +57,7 @@ export function PlayerControls({
             $fill={'inherit'}
             $stoke={'#d9d9d9'}
             alt="next"
-            onClick={() => alert('Ещё не реализовано')}
+            onClick={handleNext}
           >
             <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
           </S.PlayerButtonSvg>
@@ -73,7 +76,10 @@ export function PlayerControls({
             <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButtonRepeat>
-        <S.PlayerButtonShuffle onClick={() => alert('Ещё не реализовано')}>
+        <S.PlayerButtonShuffle
+          className={isShuffle ? 'active' : ''}
+          onClick={toggleShuffle}
+        >
           <S.PlayerButtonSvg
             $width={'19px'}
             $height={'12px'}

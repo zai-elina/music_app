@@ -4,6 +4,7 @@ import Sidebar from '../../components/tracks/Sidebar/Sidebar'
 import * as S from './Main.styles'
 import Bar from '../../components/player/Bar/Bar'
 import Footer from '../../components/layout/footer/Footer'
+import { useState } from 'react'
 
 export default function Main({
   loading,
@@ -13,6 +14,7 @@ export default function Main({
   currentTrack,
   setCurrentTrack,
 }) {
+  const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(true)
   return (
     <S.Main>
       <NavBar />
@@ -21,10 +23,11 @@ export default function Main({
         musicItems={musicItems}
         setIsOpenPlayer={setIsOpenPlayer}
         setCurrentTrack={setCurrentTrack}
+        isAnimatePlayTrack={isAnimatePlayTrack}
       />
       <Sidebar loading={loading} />
       {isOpenPlayer && (
-        <Bar currentTrack={currentTrack} />
+        <Bar currentTrack={currentTrack} setIsAnimatePlayTrack={setIsAnimatePlayTrack} setCurrentTrack={setCurrentTrack} />
       )}
       <Footer />
     </S.Main>

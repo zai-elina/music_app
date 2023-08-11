@@ -10,6 +10,7 @@ import {
 import AuthPage from './pages/auth/AuthPage'
 import { UserProvider } from './contexts/User'
 
+
 export const AppRoutes = ({
   loading,
   musicItems,
@@ -18,34 +19,33 @@ export const AppRoutes = ({
   currentTrack,
   setCurrentTrack,
 }) => {
-  const user = localStorage.getItem('user')
   return (
     <UserProvider>
-      <Routes>
-        <Route element={<ProtectedRoute isAuth={Boolean(user)} />}>
-          <Route
-            path="/"
-            element={
-              <Main
-                loading={loading}
-                musicItems={musicItems}
-                isOpenPlayer={isOpenPlayer}
-                setIsOpenPlayer={setIsOpenPlayer}
-                currentTrack={currentTrack}
-                setCurrentTrack={setCurrentTrack}
-              />
-            }
-          />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/category/:id" element={<Category />} />
-        </Route>
+        <Routes>
+          <Route element={<ProtectedRoute />}>
+            <Route
+              path="/"
+              element={
+                <Main
+                  loading={loading}
+                  musicItems={musicItems}
+                  isOpenPlayer={isOpenPlayer}
+                  setIsOpenPlayer={setIsOpenPlayer}
+                  currentTrack={currentTrack}
+                  setCurrentTrack={setCurrentTrack}
+                />
+              }
+            />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/category/:id" element={<Category />} />
+          </Route>
 
-        <Route path="/login" element={<AuthPage isLoginMode={true} />} />
-        <Route path="/register" element={<AuthPage isLoginMode={false} />} />
-        <Route path="/logout" element={<ProtectedRouteLogout />} />
+          <Route path="/login" element={<AuthPage isLoginMode={true} />} />
+          <Route path="/register" element={<AuthPage isLoginMode={false} />} />
+          <Route path="/logout" element={<ProtectedRouteLogout />} />
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
     </UserProvider>
   )
 }

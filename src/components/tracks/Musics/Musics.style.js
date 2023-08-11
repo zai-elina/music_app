@@ -121,3 +121,37 @@ export const TrackTimeText = styled.span`
   text-align: right;
   color: #696969;
 `
+const animation = `
+animation: pulse 2s ease-in 0s infinite normal forwards;
+@keyframes pulse {
+  0% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    transform-origin: center center;
+  }
+
+  10% {
+    animation-timing-function: ease-in;
+    transform: scale(0.7);
+  }
+
+  17% {
+    animation-timing-function: ease-out;
+    transform: scale(0.8);
+  }
+
+  33% {
+    animation-timing-function: ease-in;
+    transform: scale(0.7);
+  }
+
+  45% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
+}
+`
+export const Circle = styled.circle`
+  fill: #ad61ff;
+  ${(props) => (props.$isAnimate === true ? animation : '')}
+`
