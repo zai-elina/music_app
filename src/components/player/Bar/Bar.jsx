@@ -65,19 +65,21 @@ export default function Bar({
   }, [volume, audioElem])
 
   const handleNext = () => {
-    const obj = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(obj).find((key) => obj[key].id === currentTrack.id)
-    if (+index === Object.keys(obj).length - 1) return
+    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
+    let index = Object.keys(trackList).find(
+      (key) => trackList[key].id === currentTrack.id
+    )
+    if (+index === Object.keys(trackList).length - 1) return
     index = +index + 1
     setCurrentTrack({
-      id: obj[index].id,
-      author: obj[index].author,
-      title: obj[index].name,
-      trackFile: obj[index].track_file,
+      id: trackList[index].id,
+      author: trackList[index].author,
+      title: trackList[index].name,
+      trackFile: trackList[index].track_file,
       progress: 0,
-      length: obj[index].duration_in_seconds,
+      length: trackList[index].duration_in_seconds,
     })
-    dispatch(nextTrack(obj[index].id))
+    dispatch(nextTrack(trackList[index].id))
   }
 
   const handlePrev = () => {
@@ -85,19 +87,21 @@ export default function Bar({
       audioElem.current.currentTime = 0
       return
     }
-    const obj = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(obj).find((key) => obj[key].id === currentTrack.id)
+    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
+    let index = Object.keys(trackList).find(
+      (key) => trackList[key].id === currentTrack.id
+    )
     if (+index === 0) return
     index = +index - 1
     setCurrentTrack({
-      id: obj[index].id,
-      author: obj[index].author,
-      title: obj[index].name,
-      trackFile: obj[index].track_file,
+      id: trackList[index].id,
+      author: trackList[index].author,
+      title: trackList[index].name,
+      trackFile: trackList[index].track_file,
       progress: 0,
-      length: obj[index].duration_in_seconds,
+      length: trackList[index].duration_in_seconds,
     })
-    dispatch(prevTrack(obj[index].id))
+    dispatch(prevTrack(trackList[index].id))
   }
 
   const playingTrack = () => {
