@@ -91,3 +91,91 @@ export async function loginUser({ email, password }) {
     throw error
   }
 }
+
+function saveToken(token) {
+  sessionStorage.setItem('tokenData', JSON.stringify(token))
+}
+
+export async function getToken({ email, password }) {
+  try {
+    const response = await fetch('https://painassasin.online/user/token/', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+      headers: {
+        'content-type': 'application/json',
+      },
+    })
+
+    if (response.status === 400) {
+      throw new Error('Неккоректный запрос')
+    }
+
+    if (response.status === 401) {
+      const errorData = await response.json()
+      let errorMessage = ''
+
+      if (errorData.hasOwnProperty('detail')) {
+        errorMessage = errorData.detail
+      }
+
+      throw new Error(errorMessage)
+    }
+
+    if (response.status === 500) {
+      throw new Error('Сервер сломался')
+    }
+
+    const data = await response.json()
+    saveToken(JSON.stringify(data))
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function refreshToken(tokenRefresh) {
+  try {
+    const response = await fetch(
+      'https://painassasin.online/user/token/refresh/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          refresh: tokenRefresh
+         }),   
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    )
+
+    if (response.status === 400) {
+      throw new Error('Неккоректный запрос')
+    }
+
+    if (response.status === 401) {
+      const errorData = await response.json()
+      let errorMessage = ''
+
+      if (errorData.hasOwnProperty('detail')) {
+        errorMessage = errorData.detail
+      }
+
+      throw new Error(errorMessage)
+    }
+
+    if (response.status === 500) {
+      throw new Error('Сервер сломался')
+    }
+
+    const data = await response.json()
+    saveToken(JSON.stringify(data))
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}

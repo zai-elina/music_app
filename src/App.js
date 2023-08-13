@@ -12,13 +12,14 @@ function App() {
   const [musicItems, setmusicItems] = useState([])
   const [isOpenPlayer, setIsOpenPlayer] = useState(false)
   const [currentTrack, setCurrentTrack] = useState(null)
+  
 
   useEffect(() => {
     setLoading(true)
     getTracks()
       .then((tracks) => {
         setmusicItems(tracks)
-        dispatch(setPlaylist({...tracks}))
+        dispatch(setPlaylist({ ...tracks }))
       })
       .catch((error) => alert(error))
       .finally(() => {
@@ -30,14 +31,14 @@ function App() {
     <>
       <GlobalStyle />
       <S.App>
-          <AppRoutes
-            loading={loading}
-            musicItems={musicItems}
-            isOpenPlayer={isOpenPlayer}
-            setIsOpenPlayer={setIsOpenPlayer}
-            currentTrack={currentTrack}
-            setCurrentTrack={setCurrentTrack}
-          />
+        <AppRoutes
+          loading={loading}
+          musicItems={musicItems}
+          isOpenPlayer={isOpenPlayer}
+          setIsOpenPlayer={setIsOpenPlayer}
+          currentTrack={currentTrack}
+          setCurrentTrack={setCurrentTrack}
+        />
       </S.App>
     </>
   )

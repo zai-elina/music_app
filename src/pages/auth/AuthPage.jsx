@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 import * as S from './AuthPage.styles'
 import { useEffect, useState } from 'react'
-import { loginUser, registerUser } from '../../api/Api'
+import { getToken, loginUser, refreshToken, registerUser } from '../../api/Api'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/User'
 
+
 export default function AuthPage({ isLoginMode = false }) {
-  const { authUser, setAuthUser } = useContext(UserContext)
+  const { setAuthUser } = useContext(UserContext)
   const navigate = useNavigate()
   const [error, setError] = useState(null)
   const [email, setEmail] = useState('')
@@ -28,15 +29,21 @@ export default function AuthPage({ isLoginMode = false }) {
     setLoginLoading(true)
     try {
       const user = await loginUser({ email, password })
-      localStorage.setItem('user', JSON.stringify(user))
       setAuthUser(user)
-      console.log(authUser)
       navigate('/')
     } catch (error) {
       console.log(error)
       setError(error.message)
     } finally {
       setLoginLoading(false)
+    }
+
+    try {
+      const token = await getToken({ email, password })
+      const tokenRefresh = token.refresh
+      const access = await refreshToken(tokenRefresh)
+    } catch (error) {
+      console.log(error)
     }
   }
 

@@ -13,7 +13,7 @@ function MenuItem({ name, path }) {
 export default function Menu() {
   const links = [
     { id: 1, name: 'Главное', path: '/' },
-    { id: 2, name: 'Мой плейлист', path: '/favorites' },
+    { id: 2, name: 'Мой треки', path: '/favorite' },
     { id: 3, name: 'Выйти', path: '/logout' },
   ]
   return (

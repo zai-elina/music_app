@@ -106,7 +106,7 @@ export default function MusicList({
     <S.MusicList>
       {loading && <SkeletonMusic />}
       {!loading &&
-        musicItems.map((item) => (
+        musicItems?musicItems.map((item) => (
           <Music
             key={item.id}
             svgUrl={item.logo ? item.logo : 'img/icon/sprite.svg#icon-note'}
@@ -121,7 +121,7 @@ export default function MusicList({
             id={item.id}
             isAnimatePlayTrack={isAnimatePlayTrack}
           />
-        ))}
+        )):<h2>В этом плейлисте нет треков</h2>}
     </S.MusicList>
   )
 }
