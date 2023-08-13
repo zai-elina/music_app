@@ -1,7 +1,7 @@
 import SkeletonMusic from './SkeletonMusics'
 import * as S from './Musics.style'
 import { useDispatch, useSelector } from 'react-redux'
-import { setTrack } from '../../../store/actions/creators/tracks'
+import { setPlaylist, setTrack } from '../../../store/actions/creators/tracks'
 import { trackSelector } from '../../../store/selectors/tracks'
 
 function formatTime(number) {
@@ -25,6 +25,7 @@ function Music(props) {
       length: time,
     })
     dispatch(setTrack(id))
+    dispatch(setPlaylist({...props.musicItems}))
   }
 
   return (
@@ -120,6 +121,7 @@ export default function MusicList({
             setCurrentTrack={setCurrentTrack}
             id={item.id}
             isAnimatePlayTrack={isAnimatePlayTrack}
+            musicItems={musicItems}
           />
         )):<h2>В этом плейлисте нет треков</h2>}
     </S.MusicList>
