@@ -3,6 +3,13 @@ import * as S from './Musics.style'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPlaylist, setTrack } from '../../../store/actions/creators/tracks'
 import { trackSelector } from '../../../store/selectors/tracks'
+import {
+  useDislikeTrackMutation,
+  useLikeTrackMutation,
+} from '../../../services/favoriteTracks'
+import { useState } from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../../../contexts/User'
 
 function formatTime(number) {
   let str = String(number)
@@ -13,10 +20,17 @@ function formatTime(number) {
 function Music(props) {
   const dispatch = useDispatch()
   const playingTrack = useSelector(trackSelector)
+  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const isUserLike =
+    props.isMyTrack ||
+    Boolean(props.staredUser?.find((item) => item.id === props.user.id))
+  const [isLiked, setIsLiked] = useState(isUserLike)
+
   const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time, id) => {
     props.setIsOpenPlayer(true)
     props.setCurrentTrack({
-      id:id,
+      id: id,
       author: musicAuthor,
       title: musicTitle,
       svgUrl: svgUrl,
@@ -25,7 +39,20 @@ function Music(props) {
       length: time,
     })
     dispatch(setTrack(id))
-    dispatch(setPlaylist({...props.musicItems}))
+    dispatch(setPlaylist({ ...props.musicItems }))
+  }
+
+  const toogleLikeDislike = (id) =>
+    isLiked ? handleDislike(id) : handleLike(id)
+
+  const handleLike = (id) => {
+    setIsLiked(true)
+    likeTrack({ id })
+  }
+
+  const handleDislike = (id) => {
+    setIsLiked(false)
+    dislikeTrack({ id })
   }
 
   return (
@@ -35,7 +62,12 @@ function Music(props) {
           <S.TrackTitleImage>
             <S.TrackTitleSvg alt="music">
               {playingTrack?.id === props.id ? (
-                <S.Circle $isAnimate={props.isAnimatePlayTrack} cx="10px" cy="10px" r="7.5" />
+                <S.Circle
+                  $isAnimate={props.isAnimatePlayTrack}
+                  cx="10px"
+                  cy="10px"
+                  r="7.5"
+                />
               ) : (
                 <use xlinkHref={props.svgUrl}></use>
               )}
@@ -83,9 +115,16 @@ function Music(props) {
           <S.TrackAlbumLink href="http://">{props.album}</S.TrackAlbumLink>
         </S.TrackAlbum>
         <div>
-          <S.TrackTimeSvg alt="time">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </S.TrackTimeSvg>
+          <S.TrackLike alt="like" onClick={() => toogleLikeDislike(props.id)}>
+            {isLiked ? (
+              <use
+                xlinkHref="img/icon/sprite.svg#icon-like"
+                fill="#696969"
+              ></use>
+            ) : (
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+            )}
+          </S.TrackLike>
           <S.TrackTimeText>
             {formatTime(Math.floor((props.time % 3600) / 60))}:
             {formatTime(Math.floor((props.time % 3600) % 60))}
@@ -101,13 +140,17 @@ export default function MusicList({
   musicItems,
   setIsOpenPlayer,
   setCurrentTrack,
-  isAnimatePlayTrack
+  isAnimatePlayTrack,
+  isMyTrack = false,
 }) {
+  const { authUser } = useContext(UserContext)
   return (
     <S.MusicList>
       {loading && <SkeletonMusic />}
-      {!loading &&
-        musicItems?musicItems.map((item) => (
+      {!loading && musicItems?.length === 0 ? (
+        <h2>В этом плейлисте нет треков</h2>
+      ) : (
+        musicItems?.map((item) => (
           <Music
             key={item.id}
             svgUrl={item.logo ? item.logo : 'img/icon/sprite.svg#icon-note'}
@@ -120,10 +163,14 @@ export default function MusicList({
             setIsOpenPlayer={setIsOpenPlayer}
             setCurrentTrack={setCurrentTrack}
             id={item.id}
+            staredUser={item.stared_user?item.stared_user:[]}
             isAnimatePlayTrack={isAnimatePlayTrack}
             musicItems={musicItems}
+            user={authUser}
+            isMyTrack={isMyTrack}
           />
-        )):<h2>В этом плейлисте нет треков</h2>}
+        ))
+      )}
     </S.MusicList>
   )
 }

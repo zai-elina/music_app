@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import trackReducer from './reducers/tracks'
 import thunk from 'redux-thunk'
-import { myTracksApi } from '../services/myTracks'
+import { favoriteTracksApi } from '../services/favoriteTracks'
 
 //configureStore объединяет все Reducers
 export const store = configureStore({
   reducer: {
     audioplayer: trackReducer,
-    [myTracksApi.reducerPath]: myTracksApi.reducer,
+    [favoriteTracksApi.reducerPath]: favoriteTracksApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(myTracksApi.middleware),
+    getDefaultMiddleware().concat(favoriteTracksApi.middleware),
 })

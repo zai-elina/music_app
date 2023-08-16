@@ -14,15 +14,13 @@ import PageMyTracks from './pages/my-tracks/PageMyTracks'
 import { useState } from 'react'
 
 export const AppRoutes = ({
-  loading,
-  musicItems,
   isOpenPlayer,
   setIsOpenPlayer,
   currentTrack,
   setCurrentTrack,
 }) => {
   const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(true)
-  
+
   return (
     <UserProvider>
       <Routes>
@@ -31,7 +29,6 @@ export const AppRoutes = ({
             path="/"
             element={
               <PageLayout
-                loading={loading}
                 isOpenPlayer={isOpenPlayer}
                 currentTrack={currentTrack}
                 setCurrentTrack={setCurrentTrack}
@@ -43,8 +40,6 @@ export const AppRoutes = ({
               path="/"
               element={
                 <CenterBlock
-                  loading={loading}
-                  musicItems={musicItems}
                   setIsOpenPlayer={setIsOpenPlayer}
                   setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
@@ -55,7 +50,6 @@ export const AppRoutes = ({
               path="/favorite"
               element={
                 <PageMyTracks
-                  loading={loading}
                   setIsOpenPlayer={setIsOpenPlayer}
                   setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
@@ -67,7 +61,7 @@ export const AppRoutes = ({
           </Route>
         </Route>
 
-        <Route path="/login" element={<AuthPage isLoginMode={true}/>} />
+        <Route path="/login" element={<AuthPage isLoginMode={true} />} />
         <Route path="/register" element={<AuthPage isLoginMode={false} />} />
         <Route path="/logout" element={<ProtectedRouteLogout />} />
 

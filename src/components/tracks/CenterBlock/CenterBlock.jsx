@@ -2,14 +2,31 @@ import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
 import * as S from './CenterBlock.style'
 import MusicList from '../Musics/Music'
+import { useState, useEffect } from 'react'
+import { getTracks } from '../../../api/Api'
+import { useDispatch } from 'react-redux'
+import { setPlaylist } from '../../../store/actions/creators/tracks'
 
 export default function CenterBlock({
-  loading,
-  musicItems,
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
 }) {
+  const dispatch = useDispatch()
+  const [loading, setLoading] = useState(false)
+  const [musicItems, setmusicItems] = useState([])
+  useEffect(() => {
+    setLoading(true)
+    getTracks()
+      .then((tracks) => {
+        setmusicItems(tracks)
+        dispatch(setPlaylist({ ...tracks }))
+      })
+      .catch((error) => alert(error))
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
   return (
     <S.Centerblock>
       <Search />

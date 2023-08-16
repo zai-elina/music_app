@@ -1,16 +1,14 @@
 import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
 import MusicList from '../../components/tracks/Musics/Music'
-import { useGetAllMyTracksQuery } from '../../services/myTracks'
+import { useGetAllMyTracksQuery } from '../../services/favoriteTracks'
 
 export default function PageMyTracks({
-  loading,
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
 }) {
-  
-  const { data,error,isLoading } = useGetAllMyTracksQuery()
+  const { data, error, isLoading } = useGetAllMyTracksQuery()
   return (
     <S.Centerblock>
       <Search />
@@ -26,13 +24,18 @@ export default function PageMyTracks({
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>
-        <MusicList
-          loading={isLoading}
-          musicItems={data}
-          setIsOpenPlayer={setIsOpenPlayer}
-          setCurrentTrack={setCurrentTrack}
-          isAnimatePlayTrack={isAnimatePlayTrack}
-        />
+        {error? (
+          <h2>Не удалось загрузить мои треки</h2>
+        ) : (
+          <MusicList
+            loading={isLoading}
+            musicItems={data}
+            setIsOpenPlayer={setIsOpenPlayer}
+            setCurrentTrack={setCurrentTrack}
+            isAnimatePlayTrack={isAnimatePlayTrack}
+            isMyTrack={true}
+          />
+        )}
       </S.CenterBlockContent>
     </S.Centerblock>
   )
