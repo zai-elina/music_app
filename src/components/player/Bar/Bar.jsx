@@ -12,7 +12,7 @@ import {
   nextTrack,
   prevTrack,
   setShufflePlaylist,
-} from '../../../store/actions/creators/tracks'
+} from '../../../store/slices/tracks'
 
 function formatTime(time) {
   let minutes = Math.floor(time / 60)

@@ -1,7 +1,7 @@
 import SkeletonMusic from './SkeletonMusics'
 import * as S from './Musics.style'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPlaylist, setTrack } from '../../../store/actions/creators/tracks'
+import { setPlaylist, setTrack } from '../../../store/slices/tracks'
 import { trackSelector } from '../../../store/selectors/tracks'
 import {
   useDislikeTrackMutation,
@@ -119,7 +119,7 @@ function Music(props) {
             {isLiked ? (
               <use
                 xlinkHref="img/icon/sprite.svg#icon-like"
-                fill="#696969"
+                fill="#ad61ff"
               ></use>
             ) : (
               <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
@@ -163,7 +163,7 @@ export default function MusicList({
             setIsOpenPlayer={setIsOpenPlayer}
             setCurrentTrack={setCurrentTrack}
             id={item.id}
-            staredUser={item.stared_user?item.stared_user:[]}
+            staredUser={item.stared_user ? item.stared_user : []}
             isAnimatePlayTrack={isAnimatePlayTrack}
             musicItems={musicItems}
             user={authUser}

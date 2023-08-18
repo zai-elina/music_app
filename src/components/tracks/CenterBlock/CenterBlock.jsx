@@ -5,7 +5,7 @@ import MusicList from '../Musics/Music'
 import { useState, useEffect } from 'react'
 import { getTracks } from '../../../api/Api'
 import { useDispatch } from 'react-redux'
-import { setPlaylist } from '../../../store/actions/creators/tracks'
+import { setPlaylist } from '../../../store/slices/tracks'
 
 export default function CenterBlock({
   setIsOpenPlayer,
