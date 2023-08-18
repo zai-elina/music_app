@@ -8,7 +8,6 @@ export function PersonData() {
   return (
     <S.Personal>
       <S.PersonalName>{authUser.username}</S.PersonalName>
-      <S.PersonalAvatar></S.PersonalAvatar>
       <NavLink to="/logout">
         <svg
           width="40"

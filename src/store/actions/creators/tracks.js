@@ -4,7 +4,6 @@ import {
   NEXT_TRACK,
   PREV_TRACK,
   SHUFFLE_PLAYLIST,
-  PAUSE_TRACK,
 } from '../types/tracks'
 
 export const setTrack = (id) => ({

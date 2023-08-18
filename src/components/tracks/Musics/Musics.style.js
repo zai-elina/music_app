@@ -113,6 +113,11 @@ export const TrackTimeSvg = styled.svg`
   fill: transparent;
   stroke: #696969;
 `
+
+export const TrackLike = styled(TrackTimeSvg)`
+  cursor: pointer;
+`
+
 export const TrackTimeText = styled.span`
   font-style: normal;
   font-weight: 400;

@@ -4,7 +4,6 @@ import {
   PREV_TRACK,
   SHUFFLE_PLAYLIST,
   SET_PLAYLIST,
-  PAUSE_TRACK,
 } from '../actions/types/tracks'
 
 const initialState = {
