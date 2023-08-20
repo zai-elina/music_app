@@ -142,6 +142,7 @@ export default function MusicList({
   setCurrentTrack,
   isAnimatePlayTrack,
   isMyTrack = false,
+  searchItems
 }) {
   const { authUser } = useContext(UserContext)
   return (
@@ -149,7 +150,7 @@ export default function MusicList({
       {loading && <SkeletonMusic />}
       {!loading && musicItems?.length === 0 ? (
         <h2>В этом плейлисте нет треков</h2>
-      ) : (
+      ) : ( 
         musicItems?.map((item) => (
           <Music
             key={item.id}

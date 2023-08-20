@@ -1,21 +1,23 @@
+import { useParams } from 'react-router-dom'
 import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
 import MusicList from '../../components/tracks/Musics/Music'
-import { useGetAllMyTracksQuery } from '../../services/favoriteTracks'
+import { useGetCatalogSectionTracksQuery } from '../../services/catalogSection'
 import { searchMusic } from '../../help'
 import { useState } from 'react'
 
-export default function PageMyTracks({
+export default function Catalog({
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
 }) {
-  const { data, error, isLoading } = useGetAllMyTracksQuery()
+  const { id } = useParams()
+  const { data, error, isLoading } = useGetCatalogSectionTracksQuery(id)
   const [searchValue, setSearchValue] = useState('')
   return (
     <S.Centerblock>
       <Search setSearchValue={setSearchValue} />
-      <S.CenterBlockTitle>Мои треки</S.CenterBlockTitle>
+      <S.CenterBlockTitle>{data?.name}</S.CenterBlockTitle>
       <S.CenterBlockContent>
         <S.ContentTitle>
           <S.PlaylistTitle $width={'447px'}>Трек</S.PlaylistTitle>
@@ -28,20 +30,24 @@ export default function PageMyTracks({
           </S.PlaylistTitle>
         </S.ContentTitle>
         {error ? (
-          <h2>Не удалось загрузить мои треки</h2>
+          <h2>Не удалось загрузить треки</h2>
         ) : (
           <>
             {searchValue &&
-            searchMusic(searchValue, data).length === 0 ? (
+            searchMusic(searchValue, data?.items).length === 0 ? (
               <h2>Ничего не найдено</h2>
             ) : (
               <MusicList
                 loading={isLoading}
-                musicItems={searchValue ? searchMusic(searchValue, data) : data}
+                musicItems={
+                  searchValue
+                    ? searchMusic(searchValue, data?.items)
+                    : data?.items
+                }
                 setIsOpenPlayer={setIsOpenPlayer}
                 setCurrentTrack={setCurrentTrack}
                 isAnimatePlayTrack={isAnimatePlayTrack}
-                isMyTrack={true}
+                isMyTrack={false}
               />
             )}
           </>

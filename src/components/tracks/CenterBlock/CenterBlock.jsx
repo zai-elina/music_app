@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { getTracks } from '../../../api/Api'
 import { useDispatch } from 'react-redux'
 import { setPlaylist } from '../../../store/slices/tracks'
+import { searchMusic } from '../../../help'
 
 export default function CenterBlock({
   setIsOpenPlayer,
@@ -15,6 +16,8 @@ export default function CenterBlock({
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const [musicItems, setmusicItems] = useState([])
+  const [searchValue, setSearchValue] = useState('')
+
   useEffect(() => {
     setLoading(true)
     getTracks()
@@ -27,9 +30,10 @@ export default function CenterBlock({
         setLoading(false)
       })
   }, [])
+
   return (
     <S.Centerblock>
-      <Search />
+      <Search setSearchValue={setSearchValue} />
       <S.CenterBlockTitle>Треки</S.CenterBlockTitle>
       <Filter />
       <S.CenterBlockContent>
@@ -43,13 +47,19 @@ export default function CenterBlock({
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>
-        <MusicList
-          loading={loading}
-          musicItems={musicItems}
-          setIsOpenPlayer={setIsOpenPlayer}
-          setCurrentTrack={setCurrentTrack}
-          isAnimatePlayTrack={isAnimatePlayTrack}
-        />
+        {searchValue && searchMusic(searchValue, musicItems).length === 0 ? (
+          <h2>Ничего не найдено</h2>
+        ) : (
+          <MusicList
+            loading={loading}
+            musicItems={
+              searchValue ? searchMusic(searchValue, musicItems) : musicItems
+            }
+            setIsOpenPlayer={setIsOpenPlayer}
+            setCurrentTrack={setCurrentTrack}
+            isAnimatePlayTrack={isAnimatePlayTrack}
+          />
+        )}
       </S.CenterBlockContent>
     </S.Centerblock>
   )
