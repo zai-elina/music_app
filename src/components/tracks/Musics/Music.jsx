@@ -27,7 +27,15 @@ function Music(props) {
     Boolean(props.staredUser?.find((item) => item.id === props.user.id))
   const [isLiked, setIsLiked] = useState(isUserLike)
 
-  const playTrack = (musicAuthor, musicTitle, svgUrl, trackFile, time, id) => {
+  const playTrack = (
+    musicAuthor,
+    musicTitle,
+    svgUrl,
+    trackFile,
+    time,
+    id,
+    staredUser
+  ) => {
     props.setIsOpenPlayer(true)
     props.setCurrentTrack({
       id: id,
@@ -37,6 +45,7 @@ function Music(props) {
       trackFile: trackFile,
       progress: 0,
       length: time,
+      staredUser: staredUser,
     })
     dispatch(setTrack(id))
     dispatch(setPlaylist({ ...props.musicItems }))
@@ -82,7 +91,8 @@ function Music(props) {
                   props.svgUrl,
                   props.trackFile,
                   props.time,
-                  props.id
+                  props.id,
+                  props.staredUser
                 )
               }}
             >
@@ -104,7 +114,8 @@ function Music(props) {
                 props.svgUrl,
                 props.trackFile,
                 props.time,
-                props.id
+                props.id,
+                props.staredUser
               )
             }}
           >
@@ -142,7 +153,6 @@ export default function MusicList({
   setCurrentTrack,
   isAnimatePlayTrack,
   isMyTrack = false,
-  searchItems
 }) {
   const { authUser } = useContext(UserContext)
   return (
@@ -150,7 +160,7 @@ export default function MusicList({
       {loading && <SkeletonMusic />}
       {!loading && musicItems?.length === 0 ? (
         <h2>В этом плейлисте нет треков</h2>
-      ) : ( 
+      ) : (
         musicItems?.map((item) => (
           <Music
             key={item.id}

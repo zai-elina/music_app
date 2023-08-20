@@ -102,8 +102,9 @@ export const LikeAndDislike = styled.div`
   }
 `
 export const LikeAndDislikeSvg = styled.svg`
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
-  fill: transparent;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 20px;
   stroke: #696969;
 `

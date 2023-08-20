@@ -1,6 +1,28 @@
+import { useContext, useState } from 'react'
+import { useDislikeTrackMutation, useLikeTrackMutation } from '../../../services/favoriteTracks'
 import * as S from './PlayingTrack.styles'
+import { UserContext } from '../../../contexts/User'
 
 export function PlayingTrack({ currentTrack }) {
+  const { authUser } = useContext(UserContext)
+  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
+  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
+  const isUserLike = Boolean(currentTrack.staredUser?.find((item) => item.id === authUser.id))
+  const [isLiked, setIsLiked] = useState(isUserLike)
+
+
+  const toogleLikeDislike = (id) =>
+    isLiked ? handleDislike(id) : handleLike(id)
+
+  const handleLike = async (id) => {
+    setIsLiked(true)
+    await likeTrack({ id }).unwrap()
+  }
+
+  const handleDislike = async (id) => {
+    setIsLiked(false)
+    await dislikeTrack({ id }).unwrap()
+  }
   return (
     <S.TrackPlay>
       <S.TrackPlayContain>
@@ -23,17 +45,15 @@ export function PlayingTrack({ currentTrack }) {
 
       <S.LikeAndDislikeContainer>
         <S.LikeAndDislike>
-          <S.LikeAndDislikeSvg $width={'14px'} $height={'12px'} alt="like">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-          </S.LikeAndDislikeSvg>
-        </S.LikeAndDislike>
-        <S.LikeAndDislike $left={'28.5px'}>
-          <S.LikeAndDislikeSvg
-            $width={'14.34px'}
-            $height={'13px'}
-            alt="dislike"
-          >
-            <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+          <S.LikeAndDislikeSvg alt="like" onClick={() => toogleLikeDislike(currentTrack.id)}>
+          {isLiked?(
+              <use
+                xlinkHref="img/icon/sprite.svg#icon-like"
+                fill="#ad61ff"
+              ></use>
+            ) : (
+              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+            )}
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
       </S.LikeAndDislikeContainer>
