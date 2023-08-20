@@ -8,7 +8,10 @@ export const MusicList = styled.div`
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+  }
 `
 export const Music = styled.div`
   width: 100%;

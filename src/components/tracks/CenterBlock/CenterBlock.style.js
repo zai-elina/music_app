@@ -6,7 +6,6 @@ export const Centerblock = styled.div`
   flex-positive: 3;
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
-  overflow-y: scroll;
   height: 100vh;
 `
 export const CenterBlockTitle = styled.h2`
@@ -25,6 +24,7 @@ export const CenterBlockContent = styled.div`
   direction: normal;
   flex-direction: column;
   flex-direction: column;
+  height: 100%;
 `
 
 export const ContentTitle = styled.div`

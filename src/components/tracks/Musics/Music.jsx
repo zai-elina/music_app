@@ -45,14 +45,14 @@ function Music(props) {
   const toogleLikeDislike = (id) =>
     isLiked ? handleDislike(id) : handleLike(id)
 
-  const handleLike = (id) => {
+  const handleLike = async (id) => {
     setIsLiked(true)
-    likeTrack({ id })
+    await likeTrack({ id }).unwrap()
   }
 
-  const handleDislike = (id) => {
+  const handleDislike = async (id) => {
     setIsLiked(false)
-    dislikeTrack({ id })
+    await dislikeTrack({ id }).unwrap()
   }
 
   return (
