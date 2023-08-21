@@ -78,6 +78,7 @@ export default function Bar({
       trackFile: trackList[index].track_file,
       progress: 0,
       length: trackList[index].duration_in_seconds,
+      staredUser: trackList[index].stared_user,
     })
     dispatch(nextTrack(trackList[index].id))
   }
@@ -100,6 +101,7 @@ export default function Bar({
       trackFile: trackList[index].track_file,
       progress: 0,
       length: trackList[index].duration_in_seconds,
+      staredUser: trackList[index].stared_user,
     })
     dispatch(prevTrack(trackList[index].id))
   }

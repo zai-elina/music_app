@@ -18,7 +18,7 @@ export const AppRoutes = ({
   currentTrack,
   setCurrentTrack,
 }) => {
-  const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(true)
+  const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(isOpenPlayer)
 
   return (
     <UserProvider>
