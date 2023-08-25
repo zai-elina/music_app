@@ -1,9 +1,11 @@
-import NavBar from '../../components/layout/navigation/NavBar/NavBar'
+import { NavBarDesktop } from '../../components/layout/navigation/NavBar/NavBar'
 import Sidebar from '../../components/tracks/Sidebar/Sidebar'
 import * as S from './PageLayout.styles'
 import Bar from '../../components/player/Bar/Bar'
 import Footer from '../../components/layout/footer/Footer'
 import { Outlet } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
+import { NavBarLaptop } from '../../components/layout/navigation/NavBarLaptop/NavBarLaptop'
 
 export default function PageLayout({
   loading,
@@ -11,13 +13,25 @@ export default function PageLayout({
   currentTrack,
   setCurrentTrack,
   setIsAnimatePlayTrack,
-  setIsUserLikeInBar
+  setIsUserLikeInBar,
 }) {
+  const isDesktop = useMediaQuery({
+    query: '(min-width: 1896px)',
+  })
   return (
     <S.Main>
-      <NavBar />
-      <Outlet />
-      <Sidebar loading={loading} />
+      {isDesktop ? (
+        <>
+          <NavBarDesktop />
+          <Outlet />
+          <Sidebar loading={loading} />
+        </>
+      ) : (
+        <>
+          <NavBarLaptop />
+          <Outlet />
+        </>
+      )}
       {isOpenPlayer && (
         <Bar
           currentTrack={currentTrack}

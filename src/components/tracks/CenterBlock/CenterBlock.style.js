@@ -24,7 +24,10 @@ export const CenterBlockContent = styled.div`
   direction: normal;
   flex-direction: column;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+  @media (min-height: 637px) {
+    height: 50vh;
+  }
 `
 
 export const ContentTitle = styled.div`

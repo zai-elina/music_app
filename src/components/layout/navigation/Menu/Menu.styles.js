@@ -17,4 +17,8 @@ export const NavMenu = styled.div`
 
 export const MenuList = styled.ul`
   padding: 18px 0 10px 0;
+  @media (max-width: 1896px) {
+    display: flex;
+    gap:10px;
+  }
 `

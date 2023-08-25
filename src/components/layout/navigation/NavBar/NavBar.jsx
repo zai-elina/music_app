@@ -1,8 +1,8 @@
 import Logo from '../Logo/Logo'
 import NavBurger from '../NavBurger/NavBurger'
-import * as S from "./NavBar.styles"
+import * as S from './NavBar.styles'
 
-export default function NavBar() {
+export const NavBarDesktop = () => {
   return (
     <S.MainNav>
       <Logo />

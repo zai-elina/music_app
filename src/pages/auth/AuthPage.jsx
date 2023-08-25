@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import * as S from './AuthPage.styles'
 import { useEffect, useState } from 'react'
-import { getToken, loginUser, refreshToken, registerUser } from '../../api/Api'
+import { getToken, loginUser, registerUser } from '../../api/Api'
 import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/User'
-
+import { useDispatch } from 'react-redux'
+import { setAuth } from '../../store/slices/auth'
 
 export default function AuthPage({ isLoginMode = false }) {
   const { setAuthUser } = useContext(UserContext)
@@ -16,6 +17,7 @@ export default function AuthPage({ isLoginMode = false }) {
   const [repeatPassword, setRepeatPassword] = useState('')
   const [loginLoading, setLoginLoading] = useState(false)
   const [registerLoading, setRegisterLoading] = useState(false)
+  const dispatch = useDispatch()
 
   const handleLogin = async ({ email, password }) => {
     if (!email) {
@@ -29,6 +31,7 @@ export default function AuthPage({ isLoginMode = false }) {
     setLoginLoading(true)
     try {
       const user = await loginUser({ email, password })
+      localStorage.setItem('user', user);
       setAuthUser(user)
       navigate('/')
     } catch (error) {
@@ -40,8 +43,7 @@ export default function AuthPage({ isLoginMode = false }) {
 
     try {
       const token = await getToken({ email, password })
-      const tokenRefresh = token.refresh
-      const access = await refreshToken(tokenRefresh)
+      dispatch(setAuth({ access: token.access, refresh: token.refresh }))
     } catch (error) {
       console.log(error)
     }
