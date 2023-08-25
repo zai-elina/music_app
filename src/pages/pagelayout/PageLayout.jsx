@@ -10,7 +10,8 @@ export default function PageLayout({
   isOpenPlayer,
   currentTrack,
   setCurrentTrack,
-  setIsAnimatePlayTrack
+  setIsAnimatePlayTrack,
+  setIsUserLikeInBar
 }) {
   return (
     <S.Main>
@@ -22,6 +23,7 @@ export default function PageLayout({
           currentTrack={currentTrack}
           setIsAnimatePlayTrack={setIsAnimatePlayTrack}
           setCurrentTrack={setCurrentTrack}
+          setIsUserLikeInBar={setIsUserLikeInBar}
         />
       )}
       <Footer />

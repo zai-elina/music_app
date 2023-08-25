@@ -12,6 +12,7 @@ export default function CenterBlock({
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
+  isUserLikeInBar,
 }) {
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -62,9 +63,7 @@ export default function CenterBlock({
     }
 
     //Фильтр по исполнителю
-    const activeFilterAuthorList = filterAuthor.filter(
-      (item) => item.isActive
-    )
+    const activeFilterAuthorList = filterAuthor.filter((item) => item.isActive)
     if (activeFilterAuthorList.length !== 0) {
       newPlaylist = newPlaylist.filter((music) =>
         activeFilterAuthorList.find((author) => music.author === author.author)
@@ -74,7 +73,6 @@ export default function CenterBlock({
     setmusicItems(newPlaylist)
     dispatch(setPlaylist({ ...newPlaylist }))
   }, [activeSortYear, activeFilterGenre, filterAuthor])
-
 
   return (
     <S.Centerblock>
@@ -112,6 +110,7 @@ export default function CenterBlock({
             setIsOpenPlayer={setIsOpenPlayer}
             setCurrentTrack={setCurrentTrack}
             isAnimatePlayTrack={isAnimatePlayTrack}
+            isUserLikeInBar={isUserLikeInBar}
           />
         )}
       </S.CenterBlockContent>

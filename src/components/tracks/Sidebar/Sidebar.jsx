@@ -1,16 +1,16 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
 import * as S from './Sidebar.style'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { PersonData } from '../../account/PersonData/PersonData'
 
 function PlaylistsItem(props) {
   return (
     <S.PlaylistsItem>
-      <Link to={`${props.path}/${props.id}`}>
+      <NavLink to={`${props.path}/${props.id}`}>
         <S.PlaylistsItemLink>
           <S.PlaylistsItemImage src={props.imageUrl} alt="day's playlist" />
         </S.PlaylistsItemLink>
-      </Link>
+      </NavLink>
     </S.PlaylistsItem>
   )
 }

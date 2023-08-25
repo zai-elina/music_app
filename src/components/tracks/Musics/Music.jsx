@@ -127,7 +127,7 @@ function Music(props) {
         </S.TrackAlbum>
         <div>
           <S.TrackLike alt="like" onClick={() => toogleLikeDislike(props.id)}>
-            {isLiked ? (
+            {isLiked || (props.isUserLikeInBar && playingTrack?.id === props.id) ? (
               <use
                 xlinkHref="img/icon/sprite.svg#icon-like"
                 fill="#ad61ff"
@@ -153,6 +153,7 @@ export default function MusicList({
   setCurrentTrack,
   isAnimatePlayTrack,
   isMyTrack = false,
+  isUserLikeInBar,
 }) {
   const { authUser } = useContext(UserContext)
   return (
@@ -179,6 +180,7 @@ export default function MusicList({
             musicItems={musicItems}
             user={authUser}
             isMyTrack={isMyTrack}
+            isUserLikeInBar={isUserLikeInBar}
           />
         ))
       )}

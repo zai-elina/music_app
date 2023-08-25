@@ -10,6 +10,7 @@ export default function Catalog({
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
+  isUserLikeInBar
 }) {
   const { id } = useParams()
   const { data, error, isLoading } = useGetCatalogSectionTracksQuery(id)
@@ -48,6 +49,7 @@ export default function Catalog({
                 setCurrentTrack={setCurrentTrack}
                 isAnimatePlayTrack={isAnimatePlayTrack}
                 isMyTrack={false}
+                isUserLikeInBar={isUserLikeInBar}
               />
             )}
           </>

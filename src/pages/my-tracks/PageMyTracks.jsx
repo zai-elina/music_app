@@ -9,6 +9,7 @@ export default function PageMyTracks({
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
+  isUserLikeInBar
 }) {
   const { data, error, isLoading } = useGetAllMyTracksQuery()
   const [searchValue, setSearchValue] = useState('')
@@ -42,6 +43,7 @@ export default function PageMyTracks({
                 setCurrentTrack={setCurrentTrack}
                 isAnimatePlayTrack={isAnimatePlayTrack}
                 isMyTrack={true}
+                isUserLikeInBar={isUserLikeInBar}
               />
             )}
           </>
