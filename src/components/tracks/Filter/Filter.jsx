@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import * as S from './Filter.styles'
+import { useGetCatalogSectionQuery } from '../../../services/catalogSection'
 
 function FilterForYear({ activeSortYear, setAciveSortYear, $height }) {
   const yearList = ['По умолчанию', 'Сначала новые', 'Сначала старые']
@@ -30,30 +31,109 @@ function FilterForYear({ activeSortYear, setAciveSortYear, $height }) {
   )
 }
 
-function FilterSelector({ list, $height }) {
+function FilterForGenre({
+  activeFilterGenre,
+  setAciveFilterGenre,
+  isActiveFiltersGenre,
+  setIsActiveFiltersGenre,
+  $height,
+}) {
+  const genreList = useGetCatalogSectionQuery()?.data
+  const genreName = ['Классическая музыка', 'Электронная музыка', 'Рок музыка']
+
+  const toogleFilterGenre = (filter) => {
+    isActiveFiltersGenre.find((item) => item.id === filter.id && item.isActive)
+      ? setAciveFilterGenre([
+          ...activeFilterGenre.filter((item) => item !== filter),
+        ])
+      : setAciveFilterGenre([...activeFilterGenre, filter])
+    setIsActiveFiltersGenre([
+      ...isActiveFiltersGenre.map((item) =>
+        item.id === filter.id
+          ? { ...item, isActive: !item.isActive }
+          : item
+      ),
+    ])
+  }
   return (
     <S.FilterSelector $height={$height}>
       <S.FilterItems>
-        {list.map((item) => (
-          <S.FilterItem key={item}>{item}</S.FilterItem>
-        ))}
+        {genreList?.map((genre) =>
+          activeFilterGenre.find(
+            (activeGenre) => activeGenre.id === genre.id
+          ) ? (
+            <S.FilterItem
+              onClick={() => toogleFilterGenre(genre)}
+              className="active"
+              key={genre.id}
+            >
+              {genreName[genre.id - 1]}
+            </S.FilterItem>
+          ) : (
+            <S.FilterItem
+              onClick={() => toogleFilterGenre(genre)}
+              key={genre.id}
+            >
+              {genreName[genre.id - 1]}
+            </S.FilterItem>
+          )
+        )}
       </S.FilterItems>
     </S.FilterSelector>
   )
 }
 
-export default function Filter({ activeSortYear, setAciveSortYear }) {
+function FilterForAuthor({
+  $height,
+  filterAuthor,
+  setFilterAuthor,
+}) {
+  const toogleFilterAuthor = (filter) => {
+    setFilterAuthor([
+      ...filterAuthor.map((item) =>
+        item === filter
+          ? { ...item, isActive: !item.isActive }
+          : item
+      ),
+    ])
+  }
+  return (
+    <S.FilterSelector $height={$height}>
+      <S.FilterItems>
+        {filterAuthor?.map((author) =>
+          author.isActive ? (
+            <S.FilterItem
+              onClick={() => toogleFilterAuthor(author)}
+              className="active"
+              key={author.id}
+            >
+              {author.author}
+            </S.FilterItem>
+          ) : (
+            <S.FilterItem
+              onClick={() => toogleFilterAuthor(author)}
+              key={author.id}
+            >
+              {author.author}
+            </S.FilterItem>
+          )
+        )}
+      </S.FilterItems>
+    </S.FilterSelector>
+  )
+}
+
+export default function Filter({
+  activeSortYear,
+  setAciveSortYear,
+  activeFilterGenre,
+  setAciveFilterGenre,
+  isActiveFiltersGenre,
+  setIsActiveFiltersGenre,
+  filterAuthor,
+  setFilterAuthor,
+}) {
   const [visibleFilter, setVisibleFilter] = useState(null)
-  const authorList = [
-    'Michael Jackson',
-    'Frank Sinatra',
-    'Calvin Harris',
-    'Zhu',
-    'Алла Пугачева',
-    'Скриптонит',
-    'Бузова',
-  ]
-  const genreList = ['Рок', 'Хип-хоп', 'Поп-музыка', 'Техно', 'Инди', 'Рэп']
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
@@ -70,8 +150,19 @@ export default function Filter({ activeSortYear, setAciveSortYear }) {
           >
             исполнителю
           </S.FilterButton>
+          {filterAuthor.filter((item) => item.isActive).length !== 0 ? (
+            <S.FilterButtonActive>
+              {filterAuthor.filter((item) => item.isActive).length}
+            </S.FilterButtonActive>
+          ) : (
+            ''
+          )}
           {visibleFilter === 'author' && (
-            <FilterSelector $height={'305px'} list={authorList} />
+            <FilterForAuthor
+              $height={'305px'}
+              filterAuthor={filterAuthor}
+              setFilterAuthor={setFilterAuthor}
+            />
           )}
         </S.FilterWrapper>
 
@@ -82,8 +173,21 @@ export default function Filter({ activeSortYear, setAciveSortYear }) {
           >
             жанру
           </S.FilterButton>
+          {activeFilterGenre.length !== 0 ? (
+            <S.FilterButtonActive>
+              {activeFilterGenre.length}
+            </S.FilterButtonActive>
+          ) : (
+            ''
+          )}
           {visibleFilter === 'genre' && (
-            <FilterSelector $height={'305px'} list={genreList} />
+            <FilterForGenre
+              activeFilterGenre={activeFilterGenre}
+              setAciveFilterGenre={setAciveFilterGenre}
+              isActiveFiltersGenre={isActiveFiltersGenre}
+              setIsActiveFiltersGenre={setIsActiveFiltersGenre}
+              $height={'305px'}
+            />
           )}
         </S.FilterWrapper>
       </S.Filter>

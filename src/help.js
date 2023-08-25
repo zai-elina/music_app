@@ -9,3 +9,14 @@ export function compare(a, b) {
 
   return dateB - dateA
 }
+
+export const createArrayOfAuthors = (tracks) => {
+  let arrayOfAuthors = [...new Set(tracks.map((music) => music.author).sort())]
+
+  arrayOfAuthors = arrayOfAuthors.map((item, index) => ({
+    id: index,
+    author: item,
+    isActive: false,
+  }))
+  return arrayOfAuthors
+}
