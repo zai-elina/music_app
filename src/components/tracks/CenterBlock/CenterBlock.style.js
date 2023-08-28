@@ -7,6 +7,9 @@ export const Centerblock = styled.div`
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
   height: 100vh;
+  @media (max-width: 1440px) {
+    padding: 20px 20px;
+  }
 `
 export const CenterBlockTitle = styled.h2`
   font-style: normal;
@@ -56,6 +59,11 @@ export const PlaylistTitle = styled.div`
   color: #696969;
   text-transform: uppercase;
   ${(props) => (props.$textAlign === 'end' ? 'text-align:end;' : '')}
+  @media (max-width: 1100px) {
+    &:not(:last-child) {
+      width: 30vw;
+    }
+  }
 `
 export const PlaylistTitleSvg = styled.svg`
   width: 12px;

@@ -31,7 +31,7 @@ export default function AuthPage({ isLoginMode = false }) {
     setLoginLoading(true)
     try {
       const user = await loginUser({ email, password })
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
       setAuthUser(user)
       navigate('/')
     } catch (error) {
@@ -43,7 +43,7 @@ export default function AuthPage({ isLoginMode = false }) {
 
     try {
       const token = await getToken({ email, password })
-      dispatch(setAuth({ access: token.access, refresh: token.refresh }))
+      dispatch(setAuth({ access: token.access, refresh: token.refresh,user: JSON.parse(localStorage.getItem('user'))}))
     } catch (error) {
       console.log(error)
     }

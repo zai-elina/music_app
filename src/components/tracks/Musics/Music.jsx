@@ -127,7 +127,8 @@ function Music(props) {
         </S.TrackAlbum>
         <div>
           <S.TrackLike alt="like" onClick={() => toogleLikeDislike(props.id)}>
-            {isLiked || (props.isUserLikeInBar && playingTrack?.id === props.id) ? (
+            {isLiked ||
+            (props.isUserLikeInBar && playingTrack?.id === props.id) ? (
               <use
                 xlinkHref="img/icon/sprite.svg#icon-like"
                 fill="#ad61ff"
@@ -155,7 +156,7 @@ export default function MusicList({
   isMyTrack = false,
   isUserLikeInBar,
 }) {
-  const { authUser } = useContext(UserContext)
+  const authUser = JSON.parse(localStorage.getItem('user'))
   return (
     <S.MusicList>
       {loading && <SkeletonMusic />}

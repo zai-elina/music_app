@@ -32,6 +32,9 @@ export const Track = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  @media (max-width: 1100px) {
+    justify-content: flex-start;
+  }
 `
 export const TrackTitle = styled.div`
   display: -webkit-box;
@@ -45,6 +48,9 @@ export const TrackTitle = styled.div`
   -ms-flex-align: center;
   align-items: center;
   width: 447px;
+  @media (max-width: 1100px) {
+    width: 30vw
+  }
 `
 export const TrackTitleImage = styled.div`
   width: 51px;
@@ -90,6 +96,9 @@ export const TrackAuthor = styled.div`
   -webkit-box-pack: start;
   -ms-flex-pack: start;
   justify-content: flex-start;
+  @media (max-width: 1100px) {
+    width: 30vw;
+  }
 `
 export const TrackAuthorLink = styled.a`
   font-style: normal;
@@ -101,6 +110,9 @@ export const TrackAuthorLink = styled.a`
 `
 export const TrackAlbum = styled.div`
   width: 245px;
+  @media (max-width: 1100px) {
+    width: 30vw;
+  }
 `
 export const TrackAlbumLink = styled.a`
   font-style: normal;
@@ -128,6 +140,9 @@ export const TrackTimeText = styled.span`
   line-height: 24px;
   text-align: right;
   color: #696969;
+  @media (max-width: 1100px) {
+    width: 5vw;
+  }
 `
 const animation = `
 animation: pulse 2s ease-in 0s infinite normal forwards;

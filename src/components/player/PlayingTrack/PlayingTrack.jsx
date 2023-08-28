@@ -4,10 +4,9 @@ import {
   useLikeTrackMutation,
 } from '../../../services/favoriteTracks'
 import * as S from './PlayingTrack.styles'
-import { UserContext } from '../../../contexts/User'
 
-export function PlayingTrack({ currentTrack,setIsUserLikeInBar }) {
-  const { authUser } = useContext(UserContext)
+export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
+  const authUser = JSON.parse(localStorage.getItem('user'))
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const [isLiked, setIsLiked] = useState(
@@ -65,18 +64,12 @@ export function PlayingTrack({ currentTrack,setIsUserLikeInBar }) {
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike> */}
         <S.LikeAndDislike>
-          <S.LikeAndDislikeSvg
-            onClick={() => toogleLikeDislike(currentTrack.id)}
-            $width={'14px'}
-            $height={'12px'}
-            alt="like"
-          >
+          <S.LikeAndDislikeSvg $width={'14px'} $height={'12px'} alt="like">
             <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
         <S.LikeAndDislike $left={'28.5px'}>
           <S.LikeAndDislikeSvg
-            onClick={() => toogleLikeDislike(currentTrack.id)}
             $width={'14.34px'}
             $height={'13px'}
             alt="dislike"
