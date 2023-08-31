@@ -1,6 +1,4 @@
-import { useContext } from 'react'
 import { Navigate, Outlet } from 'react-router-dom'
-import { UserContext } from '../../contexts/User'
 
 export const ProtectedRoute = ({ redirectPath = '/login' }) => {
   const authUser = JSON.parse(localStorage.getItem('user'))

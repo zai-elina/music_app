@@ -9,7 +9,7 @@ function FilterForYear({ activeSortYear, setAciveSortYear, $height }) {
     setAciveSortYear(filter)
   }
   return (
-    <S.FilterSelector $height={$height}>
+    <S.FilterSelector $height={$height} $right={true}>
       <S.FilterItems>
         {yearList.map((item) =>
           activeSortYear === item ? (
@@ -42,16 +42,16 @@ function FilterForGenre({
   const genreName = ['Классическая музыка', 'Электронная музыка', 'Рок музыка']
 
   const toogleFilterGenre = (filter) => {
-    isActiveFiltersGenre.find((item) => item.id === filter.id && item.isActive)
+    isActiveFiltersGenre.find(
+      ({ id, isActive }) => id === filter.id && isActive
+    )
       ? setAciveFilterGenre([
           ...activeFilterGenre.filter((item) => item !== filter),
         ])
       : setAciveFilterGenre([...activeFilterGenre, filter])
     setIsActiveFiltersGenre([
       ...isActiveFiltersGenre.map((item) =>
-        item.id === filter.id
-          ? { ...item, isActive: !item.isActive }
-          : item
+        item.id === filter.id ? { ...item, isActive: !item.isActive } : item
       ),
     ])
   }
@@ -83,41 +83,34 @@ function FilterForGenre({
   )
 }
 
-function FilterForAuthor({
-  $height,
-  filterAuthor,
-  setFilterAuthor,
-}) {
+function FilterForAuthor({ $height, filterAuthor, setFilterAuthor }) {
   const toogleFilterAuthor = (filter) => {
     setFilterAuthor([
       ...filterAuthor.map((item) =>
-        item === filter
-          ? { ...item, isActive: !item.isActive }
-          : item
+        item === filter ? { ...item, isActive: !item.isActive } : item
       ),
     ])
   }
   return (
     <S.FilterSelector $height={$height}>
       <S.FilterItems>
-        {filterAuthor?.map((author) =>
-          author.isActive ? (
+        {filterAuthor?.map((author) => {
+          const { id, isActive, author: authorName } = author
+
+          return isActive ? (
             <S.FilterItem
               onClick={() => toogleFilterAuthor(author)}
               className="active"
-              key={author.id}
+              key={id}
             >
-              {author.author}
+              {authorName}
             </S.FilterItem>
           ) : (
-            <S.FilterItem
-              onClick={() => toogleFilterAuthor(author)}
-              key={author.id}
-            >
-              {author.author}
+            <S.FilterItem onClick={() => toogleFilterAuthor(author)} key={id}>
+              {authorName}
             </S.FilterItem>
           )
-        )}
+        })}
       </S.FilterItems>
     </S.FilterSelector>
   )
@@ -150,9 +143,9 @@ export default function Filter({
           >
             исполнителю
           </S.FilterButton>
-          {filterAuthor.filter((item) => item.isActive).length !== 0 ? (
+          {filterAuthor.filter(({ isActive }) => isActive).length !== 0 ? (
             <S.FilterButtonActive>
-              {filterAuthor.filter((item) => item.isActive).length}
+              {filterAuthor.filter(({ isActive }) => isActive).length}
             </S.FilterButtonActive>
           ) : (
             ''

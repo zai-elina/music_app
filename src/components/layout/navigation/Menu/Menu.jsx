@@ -36,21 +36,21 @@ export default function Menu({ isLaptop = false }) {
   return (
     <S.NavMenu>
       <S.MenuList>
-        {links.map((link) =>
-          link.id !== links[links.length - 1].id ? (
-            <MenuItem key={link.id} name={link.name} path={link.path} />
+        {links.map((link) => {
+          const { id, name, path } = link
+
+          return id !== links[links.length - 1].id ? (
+            <MenuItem key={id} name={name} path={path} />
           ) : (
             ''
           )
-        )}
+        })}
         {isLaptop
-          ? playlistItems.map((playlist) => (
-              <MenuItem
-                key={playlist.id}
-                name={playlist.name}
-                path={`${playlist.path}/${playlist.id}`}
-              />
-            ))
+          ? playlistItems.map((playlist) => {
+              const { id, name, path } = playlist
+
+              return <MenuItem key={id} name={name} path={`${path}/${id}`} />
+            })
           : ''}
         <MenuItem
           key={links[links.length - 1].id}

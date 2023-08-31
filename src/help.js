@@ -1,6 +1,6 @@
 export const searchMusic = (searchValue, list) =>
-  list.filter((item) =>
-    item.name.toLowerCase().includes(searchValue.toLowerCase())
+  list.filter(({ name }) =>
+    name.toLowerCase().includes(searchValue.toLowerCase())
   )
 
 export function compare(a, b) {
@@ -11,7 +11,7 @@ export function compare(a, b) {
 }
 
 export const createArrayOfAuthors = (tracks) => {
-  let arrayOfAuthors = [...new Set(tracks.map((music) => music.author).sort())]
+  let arrayOfAuthors = [...new Set(tracks.map(({ author }) => author).sort())]
 
   arrayOfAuthors = arrayOfAuthors.map((item, index) => ({
     id: index,

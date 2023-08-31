@@ -25,14 +25,13 @@ function Playlists({ loading }) {
     <S.SidebarList>
       {loading && <SkeletonPlaylists />}
       {!loading &&
-        playlistItems.map((playlist) => (
-          <PlaylistsItem
-            key={playlist.id}
-            id={playlist.id}
-            path={playlist.path}
-            imageUrl={playlist.imgUrl}
-          />
-        ))}
+        playlistItems.map((playlist) => {
+          const { id, path, imgUrl } = playlist
+
+          return (
+            <PlaylistsItem key={id} id={id} path={path} imageUrl={imgUrl} />
+          )
+        })}
     </S.SidebarList>
   )
 }

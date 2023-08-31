@@ -58,7 +58,7 @@ export default function CenterBlock({
       activeFilterGenre.forEach((genre) => resultFilter.push(...genre.items))
       resultFilter = [...new Set(resultFilter)]
       newPlaylist = newPlaylist.filter((music) =>
-        resultFilter.find((filter) => music.id === filter.id)
+        resultFilter.find(({ id }) => music.id === id)
       )
     }
 
@@ -66,7 +66,7 @@ export default function CenterBlock({
     const activeFilterAuthorList = filterAuthor.filter((item) => item.isActive)
     if (activeFilterAuthorList.length !== 0) {
       newPlaylist = newPlaylist.filter((music) =>
-        activeFilterAuthorList.find((author) => music.author === author.author)
+        activeFilterAuthorList.find(({ author }) => music.author === author)
       )
     }
 
@@ -95,7 +95,7 @@ export default function CenterBlock({
           <S.PlaylistTitle $width={'245px'}>АЛЬБОМ</S.PlaylistTitle>
           <S.PlaylistTitle $width={'60px'} $textAlign={'end'}>
             <S.PlaylistTitleSvg alt="time">
-              <use xlinkHref="img/icon/sprite.svg#icon-watch"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-watch"></use>
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>

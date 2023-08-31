@@ -22,7 +22,7 @@ function Music(props) {
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const isUserLike =
     props.isMyTrack ||
-    Boolean(props.staredUser?.find((item) => item.id === props.user.id))
+    Boolean(props.staredUser?.find(({ id }) => id === props.user.id))
   const [isLiked, setIsLiked] = useState(isUserLike)
 
   const playTrack = (

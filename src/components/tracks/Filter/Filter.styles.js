@@ -94,10 +94,10 @@ export const FilterSelector = styled.div`
   width: 248px;
   height: ${(props) => (props.$height ? props.$height : '')};
   top: 50px;
-  left: 0;
   border-radius: 12px;
   padding: 34px;
   background-color: rgb(49, 49, 49);
+  ${(props) => (props.$right ? 'right:0' : 'left:0;')}
 `
 export const FilterButtonActive = styled.span`
   position: absolute;

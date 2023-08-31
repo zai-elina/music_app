@@ -10,7 +10,7 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const [isLiked, setIsLiked] = useState(
-    Boolean(currentTrack.staredUser.find((item) => item.id === authUser.id))
+    Boolean(currentTrack.staredUser.find(({ id }) => id === authUser.id))
   )
 
   const toogleLikeDislike = (id) =>
@@ -32,7 +32,7 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
       <S.TrackPlayContain>
         <S.TrackPlayImage>
           <S.TrackPlaySvg alt="music">
-            <use xlinkHref="img/icon/sprite.svg#icon-note"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-note"></use>
           </S.TrackPlaySvg>
         </S.TrackPlayImage>
         <S.TrackPlayAlbum>
@@ -65,7 +65,7 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
         </S.LikeAndDislike> */}
         <S.LikeAndDislike>
           <S.LikeAndDislikeSvg $width={'14px'} $height={'12px'} alt="like">
-            <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
         <S.LikeAndDislike $left={'28.5px'}>
@@ -74,7 +74,7 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
             $height={'13px'}
             alt="dislike"
           >
-            <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
       </S.LikeAndDislikeContainer>
