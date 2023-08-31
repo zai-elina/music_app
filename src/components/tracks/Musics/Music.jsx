@@ -8,8 +8,6 @@ import {
   useLikeTrackMutation,
 } from '../../../services/favoriteTracks'
 import { useState } from 'react'
-import { useContext } from 'react'
-import { UserContext } from '../../../contexts/User'
 
 function formatTime(number) {
   let str = String(number)
@@ -130,11 +128,11 @@ function Music(props) {
             {isLiked ||
             (props.isUserLikeInBar && playingTrack?.id === props.id) ? (
               <use
-                xlinkHref="img/icon/sprite.svg#icon-like"
+                xlinkHref="/img/icon/sprite.svg#icon-like"
                 fill="#ad61ff"
               ></use>
             ) : (
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
             )}
           </S.TrackLike>
           <S.TrackTimeText>
@@ -166,7 +164,7 @@ export default function MusicList({
         musicItems?.map((item) => (
           <Music
             key={item.id}
-            svgUrl={item.logo ? item.logo : 'img/icon/sprite.svg#icon-note'}
+            svgUrl={item.logo ? item.logo : '/img/icon/sprite.svg#icon-note'}
             title={item.name}
             subtitle={item.subtitle}
             author={item.author}

@@ -4,7 +4,7 @@ export default function Search({ setSearchValue }) {
   return (
     <S.Search>
       <S.SearchSvg>
-        <use xlinkHref="img/icon/sprite.svg#icon-search"></use>
+        <use xlinkHref="/img/icon/sprite.svg#icon-search"></use>
       </S.SearchSvg>
       <S.SearchInput
         type="search"
