@@ -99,7 +99,7 @@ export const favoriteTracksApi = createApi({
       query(data) {
         const { id } = data
         return {
-          url: `${id}/favorite/`,
+          url: `/catalog/track/${id}/favorite/`,
           method: 'DELETE',
         }
       },
