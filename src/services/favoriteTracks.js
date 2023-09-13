@@ -5,7 +5,7 @@ const DATA_TAG = { type: 'FavoriteTracks', id: 'LIST' }
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://painassasin.online',
+    baseUrl: 'https://skypro-music-api.skyeng.tech',
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.access
 
