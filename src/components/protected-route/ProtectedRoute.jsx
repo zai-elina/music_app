@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom'
 
 export const ProtectedRoute = ({ redirectPath = '/login' }) => {
-  const authUser = JSON.parse(localStorage.getItem('user'))
+  const authUser = JSON.parse(sessionStorage.getItem('user'))
   if (!authUser) {
     return <Navigate to={redirectPath} replace={true} />
   }
@@ -10,6 +10,6 @@ export const ProtectedRoute = ({ redirectPath = '/login' }) => {
 }
 
 export const ProtectedRouteLogout = ({ redirectPath = '/login' }) => {
-  localStorage.clear()
+  sessionStorage.clear()
   return <Navigate to={redirectPath} replace={true} />
 }

@@ -99,7 +99,10 @@ export async function loginUser({ email, password }) {
 }
 
 function saveToken(token) {
-  sessionStorage.setItem('tokenData', JSON.stringify(token))
+  const tokenObject = JSON.parse(token)
+
+  sessionStorage.setItem('access', JSON.stringify(tokenObject.access))
+  sessionStorage.setItem('refresh', JSON.stringify(tokenObject.refresh))
 }
 
 export async function getToken({ email, password }) {

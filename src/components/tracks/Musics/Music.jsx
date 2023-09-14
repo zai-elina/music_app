@@ -154,7 +154,7 @@ export default function MusicList({
   isMyTrack = false,
   isUserLikeInBar,
 }) {
-  const authUser = JSON.parse(localStorage.getItem('user'))
+  const authUser = JSON.parse(sessionStorage.getItem('user'))
   return (
     <S.MusicList>
       {loading && <SkeletonMusic />}

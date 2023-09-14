@@ -6,7 +6,7 @@ import {
 import * as S from './PlayingTrack.styles'
 
 export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
-  const authUser = JSON.parse(localStorage.getItem('user'))
+  const authUser = JSON.parse(sessionStorage.getItem('user'))
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
   const [isLiked, setIsLiked] = useState(
