@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   playlistSelector,
   shufflePlaylistSelector,
-} from '../../../store/selectors/tracks'
+} from '../../../store/selectors/tracksSelector'
 import {
   nextTrack,
   prevTrack,
   setShufflePlaylist,
-} from '../../../store/slices/tracks'
+} from '../../../store/slices/trackSlice'
 
 function formatTime(time) {
   let minutes = Math.floor(time / 60)

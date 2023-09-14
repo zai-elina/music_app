@@ -1,12 +1,12 @@
 import SkeletonMusic from './SkeletonMusics'
 import * as S from './Musics.style'
 import { useDispatch, useSelector } from 'react-redux'
-import { setPlaylist, setTrack } from '../../../store/slices/tracks'
-import { trackSelector } from '../../../store/selectors/tracks'
+import { setPlaylist, setTrack } from '../../../store/slices/trackSlice'
+import { trackSelector } from '../../../store/selectors/tracksSelector'
 import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
-} from '../../../services/favoriteTracks'
+} from '../../../services/trackListService'
 import { useState } from 'react'
 
 function formatTime(number) {

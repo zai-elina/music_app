@@ -4,7 +4,7 @@ import { AppRoutes } from './routes'
 import { useState } from 'react'
 import './index.css'
 import { useDispatch } from 'react-redux'
-import { setAuth } from './store/slices/auth'
+import { setAuthentication } from './store/slices/authenticationSlice'
 import { useEffect } from 'react'
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
   const hadleLogin = () => {
     try {
       dispatch(
-        setAuth({
+        setAuthentication({
           access: sessionStorage.getItem('access'),
           refresh: sessionStorage.getItem('refresh'),
           user: sessionStorage.getItem('user'),

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/User'
 import { useDispatch } from 'react-redux'
-import { setAuth } from '../../store/slices/auth'
+import { setAuthentication } from '../../store/slices/authenticationSlice'
 
 export default function AuthPage({ isLoginMode = false }) {
   const { setAuthUser } = useContext(UserContext)
@@ -30,10 +30,11 @@ export default function AuthPage({ isLoginMode = false }) {
 
     setLoginLoading(true)
     try {
-      const user = await loginUser({ email, password })
-      sessionStorage.setItem('user', JSON.stringify(user));
-      setAuthUser(user)
-      navigate('/')
+      await loginUser({ email, password }).then((res) => {
+        sessionStorage.setItem('user', JSON.stringify(res))
+        setAuthUser(res)
+        navigate('/')
+      })
     } catch (error) {
       console.log(error)
       setError(error.message)
@@ -42,8 +43,15 @@ export default function AuthPage({ isLoginMode = false }) {
     }
 
     try {
-      const token = await getToken({ email, password })
-      dispatch(setAuth({ access: token.access, refresh: token.refresh,user: JSON.parse(sessionStorage.getItem('user'))}))
+      await getToken({ email, password }).then((token) => {
+        dispatch(
+          setAuthentication({
+            access: token.access,
+            refresh: token.refresh,
+            user: JSON.parse(sessionStorage.getItem('user')),
+          })
+        )
+      })
     } catch (error) {
       console.log(error)
     }

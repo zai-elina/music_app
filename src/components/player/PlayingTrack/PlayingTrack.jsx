@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
-} from '../../../services/favoriteTracks'
+} from '../../../services/trackListService'
 import * as S from './PlayingTrack.styles'
 
 export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {

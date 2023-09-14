@@ -1,7 +1,7 @@
 import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
 import MusicList from '../../components/tracks/Musics/Music'
-import { useGetAllMyTracksQuery } from '../../services/favoriteTracks'
+import { useGetAllMyTracksQuery } from '../../services/trackListService'
 import { searchMusic } from '../../help'
 import { useState } from 'react'
 

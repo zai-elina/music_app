@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { setAuth } from '../store/slices/auth'
+import { setAuthentication } from '../store/slices/authenticationSlice'
 
-const DATA_TAG = { type: 'FavoriteTracks', id: 'LIST' }
+const DATA_TAG = { type: 'Tracks', id: 'LIST' }
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
@@ -11,13 +11,18 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
       console.debug('Использую токен из стора', { token })
 
-      if (token) {
+      if (token && args.queryKey !== 'getAllTracks') {
         headers.set('authorization', `Bearer ${token}`)
       }
 
       return headers
     },
   })
+
+  if (args.queryKey === 'getAllTracks') {
+    const returnRes = await baseQuery(args, api, extraOptions)
+    return returnRes
+  }
 
   const result = await baseQuery(args, api, extraOptions)
   console.debug('Результат первого запроса', { result })
@@ -57,7 +62,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     return forceLogout()
   }
 
-  api.dispatch(setAuth({ ...auth, access: refreshResult.data.access }))
+  api.dispatch(
+    setAuthentication({ ...auth, access: refreshResult.data.access })
+  )
+  sessionStorage.setItem('access', refreshResult.data.access)
 
   const retryResult = await baseQuery(args, api, extraOptions)
 
@@ -70,18 +78,25 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   return retryResult
 }
 
-export const favoriteTracksApi = createApi({
-  reducerPath: 'myTracksApi',
+export const tracksListApi = createApi({
+  reducerPath: 'tracksListApi',
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
-    getAllMyTracks: builder.query({
+    getAllTracks: builder.query({
       query: () => ({
-        url: '/catalog/track/favorite/all/',
+        url: '/catalog/track/all/',
       }),
       providesTags: (result = []) => [
         ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
         DATA_TAG,
       ],
+    }),
+
+    getAllMyTracks: builder.query({
+      query: () => ({
+        url: '/catalog/track/favorite/all/',
+      }),
+      invalidatesTags: (track) => [{ type: DATA_TAG.type, id: track?.id }],
     }),
 
     likeTrack: builder.mutation({
@@ -112,4 +127,5 @@ export const {
   useGetAllMyTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,
-} = favoriteTracksApi
+  useGetAllTracksQuery,
+} = tracksListApi

@@ -5,7 +5,7 @@ import MusicList from '../Musics/Music'
 import { useState, useEffect } from 'react'
 import { getTracks } from '../../../api/Api'
 import { useDispatch } from 'react-redux'
-import { setPlaylist } from '../../../store/slices/tracks'
+import { setPlaylist } from '../../../store/slices/trackSlice'
 import { compare, createArrayOfAuthors, searchMusic } from '../../../help'
 
 export default function CenterBlock({
