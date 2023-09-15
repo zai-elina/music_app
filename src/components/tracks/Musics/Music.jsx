@@ -125,8 +125,7 @@ function Music(props) {
         </S.TrackAlbum>
         <div>
           <S.TrackLike alt="like" onClick={() => toogleLikeDislike(props.id)}>
-            {isLiked ||
-            (props.isUserLikeInBar && playingTrack?.id === props.id) ? (
+            {isLiked ? (
               <use
                 xlinkHref="/img/icon/sprite.svg#icon-like"
                 fill="#ad61ff"
@@ -152,13 +151,12 @@ export default function MusicList({
   setCurrentTrack,
   isAnimatePlayTrack,
   isMyTrack = false,
-  isUserLikeInBar,
 }) {
   const authUser = JSON.parse(sessionStorage.getItem('user'))
   return (
     <S.MusicList>
       {loading && <SkeletonMusic />}
-      {!loading && musicItems?.length === 0 ? (
+      {!loading && !musicItems ? (
         <h2>В этом плейлисте нет треков</h2>
       ) : (
         musicItems?.map((item) => (
@@ -179,7 +177,6 @@ export default function MusicList({
             musicItems={musicItems}
             user={authUser}
             isMyTrack={isMyTrack}
-            isUserLikeInBar={isUserLikeInBar}
           />
         ))
       )}

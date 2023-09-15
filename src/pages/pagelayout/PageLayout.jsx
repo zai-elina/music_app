@@ -13,7 +13,6 @@ export default function PageLayout({
   currentTrack,
   setCurrentTrack,
   setIsAnimatePlayTrack,
-  setIsUserLikeInBar,
 }) {
   const isDesktop = useMediaQuery({
     query: '(min-width: 1896px)',
@@ -37,7 +36,6 @@ export default function PageLayout({
           currentTrack={currentTrack}
           setIsAnimatePlayTrack={setIsAnimatePlayTrack}
           setCurrentTrack={setCurrentTrack}
-          setIsUserLikeInBar={setIsUserLikeInBar}
         />
       )}
       <Footer />

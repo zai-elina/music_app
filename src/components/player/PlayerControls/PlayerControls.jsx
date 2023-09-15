@@ -12,7 +12,6 @@ export function PlayerControls({
   handlePrev,
   isShuffle,
   toggleShuffle,
-  setIsUserLikeInBar,
 }) {
   return (
     <S.Player>
@@ -94,7 +93,6 @@ export function PlayerControls({
 
         <PlayingTrack
           currentTrack={currentTrack}
-          setIsUserLikeInBar={setIsUserLikeInBar}
         />
       </S.PlayerControls>
     </S.Player>

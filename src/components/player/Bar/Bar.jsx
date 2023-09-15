@@ -28,7 +28,6 @@ export default function Bar({
   currentTrack,
   setCurrentTrack,
   setIsAnimatePlayTrack,
-  setIsUserLikeInBar
 }) {
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
@@ -171,7 +170,6 @@ export default function Bar({
               handlePrev={handlePrev}
               isShuffle={isShuffle}
               toggleShuffle={toggleShuffle}
-              setIsUserLikeInBar={setIsUserLikeInBar}
             />
             <Volume volume={volume} setVolume={setVolume} />
           </S.PlayerBlock>

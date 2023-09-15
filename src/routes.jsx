@@ -19,7 +19,6 @@ export const AppRoutes = ({
   setCurrentTrack,
 }) => {
   const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(isOpenPlayer)
-  const [isUserLikeInBar, setIsUserLikeInBar] = useState(false)
 
   return (
     <UserProvider>
@@ -33,7 +32,6 @@ export const AppRoutes = ({
                 currentTrack={currentTrack}
                 setCurrentTrack={setCurrentTrack}
                 setIsAnimatePlayTrack={setIsAnimatePlayTrack}
-                setIsUserLikeInBar={setIsUserLikeInBar}
               />
             }
           >
@@ -44,7 +42,6 @@ export const AppRoutes = ({
                   setIsOpenPlayer={setIsOpenPlayer}
                   setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
-                  isUserLikeInBar={isUserLikeInBar}
                 />
               }
             />
@@ -55,7 +52,6 @@ export const AppRoutes = ({
                   setIsOpenPlayer={setIsOpenPlayer}
                   setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
-                  isUserLikeInBar={isUserLikeInBar}
                 />
               }
             />
@@ -67,7 +63,6 @@ export const AppRoutes = ({
                   setIsOpenPlayer={setIsOpenPlayer}
                   setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
-                  isUserLikeInBar={isUserLikeInBar}
                 />
               }
             />

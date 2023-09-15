@@ -3,20 +3,18 @@ import Search from '../Search/Search'
 import * as S from './CenterBlock.style'
 import MusicList from '../Musics/Music'
 import { useState, useEffect } from 'react'
-import { getTracks } from '../../../api/Api'
 import { useDispatch } from 'react-redux'
 import { setPlaylist } from '../../../store/slices/trackSlice'
 import { compare, createArrayOfAuthors, searchMusic } from '../../../help'
+import { useGetAllTracksQuery } from '../../../services/trackListService'
 
 export default function CenterBlock({
   setIsOpenPlayer,
   setCurrentTrack,
   isAnimatePlayTrack,
-  isUserLikeInBar,
 }) {
   const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
-  const [musicItems, setmusicItems] = useState([])
+  const [musicItems, setMusicItems] = useState([])
   const [defaultPlaylist, setDefaultPlaylist] = useState([])
   const [searchValue, setSearchValue] = useState('')
   const [activeSortYear, setAciveSortYear] = useState('По умолчанию')
@@ -27,21 +25,16 @@ export default function CenterBlock({
     { id: 3, isActive: false },
   ])
   const [filterAuthor, setFilterAuthor] = useState([])
+  const { data, isLoading, error } = useGetAllTracksQuery()
 
   useEffect(() => {
-    setLoading(true)
-    getTracks()
-      .then((tracks) => {
-        setmusicItems(tracks)
-        setDefaultPlaylist(tracks)
-        setFilterAuthor(createArrayOfAuthors(tracks))
-        dispatch(setPlaylist({ ...tracks }))
-      })
-      .catch((error) => alert(error))
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
+    if (!isLoading && !error) {
+      setMusicItems(data)
+      setDefaultPlaylist(data)
+      setFilterAuthor(createArrayOfAuthors(data))
+      dispatch(setPlaylist({ ...data }))
+    }
+  }, [data, isLoading, error])
 
   useEffect(() => {
     let newPlaylist = defaultPlaylist.slice(0)
@@ -70,7 +63,7 @@ export default function CenterBlock({
       )
     }
 
-    setmusicItems(newPlaylist)
+    setMusicItems(newPlaylist)
     dispatch(setPlaylist({ ...newPlaylist }))
   }, [activeSortYear, activeFilterGenre, filterAuthor])
 
@@ -103,14 +96,13 @@ export default function CenterBlock({
           <h2>Ничего не найдено</h2>
         ) : (
           <MusicList
-            loading={loading}
+            loading={isLoading}
             musicItems={
               searchValue ? searchMusic(searchValue, musicItems) : musicItems
             }
             setIsOpenPlayer={setIsOpenPlayer}
             setCurrentTrack={setCurrentTrack}
             isAnimatePlayTrack={isAnimatePlayTrack}
-            isUserLikeInBar={isUserLikeInBar}
           />
         )}
       </S.CenterBlockContent>

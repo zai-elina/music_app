@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import * as S from './Filter.styles'
-import { useGetCatalogSectionQuery } from '../../../services/catalogSectionService'
+import { useGetCatalogSectionQuery } from '../../../services/trackListService'
 
 function FilterForYear({ activeSortYear, setAciveSortYear, $height }) {
   const yearList = ['По умолчанию', 'Сначала новые', 'Сначала старые']

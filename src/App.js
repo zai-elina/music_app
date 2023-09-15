@@ -16,9 +16,9 @@ function App() {
     try {
       dispatch(
         setAuthentication({
-          access: sessionStorage.getItem('access'),
-          refresh: sessionStorage.getItem('refresh'),
-          user: sessionStorage.getItem('user'),
+          access: sessionStorage.getItem('access').replace(/"/g, ''),
+          refresh: sessionStorage.getItem('refresh').replace(/"/g, ''),
+          user: sessionStorage.getItem('user').replace(/"/g, ''),
         })
       )
     } catch (error) {
@@ -29,7 +29,6 @@ function App() {
   useEffect(() => {
     hadleLogin()
   }, [])
-
 
   return (
     <>

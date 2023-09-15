@@ -5,7 +5,7 @@ import {
 } from '../../../services/trackListService'
 import * as S from './PlayingTrack.styles'
 
-export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
+export function PlayingTrack({ currentTrack}) {
   const authUser = JSON.parse(sessionStorage.getItem('user'))
   const [likeTrack, { likeLoading }] = useLikeTrackMutation()
   const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
@@ -18,13 +18,11 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
 
   const handleLike = async (id) => {
     setIsLiked(true)
-    setIsUserLikeInBar(true)
     await likeTrack({ id }).unwrap()
   }
 
   const handleDislike = async (id) => {
     setIsLiked(false)
-    setIsUserLikeInBar(false)
     await dislikeTrack({ id }).unwrap()
   }
   return (
@@ -64,12 +62,18 @@ export function PlayingTrack({ currentTrack, setIsUserLikeInBar }) {
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike> */}
         <S.LikeAndDislike>
-          <S.LikeAndDislikeSvg $width={'14px'} $height={'12px'} alt="like">
+          <S.LikeAndDislikeSvg
+            onClick={() => toogleLikeDislike(currentTrack.id)}
+            $width={'14px'}
+            $height={'12px'}
+            alt="like"
+          >
             <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
         <S.LikeAndDislike $left={'28.5px'}>
           <S.LikeAndDislikeSvg
+            onClick={() => toogleLikeDislike(currentTrack.id)}
             $width={'14.34px'}
             $height={'13px'}
             alt="dislike"

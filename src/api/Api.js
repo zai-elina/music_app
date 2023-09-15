@@ -1,16 +1,3 @@
-export async function getTracks() {
-  try {
-    const response = await fetch(
-      'https://skypro-music-api.skyeng.tech/catalog/track/all/'
-    )
-    const data = await response.json()
-
-    return data
-  } catch {
-    throw new Error('Не удалось загрузить плейлист, попробуйте позже')
-  }
-}
-
 export async function registerUser({ email, password }) {
   try {
     const response = await fetch(

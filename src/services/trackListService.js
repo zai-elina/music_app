@@ -7,11 +7,16 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
     baseUrl: 'https://skypro-music-api.skyeng.tech',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.access
+      const token = getState().authentication?.access
 
       console.debug('Использую токен из стора', { token })
 
-      if (token && args.queryKey !== 'getAllTracks') {
+      if (
+        token &&
+        args.queryKey !== 'getAllTracks' &&
+        args.queryKey !== 'getCatalogSection' &&
+        args.queryKey !== 'getCatalogSectionTracks'
+      ) {
         headers.set('authorization', `Bearer ${token}`)
       }
 
@@ -19,7 +24,11 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     },
   })
 
-  if (args.queryKey === 'getAllTracks') {
+  if (
+    args.queryKey === 'getAllTracks' &&
+    args.queryKey === 'getCatalogSection' &&
+    args.queryKey === 'getCatalogSectionTracks'
+  ) {
     const returnRes = await baseQuery(args, api, extraOptions)
     return returnRes
   }
@@ -37,9 +46,9 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     window.location.href = '/login'
   }
 
-  const { auth } = api.getState()
-  console.debug('Данные пользователя в сторе', { auth })
-  if (!auth.refresh) {
+  const { authentication } = api.getState()
+  console.debug('Данные пользователя в сторе', { authentication })
+  if (!authentication.refresh) {
     return forceLogout()
   }
 
@@ -49,7 +58,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       url: '/user/token/refresh/',
       method: 'POST',
       body: {
-        refresh: auth.refresh,
+        refresh: authentication.refresh,
       },
     },
     api,
@@ -63,7 +72,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   }
 
   api.dispatch(
-    setAuthentication({ ...auth, access: refreshResult.data.access })
+    setAuthentication({ ...authentication, access: refreshResult.data.access })
   )
   sessionStorage.setItem('access', refreshResult.data.access)
 
@@ -92,11 +101,31 @@ export const tracksListApi = createApi({
       ],
     }),
 
+    getCatalogSection: builder.query({
+      query: () => ({
+        url: '/catalog/selection/',
+      }),
+    }),
+    getCatalogSectionTracks: builder.query({
+      query: (id) => ({
+        url: `/catalog/selection/${id}`,
+      }),
+      providesTags: (result = []) => [
+        ...(Array.isArray(result)
+          ? result.map(({ id }) => ({ type: DATA_TAG.type, id }))
+          : []),
+        DATA_TAG,
+      ],
+    }),
+
     getAllMyTracks: builder.query({
       query: () => ({
         url: '/catalog/track/favorite/all/',
       }),
-      invalidatesTags: (track) => [{ type: DATA_TAG.type, id: track?.id }],
+      providesTags: (result = []) => [
+        ...result.map(({ id }) => ({ type: DATA_TAG.type, id })),
+        DATA_TAG,
+      ],
     }),
 
     likeTrack: builder.mutation({
@@ -125,6 +154,8 @@ export const tracksListApi = createApi({
 
 export const {
   useGetAllMyTracksQuery,
+  useGetCatalogSectionQuery,
+  useGetCatalogSectionTracksQuery,
   useLikeTrackMutation,
   useDislikeTrackMutation,
   useGetAllTracksQuery,
