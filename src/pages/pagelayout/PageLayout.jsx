@@ -10,8 +10,6 @@ import { NavBarLaptop } from '../../components/layout/navigation/NavBarLaptop/Na
 export default function PageLayout({
   loading,
   isOpenPlayer,
-  currentTrack,
-  setCurrentTrack,
   setIsAnimatePlayTrack,
 }) {
   const isDesktop = useMediaQuery({
@@ -33,9 +31,7 @@ export default function PageLayout({
       )}
       {isOpenPlayer && (
         <Bar
-          currentTrack={currentTrack}
           setIsAnimatePlayTrack={setIsAnimatePlayTrack}
-          setCurrentTrack={setCurrentTrack}
         />
       )}
       <Footer />

@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   playlistSelector,
   shufflePlaylistSelector,
+  trackSelector,
 } from '../../../store/selectors/tracksSelector'
 import {
   nextTrack,
   prevTrack,
   setShufflePlaylist,
-} from '../../../store/slices/trackSlice'
+  setTrack,
+} from '../../../store/slices/tracksSlice'
 
 function formatTime(time) {
   let minutes = Math.floor(time / 60)
@@ -24,11 +26,8 @@ function formatTime(time) {
   return `${minutes}:${seconds}`
 }
 
-export default function Bar({
-  currentTrack,
-  setCurrentTrack,
-  setIsAnimatePlayTrack,
-}) {
+export default function Bar({ setIsAnimatePlayTrack }) {
+  const currentTrack = useSelector(trackSelector)
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
@@ -71,15 +70,19 @@ export default function Bar({
     )
     if (+index === Object.keys(trackList).length - 1) return
     index = +index + 1
-    setCurrentTrack({
-      id: trackList[index].id,
-      author: trackList[index].author,
-      title: trackList[index].name,
-      trackFile: trackList[index].track_file,
-      progress: 0,
-      length: trackList[index].duration_in_seconds,
-      staredUser: trackList[index].stared_user,
-    })
+
+    dispatch(
+      setTrack({
+        id: trackList[index].id,
+        author: trackList[index].author,
+        name: trackList[index].name,
+        trackFile: trackList[index].track_file,
+        progress: 0,
+        length: trackList[index].duration_in_seconds,
+        staredUser: trackList[index].stared_user,
+      })
+    )
+
     dispatch(nextTrack(trackList[index].id))
   }
 
@@ -94,15 +97,18 @@ export default function Bar({
     )
     if (+index === 0) return
     index = +index - 1
-    setCurrentTrack({
-      id: trackList[index].id,
-      author: trackList[index].author,
-      title: trackList[index].name,
-      trackFile: trackList[index].track_file,
-      progress: 0,
-      length: trackList[index].duration_in_seconds,
-      staredUser: trackList[index].stared_user,
-    })
+
+    dispatch(
+      setTrack({
+        id: trackList[index].id,
+        author: trackList[index].author,
+        title: trackList[index].name,
+        trackFile: trackList[index].track_file,
+        progress: 0,
+        length: trackList[index].duration_in_seconds,
+        staredUser: trackList[index].stared_user,
+      })
+    )
     dispatch(prevTrack(trackList[index].id))
   }
 
@@ -161,7 +167,6 @@ export default function Bar({
           />
           <S.PlayerBlock>
             <PlayerControls
-              currentTrack={currentTrack}
               togglePlay={togglePlay}
               isPlaying={isPlaying}
               isLoop={isLoop}

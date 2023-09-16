@@ -1,17 +1,29 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import {
   useDislikeTrackMutation,
   useLikeTrackMutation,
 } from '../../../services/trackListService'
 import * as S from './PlayingTrack.styles'
+import { useSelector } from 'react-redux'
+import { trackSelector } from '../../../store/selectors/tracksSelector'
 
-export function PlayingTrack({ currentTrack}) {
+export function PlayingTrack() {
+  const currentTrack = useSelector(trackSelector)
   const authUser = JSON.parse(sessionStorage.getItem('user'))
-  const [likeTrack, { likeLoading }] = useLikeTrackMutation()
-  const [dislikeTrack, { dislikeLoading }] = useDislikeTrackMutation()
-  const [isLiked, setIsLiked] = useState(
-    Boolean(currentTrack.staredUser.find(({ id }) => id === authUser.id))
+  const [likeTrack] = useLikeTrackMutation()
+  const [dislikeTrack] = useDislikeTrackMutation()
+  const isUserLike = Boolean(
+    currentTrack.staredUser?.find(({ id }) => id === authUser.id)
   )
+  const [isLiked, setIsLiked] = useState(isUserLike)
+
+  useEffect(() => {
+    setIsLiked(isUserLike)
+
+    console.log('Is liked ', isLiked)
+    console.log('Is user liked ', isUserLike)
+    console.log('Current track', currentTrack.staredUser, ' id', authUser.id)
+  }, [isUserLike])
 
   const toogleLikeDislike = (id) =>
     isLiked ? handleDislike(id) : handleLike(id)
@@ -35,7 +47,7 @@ export function PlayingTrack({ currentTrack}) {
         </S.TrackPlayImage>
         <S.TrackPlayAlbum>
           <S.TrackPlayAlbumLink href="http://">
-            {currentTrack.title}
+            {currentTrack.name}
           </S.TrackPlayAlbumLink>
         </S.TrackPlayAlbum>
         <S.TrackPlayAuthor>
@@ -46,21 +58,6 @@ export function PlayingTrack({ currentTrack}) {
       </S.TrackPlayContain>
 
       <S.LikeAndDislikeContainer>
-        {/* <S.LikeAndDislike>
-          <S.LikeAndDislikeSvg
-            alt="like"
-            onClick={() => toogleLikeDislike(currentTrack.id)}
-          >
-            {isLiked ? (
-              <use
-                xlinkHref="img/icon/sprite.svg#icon-like"
-                fill="#ad61ff"
-              ></use>
-            ) : (
-              <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-            )}
-          </S.LikeAndDislikeSvg>
-        </S.LikeAndDislike> */}
         <S.LikeAndDislike>
           <S.LikeAndDislikeSvg
             onClick={() => toogleLikeDislike(currentTrack.id)}
@@ -68,17 +65,14 @@ export function PlayingTrack({ currentTrack}) {
             $height={'12px'}
             alt="like"
           >
-            <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
-          </S.LikeAndDislikeSvg>
-        </S.LikeAndDislike>
-        <S.LikeAndDislike $left={'28.5px'}>
-          <S.LikeAndDislikeSvg
-            onClick={() => toogleLikeDislike(currentTrack.id)}
-            $width={'14.34px'}
-            $height={'13px'}
-            alt="dislike"
-          >
-            <use xlinkHref="/img/icon/sprite.svg#icon-dislike"></use>
+            {isLiked ? (
+              <use
+                xlinkHref="/img/icon/sprite.svg#icon-like"
+                fill="#ad61ff"
+              ></use>
+            ) : (
+              <use xlinkHref="/img/icon/sprite.svg#icon-like"></use>
+            )}
           </S.LikeAndDislikeSvg>
         </S.LikeAndDislike>
       </S.LikeAndDislikeContainer>

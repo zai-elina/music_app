@@ -20,3 +20,9 @@ export const createArrayOfAuthors = (tracks) => {
   }))
   return arrayOfAuthors
 }
+
+export function formatTime(number) {
+  let str = String(number)
+  if (str.length < 2) return `0${str}`
+  return str
+}

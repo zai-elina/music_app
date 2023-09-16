@@ -1,13 +1,12 @@
 import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
-import MusicList from '../../components/tracks/Musics/Music'
+import MusicList from '../../components/tracks/Musics/Musics'
 import { useGetAllMyTracksQuery } from '../../services/trackListService'
 import { searchMusic } from '../../help'
 import { useState } from 'react'
 
 export default function PageMyTracks({
   setIsOpenPlayer,
-  setCurrentTrack,
   isAnimatePlayTrack,
 }) {
   const { data, error, isLoading } = useGetAllMyTracksQuery()
@@ -39,9 +38,7 @@ export default function PageMyTracks({
                 loading={isLoading}
                 musicItems={searchValue ? searchMusic(searchValue, data) : data}
                 setIsOpenPlayer={setIsOpenPlayer}
-                setCurrentTrack={setCurrentTrack}
                 isAnimatePlayTrack={isAnimatePlayTrack}
-                isMyTrack={true}
               />
             )}
           </>

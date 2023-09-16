@@ -1,16 +1,12 @@
 import { useParams } from 'react-router-dom'
 import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
-import MusicList from '../../components/tracks/Musics/Music'
+import MusicList from '../../components/tracks/Musics/Musics'
 import { useGetCatalogSectionTracksQuery } from '../../services/trackListService'
 import { searchMusic } from '../../help'
 import { useState } from 'react'
 
-export default function Catalog({
-  setIsOpenPlayer,
-  setCurrentTrack,
-  isAnimatePlayTrack,
-}) {
+export default function Catalog({ setIsOpenPlayer, isAnimatePlayTrack }) {
   const { id } = useParams()
   const { data, error, isLoading } = useGetCatalogSectionTracksQuery(id)
   const [searchValue, setSearchValue] = useState('')
@@ -45,7 +41,6 @@ export default function Catalog({
                     : data?.items
                 }
                 setIsOpenPlayer={setIsOpenPlayer}
-                setCurrentTrack={setCurrentTrack}
                 isAnimatePlayTrack={isAnimatePlayTrack}
                 isMyTrack={false}
               />

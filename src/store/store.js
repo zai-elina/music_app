@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import tracksReducer from './slices/trackSlice'
+import tracksReducer from './slices/tracksSlice'
 import authenticationReducer from './slices/authenticationSlice'
 import { tracksListApi } from '../services/trackListService'
 

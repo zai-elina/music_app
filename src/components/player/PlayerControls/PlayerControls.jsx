@@ -3,7 +3,6 @@ import Button from '../../../App.style'
 import { PlayingTrack } from '../PlayingTrack/PlayingTrack'
 
 export function PlayerControls({
-  currentTrack,
   togglePlay,
   isPlaying,
   isLoop,
@@ -91,9 +90,7 @@ export function PlayerControls({
           </S.PlayerButtonSvg>
         </S.PlayerButtonShuffle>
 
-        <PlayingTrack
-          currentTrack={currentTrack}
-        />
+        <PlayingTrack />
       </S.PlayerControls>
     </S.Player>
   )

@@ -1,18 +1,14 @@
 import Filter from '../Filter/Filter'
 import Search from '../Search/Search'
 import * as S from './CenterBlock.style'
-import MusicList from '../Musics/Music'
+import MusicList from '../Musics/Musics'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { setPlaylist } from '../../../store/slices/trackSlice'
+import { setPlaylist } from '../../../store/slices/tracksSlice'
 import { compare, createArrayOfAuthors, searchMusic } from '../../../help'
 import { useGetAllTracksQuery } from '../../../services/trackListService'
 
-export default function CenterBlock({
-  setIsOpenPlayer,
-  setCurrentTrack,
-  isAnimatePlayTrack,
-}) {
+export default function CenterBlock({ setIsOpenPlayer, isAnimatePlayTrack }) {
   const dispatch = useDispatch()
   const [musicItems, setMusicItems] = useState([])
   const [defaultPlaylist, setDefaultPlaylist] = useState([])
@@ -101,7 +97,6 @@ export default function CenterBlock({
               searchValue ? searchMusic(searchValue, musicItems) : musicItems
             }
             setIsOpenPlayer={setIsOpenPlayer}
-            setCurrentTrack={setCurrentTrack}
             isAnimatePlayTrack={isAnimatePlayTrack}
           />
         )}

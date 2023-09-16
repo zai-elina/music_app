@@ -15,8 +15,6 @@ import Catalog from './pages/catalog/Catalog'
 export const AppRoutes = ({
   isOpenPlayer,
   setIsOpenPlayer,
-  currentTrack,
-  setCurrentTrack,
 }) => {
   const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(isOpenPlayer)
 
@@ -29,8 +27,6 @@ export const AppRoutes = ({
             element={
               <PageLayout
                 isOpenPlayer={isOpenPlayer}
-                currentTrack={currentTrack}
-                setCurrentTrack={setCurrentTrack}
                 setIsAnimatePlayTrack={setIsAnimatePlayTrack}
               />
             }
@@ -40,7 +36,6 @@ export const AppRoutes = ({
               element={
                 <CenterBlock
                   setIsOpenPlayer={setIsOpenPlayer}
-                  setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
                 />
               }
@@ -50,7 +45,6 @@ export const AppRoutes = ({
               element={
                 <PageMyTracks
                   setIsOpenPlayer={setIsOpenPlayer}
-                  setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
                 />
               }
@@ -61,7 +55,6 @@ export const AppRoutes = ({
               element={
                 <Catalog
                   setIsOpenPlayer={setIsOpenPlayer}
-                  setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
                 />
               }

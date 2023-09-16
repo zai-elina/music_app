@@ -15,13 +15,8 @@ export const tracksSlice = createSlice({
       state.playlist = action.payload
     },
     setTrack: (state, action) => {
-      const id = action.payload
-      const toggledTrack = Object.values(state.playlist).find(
-        (item) => item.id === id
-      )
-
       state.playing = true
-      state.track = { ...toggledTrack }
+      state.track = action.payload
     },
     nextTrack: (state, action) => {
       const id = action.payload
