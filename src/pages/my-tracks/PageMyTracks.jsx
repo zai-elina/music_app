@@ -5,10 +5,7 @@ import { useGetAllMyTracksQuery } from '../../services/trackListService'
 import { searchMusic } from '../../help'
 import { useState } from 'react'
 
-export default function PageMyTracks({
-  setIsOpenPlayer,
-  isAnimatePlayTrack,
-}) {
+export default function PageMyTracks({ setIsOpenPlayer, isAnimatePlayTrack }) {
   const { data, error, isLoading } = useGetAllMyTracksQuery()
   const [searchValue, setSearchValue] = useState('')
   return (
@@ -22,7 +19,7 @@ export default function PageMyTracks({
           <S.PlaylistTitle $width={'245px'}>АЛЬБОМ</S.PlaylistTitle>
           <S.PlaylistTitle $width={'60px'} $textAlign={'end'}>
             <S.PlaylistTitleSvg alt="time">
-              <use xlinkHref={"/img/icon/sprite.svg#icon-watch"}></use>
+              <use xlinkHref={'/img/icon/sprite.svg#icon-watch'}></use>
             </S.PlaylistTitleSvg>
           </S.PlaylistTitle>
         </S.ContentTitle>
@@ -30,8 +27,7 @@ export default function PageMyTracks({
           <h2>Не удалось загрузить мои треки</h2>
         ) : (
           <>
-            {searchValue &&
-            searchMusic(searchValue, data).length === 0 ? (
+            {searchValue && searchMusic(searchValue, data).length === 0 ? (
               <h2>Ничего не найдено</h2>
             ) : (
               <MusicList

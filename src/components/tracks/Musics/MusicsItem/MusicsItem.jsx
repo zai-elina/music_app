@@ -28,7 +28,7 @@ export function MusicsItem(props) {
   const playingTrack = useSelector(trackSelector)
   const [likeTrack] = useLikeTrackMutation()
   const [dislikeTrack] = useDislikeTrackMutation()
-  const isUserLike = Boolean(staredUser?.find(({ id }) => id === authUser.id))
+  const isUserLike = Boolean(staredUser.find(({ id }) => id === authUser.id))
   const [isLiked, setIsLiked] = useState(isUserLike)
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export function MusicsItem(props) {
                 />
               ) : (
                 <use
-                  xlinkHref={logo ? logo : 'img/icon/sprite.svg#icon-note'}
+                  xlinkHref={logo ? logo : '/img/icon/sprite.svg#icon-note'}
                 ></use>
               )}
             </S.TrackTitleSvg>

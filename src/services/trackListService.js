@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setAuthentication } from '../store/slices/authenticationSlice'
 
 const DATA_TAG = { type: 'Tracks', id: 'LIST' }
-const authUser = JSON.parse(sessionStorage.getItem('user'))
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   const baseQuery = fetchBaseQuery({
@@ -121,7 +120,7 @@ export const tracksListApi = createApi({
       transformResponse: (response) => {
         const transformedResponse = response.map((item) => ({
           ...item,
-          stared_user: [authUser],
+          stared_user: [JSON.parse(sessionStorage.getItem('user'))],
         }))
 
         return transformedResponse

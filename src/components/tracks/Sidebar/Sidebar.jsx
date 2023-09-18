@@ -17,9 +17,9 @@ function PlaylistsItem(props) {
 
 function Playlists({ loading }) {
   const playlistItems = [
-    { id: 1, path: '/catalog/selection', imgUrl: 'img/playlist01.png' },
-    { id: 2, path: '/catalog/selection', imgUrl: 'img/playlist02.png' },
-    { id: 3, path: '/catalog/selection', imgUrl: 'img/playlist03.png' },
+    { id: 1, path: '/catalog/selection', imgUrl: '/img/playlist01.png' },
+    { id: 2, path: '/catalog/selection', imgUrl: '/img/playlist02.png' },
+    { id: 3, path: '/catalog/selection', imgUrl: '/img/playlist03.png' },
   ]
   return (
     <S.SidebarList>

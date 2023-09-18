@@ -20,7 +20,8 @@ export const Track = styled.div`
   -ms-flex-align: center;
   align-items: center;
   @media (max-width: 1100px) {
-    justify-content: flex-start;
+    width: 98%;
+    justify-content: space-around;
   }
   @media (max-width: 426px) {
     justify-content: space-between;
