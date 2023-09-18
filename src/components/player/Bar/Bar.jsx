@@ -9,12 +9,7 @@ import {
   shufflePlaylistSelector,
   trackSelector,
 } from '../../../store/selectors/tracksSelector'
-import {
-  nextTrack,
-  prevTrack,
-  setShufflePlaylist,
-  setTrack,
-} from '../../../store/slices/tracksSlice'
+import { setShufflePlaylist, setTrack } from '../../../store/slices/tracksSlice'
 
 function formatTime(time) {
   let minutes = Math.floor(time / 60)
@@ -64,11 +59,9 @@ export default function Bar({ setIsAnimatePlayTrack }) {
   }, [volume, audioElem])
 
   const handleNext = () => {
-    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(trackList).find(
-      (key) => trackList[key].id === currentTrack.id
-    )
-    if (+index === Object.keys(trackList).length - 1) return
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
+    if (+index === trackList.length - 1) return
     index = +index + 1
 
     dispatch(
@@ -82,8 +75,6 @@ export default function Bar({ setIsAnimatePlayTrack }) {
         staredUser: trackList[index].stared_user,
       })
     )
-
-    dispatch(nextTrack(trackList[index].id))
   }
 
   const handlePrev = () => {
@@ -91,10 +82,8 @@ export default function Bar({ setIsAnimatePlayTrack }) {
       audioElem.current.currentTime = 0
       return
     }
-    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(trackList).find(
-      (key) => trackList[key].id === currentTrack.id
-    )
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
     if (+index === 0) return
     index = +index - 1
 
@@ -109,7 +98,6 @@ export default function Bar({ setIsAnimatePlayTrack }) {
         staredUser: trackList[index].stared_user,
       })
     )
-    dispatch(prevTrack(trackList[index].id))
   }
 
   const playingTrack = () => {
@@ -125,16 +113,16 @@ export default function Bar({ setIsAnimatePlayTrack }) {
   }
 
   const handleShufflePlaylist = () => {
-    const shuffleTracks = Object.values(playlist).sort(function () {
+    const shuffleTracks = [...playlist].sort(function () {
       return Math.round(Math.random()) - 0.5
     })
     setIsShuffle(true)
-    dispatch(setShufflePlaylist({ ...shuffleTracks }))
+    dispatch(setShufflePlaylist([...shuffleTracks]))
   }
 
   const stopShufflePlaylist = () => {
     setIsShuffle(false)
-    dispatch(setShufflePlaylist({}))
+    dispatch(setShufflePlaylist([]))
   }
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist

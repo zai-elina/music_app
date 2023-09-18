@@ -10,7 +10,8 @@ function MenuItem({ name, path }) {
     </S.MenuItem>
   )
 }
-export default function Menu({ isLaptop = false }) {
+
+export default function Menu({ isLaptop = false, isTablet = false }) {
   const links = [
     { id: 1, name: 'Главное', path: '/' },
     { id: 2, name: 'Мой треки', path: '/favorite' },
@@ -45,7 +46,7 @@ export default function Menu({ isLaptop = false }) {
             ''
           )
         })}
-        {isLaptop
+        {isLaptop || isTablet
           ? playlistItems.map((playlist) => {
               const { id, name, path } = playlist
 

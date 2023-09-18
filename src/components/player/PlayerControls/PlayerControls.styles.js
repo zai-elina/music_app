@@ -25,6 +25,9 @@ export const PlayerControls = styled.div`
   flex-direction: row;
   padding: 0 27px 0 31px;
   column-gap: 33px;
+  @media (max-width: 800px) {
+    column-gap: 10px;
+  }
 `
 export const PlayerButton = styled.div`
   padding: 5px;

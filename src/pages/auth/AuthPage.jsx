@@ -74,9 +74,8 @@ export default function AuthPage({ isLoginMode = false }) {
 
     setRegisterLoading(true)
     try {
-      const user = await registerUser({ email, password })
-      sessionStorage.setItem('user', JSON.stringify(user))
-      navigate('/')
+      await registerUser({ email, password })
+      navigate('/login')
     } catch (error) {
       setError(error.message)
     } finally {

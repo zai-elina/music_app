@@ -28,7 +28,7 @@ export default function CenterBlock({ setIsOpenPlayer, isAnimatePlayTrack }) {
       setMusicItems(data)
       setDefaultPlaylist(data)
       setFilterAuthor(createArrayOfAuthors(data))
-      dispatch(setPlaylist({ ...data }))
+      dispatch(setPlaylist(data))
     }
   }, [data, isLoading, error])
 
@@ -60,7 +60,7 @@ export default function CenterBlock({ setIsOpenPlayer, isAnimatePlayTrack }) {
     }
 
     setMusicItems(newPlaylist)
-    dispatch(setPlaylist({ ...newPlaylist }))
+    dispatch(setPlaylist(newPlaylist))
   }, [activeSortYear, activeFilterGenre, filterAuthor])
 
   return (

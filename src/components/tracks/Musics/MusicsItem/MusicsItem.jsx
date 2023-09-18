@@ -21,7 +21,7 @@ export function MusicsItem(props) {
     id,
     stared_user: staredUser,
   } = props.musicData
-  
+
   const authUser = JSON.parse(sessionStorage.getItem('user'))
 
   const dispatch = useDispatch()
@@ -50,7 +50,7 @@ export function MusicsItem(props) {
         staredUser,
       })
     )
-    dispatch(setPlaylist({ ...props.musicItems }))
+    dispatch(setPlaylist(props.musicItems))
   }
 
   const toogleLikeDislike = (id) =>
@@ -112,7 +112,7 @@ export function MusicsItem(props) {
               )}
             </S.TrackTitleSvg>
           </S.TrackTitleImage>
-          <div>
+          <S.Title>
             <S.TrackTitleLink
               onClick={() => {
                 playTrack(
@@ -129,7 +129,7 @@ export function MusicsItem(props) {
               {name}{' '}
               {subtitle ? <S.TrackSubtitle>{subtitle}</S.TrackSubtitle> : ''}
             </S.TrackTitleLink>
-          </div>
+          </S.Title>
         </S.TrackTitle>
         <S.TrackAuthor>
           <S.TrackAuthorLink

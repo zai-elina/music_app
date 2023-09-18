@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 import { UserContext } from '../../../contexts/User'
 
 export function PersonData() {
-  const { authUser } = useContext(UserContext)
+  const authUser = JSON.parse(sessionStorage.getItem('user'))
   return (
     <S.Personal>
       <S.PersonalName>{authUser.username}</S.PersonalName>

@@ -9,6 +9,10 @@ export const VolumeBlock = styled.div`
   -ms-flex-align: center;
   align-items: center;
   padding: 0 92px 0 0;
+  @media (max-width: 426px) {
+    padding: 10px;
+    margin: 0 auto;
+  }
 `
 
 export const VolumeContent = styled.div`

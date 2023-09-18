@@ -22,6 +22,10 @@ export const Track = styled.div`
   @media (max-width: 1100px) {
     justify-content: flex-start;
   }
+  @media (max-width: 426px) {
+    justify-content: space-between;
+    width: 90%;
+  }
 `
 export const TrackTitle = styled.div`
   display: -webkit-box;
@@ -100,6 +104,15 @@ export const TrackAlbum = styled.div`
   @media (max-width: 1100px) {
     width: 30vw;
   }
+  @media (max-width: 970px) {
+    height: 50px;
+    width: 15vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  @media (max-width: 426px) {
+    display: none;
+  }
 `
 export const TrackAlbumLink = styled.a`
   font-style: normal;
@@ -164,4 +177,12 @@ animation: pulse 2s ease-in 0s infinite normal forwards;
 export const Circle = styled.circle`
   fill: #ad61ff;
   ${(props) => (props.$isAnimate === true ? animation : '')}
+`
+export const Title = styled.div`
+  @media (max-width: 970px) {
+    height: 50px;
+    width: 15vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 `

@@ -19,6 +19,11 @@ export const MenuList = styled.ul`
   padding: 18px 0 10px 0;
   @media (max-width: 1896px) {
     display: flex;
-    gap:10px;
+    gap: 10px;
+  }
+  @media (max-width: 800px) {
+    display: block;
+    position: relative;
+    right:0;
   }
 `

@@ -18,10 +18,11 @@ export const BarContent = styled.div`
 `
 
 export const PlayerBlock = styled.div`
-  height: 73px;
+  min-height: 73px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  flex-wrap: wrap;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;

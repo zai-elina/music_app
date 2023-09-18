@@ -12,7 +12,9 @@ export const FilterContainer = styled.div`
   flex-direction: row;
   align-items: center;
   margin-bottom: 51px;
+  margin-right: 5px;
   justify-content: space-between;
+  flex-wrap: wrap;
 `
 
 export const Filter = styled.div`
@@ -115,4 +117,7 @@ export const SortYear = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  @media (max-width: 800px) {
+    margin-top: 10px;
+  }
 `

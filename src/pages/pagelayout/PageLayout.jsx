@@ -6,6 +6,7 @@ import Footer from '../../components/layout/footer/Footer/Footer'
 import { Outlet } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import { NavBarLaptop } from '../../components/layout/navigation/NavBarLaptop/NavBarLaptop'
+import NavBarMobile from '../../components/layout/navigation/NavBarMobile/NavBarMobile'
 
 export default function PageLayout({
   loading,
@@ -15,6 +16,9 @@ export default function PageLayout({
   const isDesktop = useMediaQuery({
     query: '(min-width: 1896px)',
   })
+  const isTablet = useMediaQuery({
+    query: '(max-width: 800px)',
+  })
   return (
     <S.Main>
       {isDesktop ? (
@@ -23,17 +27,18 @@ export default function PageLayout({
           <Outlet />
           <Sidebar loading={loading} />
         </>
+      ) : isTablet ? (
+        <>
+          <NavBarMobile />
+          <Outlet />
+        </>
       ) : (
         <>
           <NavBarLaptop />
           <Outlet />
         </>
       )}
-      {isOpenPlayer && (
-        <Bar
-          setIsAnimatePlayTrack={setIsAnimatePlayTrack}
-        />
-      )}
+      {isOpenPlayer && <Bar setIsAnimatePlayTrack={setIsAnimatePlayTrack} />}
       <Footer />
     </S.Main>
   )

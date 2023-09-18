@@ -8,7 +8,10 @@ export const Centerblock = styled.div`
   padding: 20px 40px 20px 111px;
   height: 100vh;
   @media (max-width: 1440px) {
-    padding: 20px 20px;
+    padding: 20px;
+  }
+  @media (max-width: 1440px) {
+    padding: 10px;
   }
 `
 export const CenterBlockTitle = styled.h2`
@@ -63,6 +66,10 @@ export const PlaylistTitle = styled.div`
     &:not(:last-child) {
       width: 30vw;
     }
+  }
+  @media (max-width: 970px) {
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 `
 export const PlaylistTitleSvg = styled.svg`

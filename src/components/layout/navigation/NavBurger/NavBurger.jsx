@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import Menu from '../Menu/Menu'
-import * as S from "./NavBurger.styles"
+import * as S from './NavBurger.styles'
 
-export default function NavBurger() {
+export default function NavBurger({ isTablet = false }) {
   const [visible, setVisible] = useState(false)
 
   const toogleVisibility = () => {
@@ -10,13 +10,19 @@ export default function NavBurger() {
   }
 
   return (
-    <div>
+    <div
+      style={
+        isTablet
+          ? { display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }
+          : {}
+      }
+    >
       <S.NavBurger onClick={toogleVisibility}>
         <S.BurgerLine></S.BurgerLine>
         <S.BurgerLine></S.BurgerLine>
         <S.BurgerLine></S.BurgerLine>
       </S.NavBurger>
-      {visible && <Menu />}
+      {visible && <Menu isTablet={isTablet} />}
     </div>
   )
 }

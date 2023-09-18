@@ -5,25 +5,26 @@ import {
 } from '../../../services/trackListService'
 import * as S from './PlayingTrack.styles'
 import { useSelector } from 'react-redux'
-import { trackSelector } from '../../../store/selectors/tracksSelector'
+import {
+  playlistSelector,
+  trackSelector,
+} from '../../../store/selectors/tracksSelector'
 
 export function PlayingTrack() {
   const currentTrack = useSelector(trackSelector)
   const authUser = JSON.parse(sessionStorage.getItem('user'))
   const [likeTrack] = useLikeTrackMutation()
   const [dislikeTrack] = useDislikeTrackMutation()
-  const isUserLike = Boolean(
-    currentTrack.staredUser?.find(({ id }) => id === authUser.id)
+  const playlist = useSelector(playlistSelector)
+  const currentTrackTrue = playlist.find((item) => item.id === currentTrack.id)
+  const isLike = Boolean(
+    currentTrack.staredUser.find(({ id }) => id === authUser.id)
   )
-  const [isLiked, setIsLiked] = useState(isUserLike)
+  const [isLiked, setIsLiked] = useState(isLike)
 
   useEffect(() => {
-    setIsLiked(isUserLike)
-
-    console.log('Is liked ', isLiked)
-    console.log('Is user liked ', isUserLike)
-    console.log('Current track', currentTrack.staredUser, ' id', authUser.id)
-  }, [isUserLike])
+    setIsLiked(isLike)
+  }, [currentTrack])
 
   const toogleLikeDislike = (id) =>
     isLiked ? handleDislike(id) : handleLike(id)

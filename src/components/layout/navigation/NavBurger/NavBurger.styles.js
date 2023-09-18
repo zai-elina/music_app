@@ -13,6 +13,10 @@ export const NavBurger = styled.div`
   box-pack: justify;
   flex-pack: justify;
   justify-content: space-between;
+  @media (max-width: 800px) {
+    position: relative;
+    right: 0;
+  }
 `
 export const BurgerLine = styled.span`
   display: inline-block;
