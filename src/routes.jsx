@@ -1,7 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import NotFound from './pages/not-found/NotFound'
-import Favorites from './pages/favorites/Favorites'
-import Category from './pages/category/Category'
 import CenterBlock from './components/tracks/CenterBlock/CenterBlock'
 import {
   ProtectedRoute,
@@ -12,14 +10,13 @@ import { UserProvider } from './contexts/User'
 import PageLayout from './pages/pagelayout/PageLayout'
 import PageMyTracks from './pages/my-tracks/PageMyTracks'
 import { useState } from 'react'
+import Catalog from './pages/catalog/Catalog'
 
 export const AppRoutes = ({
   isOpenPlayer,
   setIsOpenPlayer,
-  currentTrack,
-  setCurrentTrack,
 }) => {
-  const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(true)
+  const [isAnimatePlayTrack, setIsAnimatePlayTrack] = useState(isOpenPlayer)
 
   return (
     <UserProvider>
@@ -30,8 +27,6 @@ export const AppRoutes = ({
             element={
               <PageLayout
                 isOpenPlayer={isOpenPlayer}
-                currentTrack={currentTrack}
-                setCurrentTrack={setCurrentTrack}
                 setIsAnimatePlayTrack={setIsAnimatePlayTrack}
               />
             }
@@ -41,7 +36,6 @@ export const AppRoutes = ({
               element={
                 <CenterBlock
                   setIsOpenPlayer={setIsOpenPlayer}
-                  setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
                 />
               }
@@ -51,13 +45,20 @@ export const AppRoutes = ({
               element={
                 <PageMyTracks
                   setIsOpenPlayer={setIsOpenPlayer}
-                  setCurrentTrack={setCurrentTrack}
                   isAnimatePlayTrack={isAnimatePlayTrack}
                 />
               }
             />
 
-            <Route path="/category/:id" element={<Category />} />
+            <Route
+              path="/catalog/selection/:id"
+              element={
+                <Catalog
+                  setIsOpenPlayer={setIsOpenPlayer}
+                  isAnimatePlayTrack={isAnimatePlayTrack}
+                />
+              }
+            />
           </Route>
         </Route>
 

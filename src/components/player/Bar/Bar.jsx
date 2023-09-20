@@ -7,12 +7,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   playlistSelector,
   shufflePlaylistSelector,
-} from '../../../store/selectors/tracks'
-import {
-  nextTrack,
-  prevTrack,
-  setShufflePlaylist,
-} from '../../../store/slices/tracks'
+  trackSelector,
+} from '../../../store/selectors/tracksSelector'
+import { setShufflePlaylist, setTrack } from '../../../store/slices/tracksSlice'
 
 function formatTime(time) {
   let minutes = Math.floor(time / 60)
@@ -24,11 +21,8 @@ function formatTime(time) {
   return `${minutes}:${seconds}`
 }
 
-export default function Bar({
-  currentTrack,
-  setCurrentTrack,
-  setIsAnimatePlayTrack,
-}) {
+export default function Bar({ setIsAnimatePlayTrack }) {
+  const currentTrack = useSelector(trackSelector)
   const [isPlaying, setIsPlaying] = useState(true)
   const audioElem = useRef(null)
   const [isLoop, setIsLoop] = useState(false)
@@ -65,21 +59,22 @@ export default function Bar({
   }, [volume, audioElem])
 
   const handleNext = () => {
-    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(trackList).find(
-      (key) => trackList[key].id === currentTrack.id
-    )
-    if (+index === Object.keys(trackList).length - 1) return
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
+    if (+index === trackList.length - 1) return
     index = +index + 1
-    setCurrentTrack({
-      id: trackList[index].id,
-      author: trackList[index].author,
-      title: trackList[index].name,
-      trackFile: trackList[index].track_file,
-      progress: 0,
-      length: trackList[index].duration_in_seconds,
-    })
-    dispatch(nextTrack(trackList[index].id))
+
+    dispatch(
+      setTrack({
+        id: trackList[index].id,
+        author: trackList[index].author,
+        name: trackList[index].name,
+        trackFile: trackList[index].track_file,
+        progress: 0,
+        length: trackList[index].duration_in_seconds,
+        staredUser: trackList[index].stared_user,
+      })
+    )
   }
 
   const handlePrev = () => {
@@ -87,21 +82,22 @@ export default function Bar({
       audioElem.current.currentTime = 0
       return
     }
-    const trackList = isShuffle ? { ...shufflePlaylist } : { ...playlist }
-    let index = Object.keys(trackList).find(
-      (key) => trackList[key].id === currentTrack.id
-    )
+    const trackList = isShuffle ? [...shufflePlaylist] : [...playlist]
+    let index = trackList.findIndex((item) => item.id === currentTrack.id)
     if (+index === 0) return
     index = +index - 1
-    setCurrentTrack({
-      id: trackList[index].id,
-      author: trackList[index].author,
-      title: trackList[index].name,
-      trackFile: trackList[index].track_file,
-      progress: 0,
-      length: trackList[index].duration_in_seconds,
-    })
-    dispatch(prevTrack(trackList[index].id))
+
+    dispatch(
+      setTrack({
+        id: trackList[index].id,
+        author: trackList[index].author,
+        title: trackList[index].name,
+        trackFile: trackList[index].track_file,
+        progress: 0,
+        length: trackList[index].duration_in_seconds,
+        staredUser: trackList[index].stared_user,
+      })
+    )
   }
 
   const playingTrack = () => {
@@ -117,16 +113,16 @@ export default function Bar({
   }
 
   const handleShufflePlaylist = () => {
-    const shuffleTracks = Object.values(playlist).sort(function () {
+    const shuffleTracks = [...playlist].sort(function () {
       return Math.round(Math.random()) - 0.5
     })
     setIsShuffle(true)
-    dispatch(setShufflePlaylist({ ...shuffleTracks }))
+    dispatch(setShufflePlaylist([...shuffleTracks]))
   }
 
   const stopShufflePlaylist = () => {
     setIsShuffle(false)
-    dispatch(setShufflePlaylist({}))
+    dispatch(setShufflePlaylist([]))
   }
 
   const toggleShuffle = isShuffle ? stopShufflePlaylist : handleShufflePlaylist
@@ -159,7 +155,6 @@ export default function Bar({
           />
           <S.PlayerBlock>
             <PlayerControls
-              currentTrack={currentTrack}
               togglePlay={togglePlay}
               isPlaying={isPlaying}
               isLoop={isLoop}

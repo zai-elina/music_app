@@ -38,6 +38,9 @@ export const TrackPlayImage = styled.div`
   -ms-grid-row-span: 2;
   -ms-grid-column: 1;
   grid-area: image;
+  @media (max-width: 376px) {
+    display: none;
+  }
 `
 
 export const TrackPlaySvg = styled.svg`
@@ -51,6 +54,10 @@ export const TrackPlayAlbum = styled.div`
   -ms-grid-column: 2;
   grid-area: author;
   min-width: 49px;
+  @media (max-width: 970px) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 `
 export const TrackPlayAlbumLink = styled.a`
   font-style: normal;
@@ -66,6 +73,10 @@ export const TrackPlayAuthor = styled.div`
   -ms-grid-column: 2;
   grid-area: album;
   min-width: 49px;
+  @media (max-width: 970px) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 `
 export const TrackPlayAuthorLink = styled.a`
   font-style: normal;
@@ -85,7 +96,10 @@ export const LikeAndDislikeContainer = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-left: 26%;
+  margin-left: 20px;
+  @media (max-width: 800px) {
+    margin-left: 0px;
+  }
 `
 export const LikeAndDislike = styled.div`
   padding: 5px;
@@ -102,8 +116,9 @@ export const LikeAndDislike = styled.div`
   }
 `
 export const LikeAndDislikeSvg = styled.svg`
-  width: ${(props) => props.$width};
-  height: ${(props) => props.$height};
-  fill: transparent;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  margin-left: 20px;
   stroke: #696969;
 `

@@ -3,7 +3,6 @@ import Button from '../../../App.style'
 import { PlayingTrack } from '../PlayingTrack/PlayingTrack'
 
 export function PlayerControls({
-  currentTrack,
   togglePlay,
   isPlaying,
   isLoop,
@@ -23,7 +22,7 @@ export function PlayerControls({
             alt="prev"
             onClick={handlePrev}
           >
-            <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-prev"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButton>
         <S.PlayerButton $value={'23px'}>
@@ -36,7 +35,7 @@ export function PlayerControls({
               alt="pause"
               onClick={togglePlay}
             >
-              <use xlinkHref="img/icon/sprite.svg#icon-pause"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-pause"></use>
             </S.PlayerButtonSvg>
           ) : (
             <S.PlayerButtonSvg
@@ -46,7 +45,7 @@ export function PlayerControls({
               alt="play"
               onClick={togglePlay}
             >
-              <use xlinkHref="img/icon/sprite.svg#icon-play"></use>
+              <use xlinkHref="/img/icon/sprite.svg#icon-play"></use>
             </S.PlayerButtonSvg>
           )}
         </S.PlayerButton>
@@ -59,7 +58,7 @@ export function PlayerControls({
             alt="next"
             onClick={handleNext}
           >
-            <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-next"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButton>
         <S.PlayerButtonRepeat
@@ -73,7 +72,7 @@ export function PlayerControls({
             $stoke={'#696969'}
             alt="repeat"
           >
-            <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-repeat"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButtonRepeat>
         <S.PlayerButtonShuffle
@@ -87,11 +86,11 @@ export function PlayerControls({
             $stoke={'#696969'}
             alt="shuffle"
           >
-            <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-shuffle"></use>
           </S.PlayerButtonSvg>
         </S.PlayerButtonShuffle>
 
-        <PlayingTrack currentTrack={currentTrack} />
+        <PlayingTrack />
       </S.PlayerControls>
     </S.Player>
   )

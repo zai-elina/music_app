@@ -1,29 +1,19 @@
-export async function getTracks() {
-  try {
-    const response = await fetch(
-      'https://painassasin.online/catalog/track/all/'
-    )
-    const data = await response.json()
-
-    return data
-  } catch {
-    throw new Error('Не удалось загрузить плейлист, попробуйте позже')
-  }
-}
-
 export async function registerUser({ email, password }) {
   try {
-    const response = await fetch('https://painassasin.online/user/signup/', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        username: email,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
+    const response = await fetch(
+      'https://skypro-music-api.skyeng.tech/user/signup/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          username: email,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    )
 
     if (response.status === 500) {
       throw new Error('Сервер сломался')
@@ -54,16 +44,19 @@ export async function registerUser({ email, password }) {
 
 export async function loginUser({ email, password }) {
   try {
-    const response = await fetch('https://painassasin.online/user/login/', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
+    const response = await fetch(
+      'https://skypro-music-api.skyeng.tech/user/login/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    )
 
     if (response.status === 400) {
       throw new Error('Неккоректный запрос')
@@ -93,21 +86,27 @@ export async function loginUser({ email, password }) {
 }
 
 function saveToken(token) {
-  sessionStorage.setItem('tokenData', JSON.stringify(token))
+  const tokenObject = JSON.parse(token)
+
+  sessionStorage.setItem('access', JSON.stringify(tokenObject.access))
+  sessionStorage.setItem('refresh', JSON.stringify(tokenObject.refresh))
 }
 
 export async function getToken({ email, password }) {
   try {
-    const response = await fetch('https://painassasin.online/user/token/', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-      headers: {
-        'content-type': 'application/json',
-      },
-    })
+    const response = await fetch(
+      'https://skypro-music-api.skyeng.tech/user/token/',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          'content-type': 'application/json',
+        },
+      }
+    )
 
     if (response.status === 400) {
       throw new Error('Неккоректный запрос')
@@ -140,12 +139,12 @@ export async function getToken({ email, password }) {
 export async function refreshToken(tokenRefresh) {
   try {
     const response = await fetch(
-      'https://painassasin.online/user/token/refresh/',
+      'https://skypro-music-api.skyeng.tech/user/token/refresh/',
       {
         method: 'POST',
         body: JSON.stringify({
-          refresh: tokenRefresh
-         }),   
+          refresh: tokenRefresh,
+        }),
         headers: {
           'content-type': 'application/json',
         },

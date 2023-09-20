@@ -1,13 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit'
-import tracksReducer from './slices/tracks'
-import { favoriteTracksApi } from '../services/favoriteTracks'
+import tracksReducer from './slices/tracksSlice'
+import authenticationReducer from './slices/authenticationSlice'
+import { tracksListApi } from '../services/trackListService'
 
 //configureStore объединяет все Reducers
 export const store = configureStore({
   reducer: {
     audioplayer: tracksReducer,
-    [favoriteTracksApi.reducerPath]: favoriteTracksApi.reducer,
+    authentication: authenticationReducer,
+    [tracksListApi.reducerPath]: tracksListApi.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(favoriteTracksApi.middleware),
+  middleware: (getDefaultMiddleware) => [
+    ...getDefaultMiddleware(),
+    tracksListApi.middleware,
+  ],
 })

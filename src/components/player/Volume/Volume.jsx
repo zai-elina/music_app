@@ -6,7 +6,7 @@ export function Volume({ volume, setVolume }) {
       <S.VolumeContent>
         <S.VolumeImage>
           <S.VolumeSvg>
-            <use xlinkHref="img/icon/sprite.svg#icon-volume"></use>
+            <use xlinkHref="/img/icon/sprite.svg#icon-volume"></use>
           </S.VolumeSvg>
         </S.VolumeImage>
         <S.VolumeProgress>

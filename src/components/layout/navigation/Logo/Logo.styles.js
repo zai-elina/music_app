@@ -6,6 +6,9 @@ export const NavLogo = styled.div`
   padding: 13px 0 13px 0;
   background-color: transparent;
   margin-bottom: 20px;
+  @media (max-width: 800px) {
+    align-self: flex-start;
+  }
 `
 export const LogoImage = styled.img`
   width: 113.33px;

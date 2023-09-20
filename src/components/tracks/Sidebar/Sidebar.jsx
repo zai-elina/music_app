@@ -1,47 +1,45 @@
 import SkeletonPlaylists from './SkeletonPlaylists'
 import * as S from './Sidebar.style'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { PersonData } from '../../account/PersonData/PersonData'
 
 function PlaylistsItem(props) {
   return (
     <S.PlaylistsItem>
-      <Link to={`${props.path}/${props.id}`}>
+      <NavLink to={`${props.path}/${props.id}`}>
         <S.PlaylistsItemLink>
           <S.PlaylistsItemImage src={props.imageUrl} alt="day's playlist" />
         </S.PlaylistsItemLink>
-      </Link>
+      </NavLink>
     </S.PlaylistsItem>
   )
 }
 
 function Playlists({ loading }) {
   const playlistItems = [
-    { id: 1, path: '/category', imgUrl: 'img/playlist01.png' },
-    { id: 2, path: '/category', imgUrl: 'img/playlist02.png' },
-    { id: 3, path: '/category', imgUrl: 'img/playlist03.png' },
+    { id: 1, path: '/catalog/selection', imgUrl: '/img/playlist01.png' },
+    { id: 2, path: '/catalog/selection', imgUrl: '/img/playlist02.png' },
+    { id: 3, path: '/catalog/selection', imgUrl: '/img/playlist03.png' },
   ]
   return (
     <S.SidebarList>
       {loading && <SkeletonPlaylists />}
       {!loading &&
-        playlistItems.map((playlist) => (
-          <PlaylistsItem
-            key={playlist.id}
-            id={playlist.id}
-            path={playlist.path}
-            imageUrl={playlist.imgUrl}
-          />
-        ))}
+        playlistItems.map((playlist) => {
+          const { id, path, imgUrl } = playlist
+
+          return (
+            <PlaylistsItem key={id} id={id} path={path} imageUrl={imgUrl} />
+          )
+        })}
     </S.SidebarList>
   )
 }
 
 export default function Sidebar({ loading }) {
-  const user = { name: 'Sergey Ivanov' }
   return (
     <S.Sidebar>
-      <PersonData name={user?.name} />
+      <PersonData />
       <S.PlaylistsBlock>
         <Playlists loading={loading} />
       </S.PlaylistsBlock>

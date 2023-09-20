@@ -7,6 +7,12 @@ export const Centerblock = styled.div`
   flex-grow: 3;
   padding: 20px 40px 20px 111px;
   height: 100vh;
+  @media (max-width: 1440px) {
+    padding: 20px;
+  }
+  @media (max-width: 1440px) {
+    padding: 10px;
+  }
 `
 export const CenterBlockTitle = styled.h2`
   font-style: normal;
@@ -24,7 +30,10 @@ export const CenterBlockContent = styled.div`
   direction: normal;
   flex-direction: column;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+  @media (min-height: 637px) {
+    height: 50vh;
+  }
 `
 
 export const ContentTitle = styled.div`
@@ -53,6 +62,15 @@ export const PlaylistTitle = styled.div`
   color: #696969;
   text-transform: uppercase;
   ${(props) => (props.$textAlign === 'end' ? 'text-align:end;' : '')}
+  @media (max-width: 1100px) {
+    &:not(:last-child) {
+      width: 30vw;
+    }
+  }
+  @media (max-width: 970px) {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 `
 export const PlaylistTitleSvg = styled.svg`
   width: 12px;

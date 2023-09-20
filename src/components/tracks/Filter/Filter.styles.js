@@ -7,6 +7,16 @@ const activeMixin = css`
   cursor: pointer;
 `
 
+export const FilterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 51px;
+  margin-right: 5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
+
 export const Filter = styled.div`
   display: -webkit-box;
   display: -ms-flexbox;
@@ -18,7 +28,6 @@ export const Filter = styled.div`
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  margin-bottom: 51px;
 `
 
 export const FilterTitle = styled.div`
@@ -57,7 +66,6 @@ export const FilterItems = styled.ul`
   &::-webkit-scrollbar {
     width: 4px;
   }
-
   &::-webkit-scrollbar-track {
     background: rgba(75, 73, 73, 1);
   }
@@ -78,61 +86,38 @@ export const FilterItem = styled.li`
     color: rgba(182, 114, 255, 1);
     cursor: pointer;
   }
+  &.active {
+    color: rgba(182, 114, 255, 1);
+  }
 `
 
 export const FilterSelector = styled.div`
   position: absolute;
   width: 248px;
-  height: 305px;
+  height: ${(props) => (props.$height ? props.$height : '')};
   top: 50px;
-  left: 0;
   border-radius: 12px;
   padding: 34px;
   background-color: rgb(49, 49, 49);
+  ${(props) => (props.$right ? 'right:0' : 'left:0;')}
 `
-
-export const FilterSelectorYear = styled.div`
+export const FilterButtonActive = styled.span`
   position: absolute;
-  width: 403px;
-  height: 92px;
-  top: 50px;
-  left: 0;
-  border-radius: 12px;
-  padding: 34px;
-  background-color: rgb(49, 49, 49);
-`
-export const FilterRadioButtons = styled.div`
+  width: 26px;
+  height: 25.5px;
+  background-color: #b672ff;
+  bottom: 21.5px;
+  right: 0;
+  border-radius: 50%;
   display: flex;
-  column-gap: 20px;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
+  align-items: center;
+  justify-content: center;
 `
-export const FilterRadioButton = styled.input`
-  display: none;
-  &:checked + label:before {
-    background: rgba(255, 255, 255, 1);
-  }
-`
-export const FilterRadioButtonLabel = styled.label`
-  display: inline-block;
-  cursor: pointer;
-  position: relative;
-  padding-left: 25px;
-  user-select: none;
-  &:before {
-    margin-top: 2px;
-    content: '';
-    display: inline-block;
-    position: absolute;
-    left: 0;
-    width: 18px;
-    height: 18px;
-    background: rgb(49, 49, 49);
-    border: 1px solid rgba(255, 255, 255, 1);
-    margin-right: 13px;
-    border-radius: 20px;
+export const SortYear = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  @media (max-width: 800px) {
+    margin-top: 10px;
   }
 `

@@ -1,5 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
-import * as S from './Musics.style'
+import * as S from './MusicsItem/MusicsItem.style'
 
 const SkeletonMusic = () => {
   const count = 11
@@ -7,12 +7,10 @@ const SkeletonMusic = () => {
     <>
       {Array(count)
         .fill()
-        .map((item,index) => (
+        .map((item, index) => (
           <S.Music key={index}>
             <S.Track>
-              <S.TrackTitle
-                style={{ width: 'auto' }}
-              >
+              <S.TrackTitle style={{ width: 'auto' }}>
                 <S.TrackTitleImage
                   className="react-loading-skeleton"
                   style={{
