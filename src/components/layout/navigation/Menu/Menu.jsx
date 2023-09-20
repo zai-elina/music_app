@@ -1,6 +1,29 @@
 import { NavLink } from 'react-router-dom'
 import * as S from './Menu.styles'
 
+const links = [
+  { id: 1, name: 'Главное', path: '/' },
+  { id: 2, name: 'Мой треки', path: '/favorite' },
+  { id: 3, name: 'Выйти', path: '/logout' },
+]
+const playlistItems = [
+  {
+    id: 1,
+    path: '/catalog/selection',
+    name: 'Классическая музыка',
+  },
+  {
+    id: 2,
+    path: '/catalog/selection',
+    name: 'Электронная музыка',
+  },
+  {
+    id: 3,
+    path: '/catalog/selection',
+    name: 'Рок',
+  },
+]
+
 function MenuItem({ name, path }) {
   return (
     <S.MenuItem>
@@ -12,28 +35,6 @@ function MenuItem({ name, path }) {
 }
 
 export default function Menu({ isLaptop = false, isTablet = false }) {
-  const links = [
-    { id: 1, name: 'Главное', path: '/' },
-    { id: 2, name: 'Мой треки', path: '/favorite' },
-    { id: 3, name: 'Выйти', path: '/logout' },
-  ]
-  const playlistItems = [
-    {
-      id: 1,
-      path: '/catalog/selection',
-      name: 'Классическая музыка',
-    },
-    {
-      id: 2,
-      path: '/catalog/selection',
-      name: 'Электронная музыка',
-    },
-    {
-      id: 3,
-      path: '/catalog/selection',
-      name: 'Рок',
-    },
-  ]
   return (
     <S.NavMenu>
       <S.MenuList>

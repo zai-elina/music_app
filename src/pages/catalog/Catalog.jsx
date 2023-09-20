@@ -3,7 +3,7 @@ import Search from '../../components/tracks/Search/Search'
 import * as S from '../../components/tracks/CenterBlock/CenterBlock.style'
 import MusicList from '../../components/tracks/Musics/Musics'
 import { useGetCatalogSectionTracksQuery } from '../../services/trackListService'
-import { searchMusic } from '../../help'
+import { searchMusic } from '../../utils/help'
 import { useState } from 'react'
 
 export default function Catalog({ setIsOpenPlayer, isAnimatePlayTrack }) {

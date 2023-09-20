@@ -5,7 +5,7 @@ import {
   useLikeTrackMutation,
 } from '../../../../services/trackListService'
 import { useEffect, useState } from 'react'
-import { formatTime } from '../../../../help'
+import { formatTime } from '../../../../utils/help'
 import * as S from './MusicsItem.style'
 import { setTrack, setPlaylist } from '../../../../store/slices/tracksSlice'
 
