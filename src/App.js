@@ -15,9 +15,9 @@ function App() {
     try {
       dispatch(
         setAuthentication({
-          access: sessionStorage.getItem('access').replace(/"/g, ''),
-          refresh: sessionStorage.getItem('refresh').replace(/"/g, ''),
-          user: sessionStorage.getItem('user').replace(/"/g, ''),
+          access: sessionStorage.getItem('access')?.replace(/"/g, ''),
+          refresh: sessionStorage.getItem('refresh')?.replace(/"/g, ''),
+          user: sessionStorage.getItem('user')?.replace(/"/g, ''),
         })
       )
     } catch (error) {
