@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.bb3fae5a.css","mappings":"AAAA,SAIE,wBAAyB,CAFzB,eAAgB,CAChB,eAAgB,CAFhB,UAIF","sources":["index.css"],"sourcesContent":[".wrapper {\r\n  width: 100%;\r\n  min-height: 100%;\r\n  overflow: hidden;\r\n  background-color: #383838;\r\n}"],"names":[],"sourceRoot":""}
