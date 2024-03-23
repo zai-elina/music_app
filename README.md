@@ -1,4 +1,6 @@
 # Приложение для прослушивания музыки
+## Ссылка на проект
+<a href="https://zai-elina.github.io/music_app">https://zai-elina.github.io/music_app</a>
 ## Используемые технологии
 <ul>
 <li>React</li>
